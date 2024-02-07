@@ -12,3 +12,10 @@ def all_sum(*args):#this parameter is a tuple
 
 total=all_sum(45,23,56);
 print(total)
+
+def all(n,*args):#this * parameter is a tuple
+    return args
+
+
+ans=all(2,45,23,56);
+print(ans)
