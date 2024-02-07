@@ -11,3 +11,7 @@ last=numbers.pop()#work as pop_back and back together
 print(last,numbers)
 idx=numbers.index(71)#work as pop_back and back together
 print(idx)
+numbers.sort()
+print(numbers)
+numbers.reverse()
+print(numbers)
