@@ -23,6 +23,7 @@ for player in players:
         comb_list.append([player,age])
 print(comb_list)
 print(comb_tuple)
+# comprehension for nested loop
 tuple_comb=[(player,age) for player in players for age in ages]
 list_comb=[[player,age] for player in players for age in ages]
 print(list_comb)
