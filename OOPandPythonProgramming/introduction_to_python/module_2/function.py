@@ -1,6 +1,9 @@
 def double_it(num):
     result=num*2
     print(result)
+def triple_it(num):
+    result=num*2
+    return result
 double_it(8)
 def sum(a,b):
     result=a+b
