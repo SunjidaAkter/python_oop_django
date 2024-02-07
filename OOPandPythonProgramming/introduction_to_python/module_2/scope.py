@@ -9,7 +9,7 @@ def using_local():
     balance=67
     print(balance)
 using_local()
-print(balance)#it will give the global value
+print(balance)#3000#it will give the global value
 
 
 #we can acces global variable without using global keyword but we cant modify it without using global keyword
@@ -18,3 +18,5 @@ def using_local_global():
     print(balance)
     balance=45 
     print(balance)
+using_local_global()
+print(balance)#45# it has been modified
