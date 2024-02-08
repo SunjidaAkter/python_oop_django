@@ -18,3 +18,6 @@ actors=[
 ]
 juniors=filter(lambda actor:int(actor['age'])<40,actors)
 print(list(juniors))
+person_info = {"name": "Sakib", "salary": 80000}
+value = person_info.get("salary")
+print(value)
