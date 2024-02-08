@@ -1,4 +1,7 @@
 
+#!tuple -->() 
+#!list -->[] 
+#!set -->{} 
 #*https://docs.python.org/3.10/library/stdtypes.html#set-types-set-frozenset
 #?set: unique items collection
 numbers=[12,56,98,78,56,12,6,98]
