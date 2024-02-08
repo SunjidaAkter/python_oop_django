@@ -1,1 +1,1 @@
-'pen','book','pencil','eraser'
+['sakib','mash','rid']
