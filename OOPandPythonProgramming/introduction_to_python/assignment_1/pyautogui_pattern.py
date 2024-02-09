@@ -1,7 +1,7 @@
 import pyautogui
 from time import *
 
-sleep(10)
+sleep(7)
 n=int(input())
 s=""
 for i in range(n):
