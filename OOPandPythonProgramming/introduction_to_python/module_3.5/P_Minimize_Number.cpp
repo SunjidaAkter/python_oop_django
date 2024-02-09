@@ -13,19 +13,19 @@ void solve(){
     ll n;cin>>n;
     ll a[n];
     for(ll i=0;i<n;i++)cin>>a[i];
+    ll gcd=a[0];
+    for(ll i=1;i<n;i++)gcd=__gcd(gcd,a[i]);
     ll cnt=0;
-    for(ll i=0;i<n;i++){
-        for(ll j=i;j<n-1;j++){
-            if(a[j]<=a[j+1])cnt++;
-            else break;
-        }
+    while(gcd%2==0){
+        gcd/=2;
+        cnt++;
     }
     cout<<cnt<<nl;
 }
 int main(){
     FAST;
     int t=1;
-    cin>>t;
+    // cin>>t;
     while(t--){
         solve();
     }
