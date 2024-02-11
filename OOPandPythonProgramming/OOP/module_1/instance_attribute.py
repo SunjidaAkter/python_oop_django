@@ -2,7 +2,7 @@ class Shop:
     shopping_mall='jamuna'
     def __init__(self,buyer):
         self.buyer=buyer
-        self.cart=[]#cart is a instance attribute
+        self.cart=[]#* cart is a instance attribute also an instance variable
     def add_to_cart(self,item):
        self.cart.append(item)     
 

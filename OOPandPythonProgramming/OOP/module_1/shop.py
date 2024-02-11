@@ -1,5 +1,5 @@
 class Shop:
-    cart=[]#cart is a class attribute
+    cart=[]#*cart is a class attribute and also a class variable shared by all instaces
     def __init__(self,buyer):
         self.buyer=buyer
 
