@@ -30,15 +30,32 @@ class School:
             student=Student(name,5,id)
             self.students.append(student)
             return f'{name} is enrolled with id {id}'
+#     def __repr__(self) -> str:
+#         output = f"""
+# Welcome to 
+# ----Our teachers----
+# """
+#         for teacher in self.teachers:
+#             output += str(teacher) + '\n'
+
+#         output += f"""
+# Welcome to {self.name}
+# ----Our students----
+# """
+#         for stu in self.students:
+#             output += str(stu) + '\n'
+
+#         return output + 'Thank you'
+        
     def __repr__(self) -> str:
         print("""
-welcome to 
-----Our teacher----""")
+welcome to {}
+----Our students----""".format(self.name))
         for teacher in self.teachers:
             print(teacher)
         print("""
-welcome to {self.name}
-----Our students----""")
+welcome to {}
+----Our students----""".format(self.name))
         for stu in self.students:
             print(stu)
         return f'thank you'
