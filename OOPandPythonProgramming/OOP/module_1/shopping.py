@@ -19,7 +19,7 @@ class Shopping:
         elif amount>=total:
             print(f'extra {amount-total}')    
 
-swapan=Shopping('alan shopon')
+swapan=Shopping('shopon')
 swapan.add_to_cart('alu',67,8)
 swapan.add_to_cart('dim',12,5)
 swapan.add_to_cart('tel',87,9)
