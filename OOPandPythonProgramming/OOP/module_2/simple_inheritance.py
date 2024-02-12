@@ -15,9 +15,10 @@ class Laptop:
         self.memory=memory
     def coding(self):
         return f'learning python and practicing'     
-class Phone:
-    def __init__(self,sim):
-        self.sim=sim    
+class Phone(Device):#*processing of inherit from device
+    def __init__(self,sim,brand,price,color,origin):
+        self.sim=sim 
+        super().__init__(brand,price,color,origin)   
     def phone_call(self,num,text):
         return f'sms to: {num} with: {text}'
     def __repr__(self) -> str:
@@ -30,5 +31,6 @@ class Camera:
     
 
 #* inheritance
-my_phone=Phone('dual_sim')    
+my_phone=Phone('dual_sim','iphone',10000,'silver','china')    
+print(my_phone.brand)
 print(my_phone)
