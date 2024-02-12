@@ -20,8 +20,15 @@ class Phone:
         self.sim=sim    
     def phone_call(self,num,text):
         return f'sms to: {num} with: {text}'
+    def __repr__(self) -> str:
+        return f'phone : {self.sim}'
 class Camera:
     def __init__(self,pixel):
         self.pixel=pixel
     def snap(self,num,text):
         return f'camera call'
+    
+
+#* inheritance
+my_phone=Phone('dual_sim')    
+print(my_phone)
