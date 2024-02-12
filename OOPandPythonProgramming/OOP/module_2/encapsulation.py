@@ -2,6 +2,7 @@
 # * here balance is a private attribute which only can be accessed from the class
 # * here holder is a public attribute which can be accessed from anywhere
 # * here branch is a protected attribute which can be accessed from derived or child class
+# * in encapsulation we dont share the implementation with anything
 class Bank:
     def __init__(self,holder,int_depo):
         self.holder=holder#?public attribute
