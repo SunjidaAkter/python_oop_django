@@ -10,4 +10,5 @@ class DerivedClass:
 
 """
 1. simple inheritance: parent class --> child class (device --> phone)
+2. multi-level inheritance: grandparents --> parents --> child
 """
