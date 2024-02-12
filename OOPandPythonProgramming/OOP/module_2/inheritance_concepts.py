@@ -40,7 +40,24 @@ class DerivedClass:
                   child
 
 
-3. multiple inheritance: grandparents --> (parents,uncle/aunty) -->child
+3. multiple inheritance: (parents,uncle/aunty) -->child ((Family,School,Sports) --> Student)
+  
+
+     aunty/uncle          mom\dad
+          \                  /
+           \                /
+            \              /
+             \            /
+              \          /
+               \        /
+                \      /
+                 \    /
+                  \  /
+                   \/
+                 child
+
+                 
+3. hybrid inheritance: grandparents --> (parents,uncle/aunty) --> child ((Family,School,Sports) --> Student)
               grand-parents
                    /\
                   /  \
