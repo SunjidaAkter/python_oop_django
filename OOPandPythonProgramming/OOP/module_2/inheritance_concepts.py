@@ -10,8 +10,37 @@ class DerivedClass:
 
 """
 1. simple inheritance: parent class --> child class (device --> phone)
+
+                  parent
+                    |
+                    |
+                    |
+                    |
+                  \ | / 
+                   \ /
+                  child
+                   
+
 2. multi-level inheritance: grandparents --> parents --> child (vehicle --> bus --> acbus)
-3. multiple inheritance:
+
+               grandparent
+                    |
+                    |
+                    |
+                    |
+                  \ | / 
+                   \ /
+                  parent
+                    |
+                    |
+                    |
+                    |
+                  \ | / 
+                   \ /
+                  child
+
+
+3. multiple inheritance: grandparents --> (parents,uncle/aunty) -->child
               grand-parents
                    /\
                   /  \
