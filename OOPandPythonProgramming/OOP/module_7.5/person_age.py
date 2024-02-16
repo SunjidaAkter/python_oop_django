@@ -19,7 +19,7 @@ jack = Cricketer('Jack', 38, 68, 91)
 kalam = Cricketer('Kalam', 37, 68, 95)
 
 lst=[sakib,musfiq,kamal,jack,kalam]
-mx=sakib
+mx=lst[0]
 for i in range(len(lst)):
     if lst[i]>mx:
         mx=lst[i]
