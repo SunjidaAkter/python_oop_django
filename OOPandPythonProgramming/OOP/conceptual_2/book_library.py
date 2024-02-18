@@ -78,3 +78,11 @@ while True:
                 quantity=int(input("Enter Number of Books:"))                
 
                 bsk.addBook(id,name,quantity)
+
+            elif ch==3:
+                for book in bsk.books:
+                    print(f"{book.id}\t{book.name}\t{book.quantity}")
+                print("\n")
+                
+            elif ch==4:
+                currentUser=None
