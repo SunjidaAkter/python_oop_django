@@ -64,6 +64,7 @@ while True:
     else:
         print(f"----- Welcome {currentUser.name}! -----")
         if currentUser.name=="admin":
+
             print("Options: ")
             print("1: Add Book")    
             print("2: Add User")    
@@ -86,3 +87,12 @@ while True:
                 
             elif ch==4:
                 currentUser=None
+        else:
+            print("Options: ")
+            print("1: Borrow Book")    
+            print("2: Return User")    
+            print("3: Show Borrowed Books")    
+            print("3: Show History")    
+            print("4: Logout")    
+
+            ch=int(input("Enter Option: "))
