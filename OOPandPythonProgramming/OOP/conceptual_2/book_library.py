@@ -18,4 +18,7 @@ class Library:
     def addBook(self,id,name,quantity):
         book=Book(id,name,quantity)
         self.books.append(book)    
+    def addUser(self,id,name,password):
+        user=User(id,name,password)
+        self.users.append(user)    
         
