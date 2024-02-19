@@ -23,7 +23,19 @@ class Library:
         user=User(id,name,password)
         self.users.append(user)    
         return user
-        
+    def borrowedBook(self,user,token):
+        for book in self.books:
+            if book.name==token:
+                if book in user.borrowedBooks:
+                    print("Already borrowed!")
+                    return
+                elif book.quantity==0:
+                    print("No Copy Available!")
+                    return
+
+
+
+
 bsk=Library("Bishwa Shahitja Kendra")
 admin=bsk.addUser(1000,"admin","admin")
 ratin=bsk.addUser(17,"ratin","123")
