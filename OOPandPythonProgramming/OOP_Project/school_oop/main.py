@@ -1,10 +1,10 @@
 from School import *
 from Persons import *
 def main():
-    # initializing school
+    #* initializing school
     school=School("phitron","uttara")
 
-    # adding classrooms in school
+    #* adding classrooms in school
     eight=ClassRoom("eight")
     school.add_classroom(eight)
     nine=ClassRoom("nine")
@@ -12,7 +12,7 @@ def main():
     ten=ClassRoom("ten")
     school.add_classroom(ten)
 
-    # adding students
+    #* adding students into school with class
     abul=Student('Abul khan',eight)
     school.student_admission(abul)
     kabul=Student('Kabul khan',eight)
@@ -20,7 +20,7 @@ def main():
     babul=Student('Babul khan',eight)
     school.student_admission(babul)
 
-    # adding subjects
+    #* adding subjects to class with teacher
     physics_teacher=Teacher("shahjahan topon rana")
     physics=Subject("physics",physics_teacher)
     eight.add_subject(physics)
@@ -30,6 +30,8 @@ def main():
     biology_teacher=Teacher("azmal")
     biology=Subject("biology",biology_teacher)
     eight.add_subject(biology)
+
+    eight.take_semester_final()
 
     print(school)
 

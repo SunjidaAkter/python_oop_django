@@ -11,10 +11,9 @@ class Teacher(Person):
         pass
     def __repr__(self)->str:
         return f'{self.name}'
-    def take_xm(self,students):
-        for student in students:
-            marks=random.randint(0,100)
-            # todo: set mark for the subject for each student
+    def evaluate_exam(self)->int:
+        marks=random.randint(0,100)
+        return marks
 
 class Student(Person):
     def __init__(self, name,classroom):
