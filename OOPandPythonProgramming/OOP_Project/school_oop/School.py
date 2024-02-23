@@ -38,9 +38,9 @@ class School:
         
     @staticmethod
     def value_to_grade(value):
-        if 4.5<=value<=5.00:
+        if 4.00<=value<=5.00:
             return "A+"
-        elif 3.5<=value<4.5:
+        elif 3.5<=value<4.00:
             return "A"
         elif 3.00<=value<3.5:
             return "A-"
@@ -67,26 +67,37 @@ class School:
         return grade_map[grade]
 
     def __repr__(self) -> str:
-        print()
+        print("------------------------------")
         print("--------ALL CLASSROOMS--------")
+        print("------------------------------")
         for key,value in self.classrooms.items():
             print(key)                
-        print()
+        print("----------------------------")
         print("--------ALL STUDENTS--------")
+        print("----------------------------")
         eight=self.classrooms['eight']
         for student in eight.students:
             print(student.name)                
-        print()
+        print("----------------------------")
         print("--------ALL SUBJECTS--------")
+        print("----------------------------")
         eight=self.classrooms['eight']
         for subject in eight.subjects:
             print(f'{subject.name} : {subject.teacher.name}')                    
-        print()
+        print("--------------------------------")
         print("--------STUDENTS RESULTS--------")
+        print("--------------------------------")
         for student in eight.students:
-            print(f'\n**** {student.name} ****\n')
+            print()
+            print(f'************************')
+            print(f'      {student.name}')
+            print(f'************************')
+            print()
             for key, value in student.marks.items():
                 print(f'{key} : {value} ({student.subject_grade[key]})')                
+            print("-----------------------------")    
+            print(f'{student.name}\'s final grade : {student.grade}')     
+            print("-----------------------------")    
 
         return ""
 
@@ -106,8 +117,13 @@ class ClassRoom:
         self.subjects.append(subject)
 
     def take_semester_final(self):
+        # * take exam
         for subject in self.subjects:
             subject.exam(self.students)
+        # * calculate final grade
+        for student in self.students:
+            student.calculate_final_grade()    
+            
 
     def __str__(self) -> str:
         return f'{self.name}-{len(self.students)}'
