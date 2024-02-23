@@ -19,21 +19,44 @@ class School:
         else:
             print(f'No classroom as named {className}')     
 
+    @staticmethod
+    def calculate_grade(marks):
+        if 80<=marks<=100:
+            return "A+"
+        elif 70<=marks<80:
+            return "A"
+        elif 60<=marks<70:
+            return "A-"
+        elif 50<=marks<60:
+            return "B"
+        elif 40<=marks<50:
+            return "C"
+        elif 33<=marks<40:
+            return "D"
+        else:
+            return "F"
+
     def __repr__(self) -> str:
+        print()
         print("--------ALL CLASSROOMS--------")
         for key,value in self.classrooms.items():
             print(key)                
+        print()
         print("--------ALL STUDENTS--------")
         eight=self.classrooms['eight']
         for student in eight.students:
             print(student.name)                
+        print()
         print("--------ALL SUBJECTS--------")
         eight=self.classrooms['eight']
         for subject in eight.subjects:
             print(f'{subject.name} : {subject.teacher.name}')                    
-        print("--------STUDENTS MARKS--------")
-        for key, value in eight.students[0].marks.items():
-            print(f'{key} : {value}')                
+        print()
+        print("--------STUDENTS RESULTS--------")
+        for student in eight.students:
+            print(f'\n**** {student.name} ****\n')
+            for key, value in student.marks.items():
+                print(f'{key} : {value} ({student.subject_grade[key]})')                
 
         return ""
 
@@ -74,3 +97,4 @@ class Subject:
         for student in students:
             mark=self.teacher.evaluate_exam()
             student.marks[self.name]=mark
+            student.subject_grade[self.name]=School.calculate_grade(mark)

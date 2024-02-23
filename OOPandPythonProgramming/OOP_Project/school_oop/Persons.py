@@ -21,6 +21,7 @@ class Student(Person):
         self.__id=None
         self.classroom=classroom
         self.marks={}
+        self.subject_grade={}
         self.grade=None
     @property
     def id(self):
