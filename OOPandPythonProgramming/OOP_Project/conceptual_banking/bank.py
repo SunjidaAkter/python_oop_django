@@ -1,4 +1,5 @@
-class Account:
+from abc import ABC,abstractmethod
+class Account(ABC):
     accounts=[]
 
     def __init__(self,name,accNumber,password,type):
@@ -30,3 +31,7 @@ class Account:
     def changInfo(self,name,password): 
         self.name=name   
         self.password=password   
+
+    @abstractmethod
+    def showInfo(self):
+        pass
