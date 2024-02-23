@@ -5,12 +5,13 @@ class Person:
         self.name=name
 
 class Teacher(Person):
-    def __init__(self, name,subject):
+    def __init__(self, name):
         super().__init__(name)
-        self.subject=subject
     def teach(self):
         pass
-    def take_xm(self,subject,students):
+    def __repr__(self)->str:
+        return f'{self.name}'
+    def take_xm(self,students):
         for student in students:
             marks=random.randint(0,100)
             # todo: set mark for the subject for each student

@@ -20,6 +20,17 @@ def main():
     babul=Student('Babul khan',eight)
     school.student_admission(babul)
 
+    # adding subjects
+    physics_teacher=Teacher("shahjahan topon rana")
+    physics=Subject("physics",physics_teacher)
+    eight.add_subject(physics)
+    chemistry_teacher=Teacher("haradhon nag")
+    chemistry=Subject("chemistry",chemistry_teacher)
+    eight.add_subject(chemistry)
+    biology_teacher=Teacher("azmal")
+    biology=Subject("biology",biology_teacher)
+    eight.add_subject(biology)
+
     print(school)
 
 if __name__=="__main__":
