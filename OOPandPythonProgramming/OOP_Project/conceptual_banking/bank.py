@@ -30,7 +30,7 @@ class Account(ABC):
         self.name=name
 
     #* over loading of method changeInfo
-    def changInfo(self,name,password): 
+    def changeInfo(self,name,password): 
         self.name=name   
         self.password=password   
 
@@ -90,3 +90,85 @@ while(True):
             nu=input("Account Number :")
             pa=input("Password :")
             a=input("Savings or Special? (sv/sp)")
+            if a=="sv":
+                irate=int(input("Interest Rate :"))
+                currentUser=SavingsAccount(name,nu,pa,irate)
+            elif a=="sp":
+                lim=int(input("Overdraft Limit :"))
+                currentUser=SavingsAccount(name,nu,pa,lim)
+            else:
+                print("Invalid choice!\n")    
+        else:
+            nu=input("Account Number :") 
+
+            for account in Account.accounts:
+                if nu==account.accNo:
+                    currentUser=account
+                    break       
+    else:
+        print(f"\nWelcome {currentUser.name}!\n")
+
+        if currentUser.type=="savings":
+            
+            print("1. Show Info ")                
+            print("2. Deposit ")                
+            print("3. Withdraw ")                
+            print("4. Apply Interest ")                
+            print("5. Change Info ")                
+            print("6. Logout ")                
+
+            op=int(input("Choose Option :"))
+
+            if op==1:
+                currentUser.showInfo()
+            elif op==2:
+                am=int(input("Amount :"))
+                currentUser.deposit(am)
+            elif op==3:
+                am=int(input("Amount :"))
+                currentUser.withdraw(am)
+            elif op==4:
+                currentUser.applyInterest()
+            elif op==5:
+                print("1. Change Name")
+                print("2. Change Name and Password")
+                opp=int(input("Choose Options :"))
+                if opp==1:
+                    na1=input("Name :")
+                    currentUser.changInfo(na1)
+                elif opp==2:
+                    na2=input("Name :")
+                    pa2=input("Password :")
+                    currentUser.changInfo(na2,pa2)
+            elif op==6:
+                currentUser=None
+        else:        
+            print("1. Show Info ")                
+            print("2. Deposit ")                
+            print("3. Withdraw ")                
+            print("4. Change Info ")                
+            print("5. Logout ")                
+
+            op=int(input("Choose Option :"))
+
+            if op==1:
+                currentUser.showInfo()
+            elif op==2:
+                am=int(input("Amount :"))
+                currentUser.deposit(am)
+            elif op==3:
+                am=int(input("Amount :"))
+                currentUser.withdraw(am)
+            elif op==4:
+                print("1. Change Name")
+                print("2. Change Name and Password")
+                opp=int(input("Choose Options :"))
+                if opp==1:
+                    na1=input("Name :")
+                    currentUser.changInfo(na1)
+                elif opp==2:
+                    na2=input("Name :")
+                    pa2=input("Password :")
+                    currentUser.changInfo(na2,pa2)
+            elif op==5:
+                currentUser=None
