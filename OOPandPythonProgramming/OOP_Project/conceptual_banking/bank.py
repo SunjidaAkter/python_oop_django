@@ -69,7 +69,6 @@ class SpecialAccount(Account):
     def withdraw(self, amount):
         if amount>=0 and amount<=self.limit:
             self.balance-=amount
-            self.limit-=amount
         else :
             print("\nInvalid Ammount")
 
@@ -95,7 +94,7 @@ while(True):
                 currentUser=SavingsAccount(name,nu,pa,irate)
             elif a=="sp":
                 lim=int(input("Overdraft Limit :"))
-                currentUser=SavingsAccount(name,nu,pa,lim)
+                currentUser=SpecialAccount(name,nu,pa,lim)
             else:
                 print("Invalid choice!\n")    
         else:
@@ -129,17 +128,10 @@ while(True):
                 currentUser.withdraw(am)
             elif op==4:
                 currentUser.applyInterest()
-            elif op==5:
-                print("1. Change Name")
-                print("2. Change Name and Password")
-                opp=int(input("Choose Options :"))
-                if opp==1:
-                    na1=input("Name :")
-                    currentUser.changInfo(na1)
-                elif opp==2:
-                    na2=input("Name :")
-                    pa2=input("Password :")
-                    currentUser.changInfo(na2,pa2)
+            elif op==5:                
+                na2=input("Name :")
+                pa2=input("Password :")
+                currentUser.changeInfo(na2,pa2)
             elif op==6:
                 currentUser=None
         else:        
@@ -159,16 +151,9 @@ while(True):
             elif op==3:
                 am=int(input("Amount :"))
                 currentUser.withdraw(am)
-            elif op==4:
-                print("1. Change Name")
-                print("2. Change Name and Password")
-                opp=int(input("Choose Options :"))
-                if opp==1:
-                    na1=input("Name :")
-                    currentUser.changInfo(na1)
-                elif opp==2:
-                    na2=input("Name :")
-                    pa2=input("Password :")
-                    currentUser.changInfo(na2,pa2)
+            elif op==4:                
+                na2=input("Name :")
+                pa2=input("Password :")
+                currentUser.changeInfo(na2,pa2)
             elif op==5:
                 currentUser=None
