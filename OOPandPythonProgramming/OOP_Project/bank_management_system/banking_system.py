@@ -112,20 +112,55 @@ class Admin():
         self.password=password            
         self.bank=bank            
 
-    def create_user():
-        pass
+    def create_user(self,user):
+        self.bank.users.append(user)
         
-    def delete_user():
-        pass
+    def delete_user(self,account_number):
+        exist=False
+        for user in self.bank.users:
+            if user.account_number==account_number:
+                exist =True
+                del user
+                print(f"USER WITH {account_number} ACCOUNT NUMBER HAS BEEN DELETED SUCCESSFULLY!!!\n")
+        if exist ==False:
+            print(f"USER WITH {account_number} ACCOUNT NUMBER DOES NOT EXIST!!!\n")
+    
+    
+    def users_list(self):
+        if len(self.bank.users)>0:
+            print("USERS :")
+            for user in self.bank.users:
+                print(f"NAME : {user.name}, ACCOUNT NUMBER : {user.account_number}, EMAIL : {user.email}, ADDRESS : {user.address}, ACCOUNT TYPE : {user.account_type}")
 
-    def users_list():
-        pass
+    def check_balance(self):
+        print(f"TOTAL CURRENT BALANCE : {self.bank.total_balance}\n")
 
-    def check_balance():
-        pass
+    def check_loan(self):
+        print(f"TOTAL CURRENT LOAN : {self.bank.total_loan}\n")
+    
 
-    def check_loan():
-        pass
+    def changing_bankrupt_feature(self,feature):
+        if feature==True:
+            self.bank.bankrupt=True
+        else:     
+            self.bank.bankrupt=False
 
-    def changing_bankrupt_feature():
-        pass
+
+
+
+islami=Bank("ISLAMI BANK")
+
+
+
+
+while True:
+    print("------WELCOME TO BANK MANAGEMENT SYSTEM-------")
+    print("1. ADMIN")
+    print("2. USER")
+    print("3. EXIT")
+    op=int(input("CHOOSE OPTIONS TO PROCEED :"))
+    
+    if op==1:
+        name=input("ENTER NAME (admin):")
+        password=input("ENTER PASSWORD (1234):")
+        
