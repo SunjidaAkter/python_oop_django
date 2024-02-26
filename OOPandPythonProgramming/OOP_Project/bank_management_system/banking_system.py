@@ -12,7 +12,7 @@ class Bank():
 
 class User():
     
-    def __init__(self,name,email,address,account_type,password,bank):
+    def __init__(self,name,email,password,address,account_type,bank):
         self.bank=bank
         self.name=name
         self.email=email
@@ -112,8 +112,16 @@ class Admin():
         self.password=password            
         self.bank=bank            
 
-    def create_user(self,user):
-        self.bank.users.append(user)
+    def create_user(self,input_user):
+        exist=False
+        for user in self.bank.users:
+            if user.email==input_user.email:
+                exist=True
+                print("USER ALREADY EXIST WITH THIS EMAIL!!!")
+                break
+        if exist==False:    
+            self.bank.users.append(input_user)
+            print(f"UESR WITH ACCOUNT NUMBER {input_user.account_number} HAS BEEN CREATED SUCCESSFULLY!!!\n")
         
     def delete_user(self,account_number):
         exist=False
@@ -140,7 +148,7 @@ class Admin():
     
 
     def changing_bankrupt_feature(self,feature):
-        if feature==True:
+        if feature=="True":
             self.bank.bankrupt=True
         else:     
             self.bank.bankrupt=False
@@ -150,17 +158,64 @@ class Admin():
 
 islami=Bank("ISLAMI BANK")
 
-
+current_user=None
 
 
 while True:
-    print("------WELCOME TO BANK MANAGEMENT SYSTEM-------")
-    print("1. ADMIN")
-    print("2. USER")
-    print("3. EXIT")
-    op=int(input("CHOOSE OPTIONS TO PROCEED :"))
+    if current_user==None:
+        print("------WELCOME TO BANK MANAGEMENT SYSTEM-------")
+        print("1. ADMIN")
+        print("2. USER")
+        print("3. EXIT")
+        op=int(input("CHOOSE OPTIONS TO PROCEED :"))
     
-    if op==1:
-        name=input("ENTER NAME (admin):")
-        password=input("ENTER PASSWORD (1234):")
-        
+        if op==1:
+            name=input("ENTER NAME (admin):")
+            password=input("ENTER PASSWORD (1234):")
+            
+            if name=="admin" and password=="1234":
+                current_user=Admin(name,password,islami)
+                print("SUCCESSFULLY LOGGED IN AS AN ADMIN!!!")
+                print(f"------WELCOME {current_user.name}-----")
+                print("1. CREATE AN USER")
+                print("2. DELETE AN USER")
+                print("3. USER'S ACCOUNT LISTS")
+                print("4. CHECK TOTAL BALANCE")
+                print("5. CHECK TOTAL LOAN")
+                print("6. CHANGE BANK'S BANKRUPTCY STATUS")
+                print("7. LOGOUT")
+                
+                ch=int(input("CHOOSE AN OPTION : "))
+
+                if ch==1:
+                    na=input("INPUT NAME :")
+                    em=input("INPUT EMAIL :")
+                    pa=input("INPUT PASSWORD :")
+                    ad=input("INPUT ADDRESS :")
+                    ac_ty=input("INPUT ACCOUNT TYPE :")
+                    user=User(na,em,pa,ad,ac_ty,islami)
+                    current_user.create_user(user)
+                    continue
+                elif ch==2:
+                    ac_nu=input("INPUT THE USER'S ACCOUNT NUMBER YOU WANT TO DELETE!")
+                    current_user.delete_user(ac_nu)    
+                    continue
+                elif ch==3:
+                    current_user.users_list()    
+                    continue
+                elif ch==4:
+                    current_user.check_balance()    
+                    continue
+                elif ch==5:
+                    current_user.check_loan()    
+                    continue
+                elif ch==6:
+                    bs=input("ENTER BANKRUPTCY STATUS: (True/False)")
+                    current_user.check_loan(bs)    
+                    continue
+                elif ch==7:
+                    current_user=None    
+                    continue
+            else:
+                print("INVALID LOIGN NAME OR PASSWORD FOR ADMIN!!!")    
+                continue
