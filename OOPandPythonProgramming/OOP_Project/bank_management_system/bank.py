@@ -1,3 +1,4 @@
+
 class Comment_views(DetailView):
     model = BookModel
     # pk_url_kwarg = 'id'
