@@ -11,6 +11,7 @@ class Bank():
 
 
 
+
 class User():
     
     def __init__(self,name,email,password,address,account_type,bank):
@@ -97,7 +98,7 @@ class User():
 
 
     def transfer(self,amount,account_number):
-        if amount>=0:
+        if amount>=0 and self.balance>=amount and int(self.account_number)!=int(account_number):
             exist=False
             for user in self.bank.users:
                 if int(user.account_number)==int(account_number):
@@ -112,6 +113,10 @@ class User():
                     break
             if exist==False:
                 print(f"\n{account_number} ACCOUNT NUMBER DOES NOT EXIST!!!\n")
+        elif amount>self.balance:
+            print("\nYOU DON'T HAVE SUFFICIENT BALANCE TO TRANSFER!!!\n")
+        elif int(self.account_number)==int(account_number):
+            print("\nIT'S YOUR ACCOUNT NUMBER WHERE YOU CAN'T TRANSFER MONEY!!!\n")
         else:
             print("\nINVALID AMOUNT!!!\n")    
 
@@ -126,10 +131,11 @@ class Admin():
         self.bank=bank            
         self.type="admin"            
 
+
     def create_user(self,input_user):
         exist=False
         for user in self.bank.users:
-            if int(user.email)==int(input_user.email):
+            if (user.email)==(input_user.email):
                 exist=True
                 print("\nUSER ALREADY EXIST WITH THIS EMAIL!!!\n")
                 break
@@ -137,6 +143,7 @@ class Admin():
             self.bank.users.append(input_user)
             print(f"\nUESR WITH ACCOUNT NUMBER {input_user.account_number} HAS BEEN CREATED SUCCESSFULLY!!!\n")
         
+
     def delete_user(self,account_number):
         exist=False
         for i in range(len(self.bank.users)):
@@ -155,10 +162,12 @@ class Admin():
                 print(f"NAME : {user.name}, ACCOUNT NUMBER : {user.account_number}, EMAIL : {user.email}, ADDRESS : {user.address}, ACCOUNT TYPE : {user.account_type}")
             print()    
         else:
-            print("\nNO USER AVAILABLE!!!\n")        
+            print("\nNO USER AVAILABLE!!!\n")    
+
 
     def check_balance(self):
         print(f"\nTOTAL CURRENT BALANCE : {self.bank.total_balance}\n")
+
 
     def check_loan(self):
         print(f"\nTOTAL CURRENT LOAN : {self.bank.total_loan}\n")
@@ -179,10 +188,11 @@ class Admin():
                     if feature=="true" or feature=="false":
                         break    
                 if feature=="true":
-                    print("\nBANKRUPTCY STATUS IS ON!!!\n")
+                    self.bank.bankrupt=True
+                    print("\nBANKRUPTCY STATUS IS TRUE!!!\n")
                 elif feature=="false":
-                    print("\nBANKRUPTCY STATUS IS OFF!!!\n")
-
+                    self.bank.bankrupt=False
+                    print("\nBANKRUPTCY STATUS IS FALSE!!!\n")
 
 
     def changing_loan_feature(self,feature):
@@ -197,19 +207,21 @@ class Admin():
                 while True:
                     print("\nINVALID COMMAND!!!\n")
                     feature=input("INPUT LOAN TAKING FEATURE (on/off) : ")
-                    if feature=="true" or feature=="false":
+                    if feature=="on" or feature=="off":
                         break    
                 if feature=="on":
+                    self.bank.loan_feature=True
                     print("\nLOAN TAKING FEATURE IS ON!!!\n")
                 elif feature=="off":
+                    self.bank.loan_feature=False
                     print("\nLOAN TAKING FEATURE IS OFF!!!\n")
 
 
 
 
 islami=Bank("ISLAMI")
-
 current_user=None
+
 
 
 while True:
