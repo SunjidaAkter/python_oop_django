@@ -13,7 +13,15 @@
 #*    DBMS --> database management system  
 #*    RDBMS --> relational database management system  
 
-#* 3. key, primary key
+#* 5. key, primary key
 #*    key --> field
-#*    there are three types of key --> primary,composite primary(2 ta key er combination e j primary key hoi setai composite primary key), foreign
+#*    there are three types of key --> primary,composite primary, foreign key
 #*    primary key --> unique field
+#*    composite primary key --> 2 ta key er composition e j primary key hoi setai composite primary key
+#*    primary key --> from other table's primary key which makes relation between two tables
+
+#* 6. relation
+#*    there are three types of relations between tables: 
+#*    one to one 
+#*    one to many 
+#*    many to many 
