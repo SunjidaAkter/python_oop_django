@@ -22,6 +22,7 @@
 # DROP TABLE Student;
 # INSERT INTO Student (Roll,Name) VALUES (2,'rahim');
 
+
 # SET SQL_SAFE_UPDATES=0;
 # SET SQL_SAFE_UPDATES=1;
 # UPDATE Student
