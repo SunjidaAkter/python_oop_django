@@ -1,0 +1,1 @@
+--* ERD--> entity relational diagram(the diagram which express the design of relation between entity(entity is the main component of a sql which we express with table like student, employees etc))
