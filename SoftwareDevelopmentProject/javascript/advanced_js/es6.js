@@ -9,9 +9,13 @@
 //* let and const in js are block scope
 
 
+
+
 //* template string
 let name = "sun"
 const message = `hello ${name}`;
+
+
 
 //* spread operator
 const num = [1, 2, 3, 4, 5];
@@ -22,6 +26,8 @@ console.log(newMessage);//[ 'hello', 'world', 1, 2, 3, 4, 5 ]
 console.log(...newMessage);//hello world 1 2 3 4 5
 console.log(Math.max(...num));// 5
 
+
+
 //* arrow functions
 const test = () => 2 * 2;
 const test1 = () => {
@@ -29,6 +35,7 @@ const test1 = () => {
 }
 console.log(test());
 console.log(test1());
+
 
 
 //* destructuring
@@ -74,7 +81,16 @@ console.log(res);//return array
 
 
 //* find
-
 const res2 = products.find(prod => prod.color == "black");
 console.log(res2);//return array's single element
 // { id: 2, name: 'xiaomi', price: 100, color: 'black' }
+
+
+
+//* forEach
+const productContainer = document.getElementById('product-container');
+const res3 = products.forEach(prod => {
+    const h1 = document.createElement("h1");
+    h1.innerText = prod.name;
+    productContainer.appendChild(h1);
+})
