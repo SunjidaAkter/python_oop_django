@@ -36,8 +36,12 @@ getReject.then(data => console.log(data)).catch(err => console.log(err));
 
 //* async function
 const loadData = async () => {
-    const response = await fetch("https://fakestoreapi.com/products/1")
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
+    try {
+        const response = await fetch("https://fakestoreapi.com/products/1");
+        const data = await response.json();
+        console.log(data);
+    } catch (err) {
+        console.log(err);
+    }
 }
+loadData();

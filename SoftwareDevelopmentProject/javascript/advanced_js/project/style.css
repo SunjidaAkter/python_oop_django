@@ -1,0 +1,15 @@
+.search-box {
+  padding: 50px;
+  text-align: center;
+}
+.search-input {
+  padding: 19px 30px;
+  border-radius: 10px;
+}
+#search-btn {
+  padding: 20px 30px;
+  border: none;
+  background-color: rgb(81, 141, 141);
+  color: white;
+  border-radius: 10px;
+}
