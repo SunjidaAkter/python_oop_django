@@ -94,3 +94,30 @@ const res3 = products.forEach(prod => {
     h1.innerText = prod.name;
     productContainer.appendChild(h1);
 })
+
+//* template literals
+//*   ${ item?.strMeal.slice(0, 5) }
+
+//* template string
+card.innerHTML = `
+        <img class="box-img" src=${item.strMealThumb} alt="" />
+        <h2>${item?.strMeal.slice(0, 5)}...</h2>
+        <p>${item.strInstructions.slice(0, 50)}...</p>
+        <button
+            onclick="displayModal('${item.idMeal}')"
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+        >
+        Launch demo modal
+        </button>
+        `
+
+
+//* optional chaining
+item?.strMeal
+
+
+//* ternary operator
+searchText ? searchText : global
