@@ -13,25 +13,28 @@ const loadData = async (global) => {
 const displayData = (data) => {
     document.getElementById("total-meals").innerText = data.length;
     const mealsContainer = document.getElementById("meals-container");
+    mealsContainer.innerHTML = "";
     data.forEach((item) => {
         console.log(item);
         const card = document.createElement("div");
         card.classList.add("box");
         card.innerHTML = `
         <img class="box-img" src=${item.strMealThumb} alt="" />
-        <h2>${item?.strMeal.slice(0, 5)}...</h2>
+        <h2>${item?.strMeal.slice(0, 10)}...</h2>
         <p>${item.strInstructions.slice(0, 50)}...</p>
         <button
             onclick="displayModal('${item.idMeal}')"
             type="button"
-            class="btn btn-primary"
+            class="btn-modal"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
         >
         Launch demo modal
         </button>
-        `//?. means optional chaining
+        `
+        // ?. means optional chaining
         mealsContainer.appendChild(card);
+        document.getElementById('search-box').value = "";
     })
 
 }

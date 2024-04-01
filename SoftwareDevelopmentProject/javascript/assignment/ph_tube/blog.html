@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link href="./output.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="shortcut icon"
+      href="./src/—Pngtree—youtube logo icon_3570313.png"
+      type="image/x-icon"
+    />
+    <title>Blog</title>
+  </head>
+  <body>
+    <div class="my-8 flex justify-center">
+      <a href="/index.html" class="btn btn-outline btn-[#ff1f3d]"
+        >BACK TO HOME</a
+      >
+    </div>
+    <hr />
+    <div class="join join-vertical w-full">
+      <div class="collapse collapse-arrow join-item border border-base-300">
+        <input type="radio" name="my-accordion-4" checked="checked" />
+        <div class="collapse-title text-xl font-medium">
+          Discuss the scope of var, let, and const
+        </div>
+        <div class="collapse-content">
+          <p>
+            <b
+              >The scope of variables which are declared with var, let, and
+              const differs in JavaScript :</b
+            >
+          </p>
+
+          <li>
+            Variables which are declared with var have function-level scope
+            which means they are visible throughout the entire function in which
+            they are declared, despite of where they appear within the function.
+            If var is declared outside of any function, it becomes a global
+            variable.
+          </li>
+          <li>
+            Variables which are declared with let have block-level scope which
+            means they are only visible within the block (such as if statements
+            or loops) in which they are declared. let provides mutability for
+            its value.
+          </li>
+          <li>
+            Variables which are declared with const also have block-level scope.
+            If const variables once initialized, it cannot be reassigned to a
+            new value. But if the value is mutable (e.g., an array or object),
+            the properties of the value can be modified.
+          </li>
+        </div>
+      </div>
+      <div class="collapse collapse-arrow join-item border border-base-300">
+        <input type="radio" name="my-accordion-4" />
+        <div class="collapse-title text-xl font-medium">
+          Tell us the use cases of null and undefined
+        </div>
+        <div class="collapse-content">
+          <p><b>The use cases of null and undefined :</b></p>
+          <p>
+            Generally we use null to denote intentional absence of value or to
+            clear out references and we use undefined for variables or
+            properties that have not been assigned a value yet.
+          </p>
+        </div>
+      </div>
+      <div class="collapse collapse-arrow join-item border border-base-300">
+        <input type="radio" name="my-accordion-4" />
+        <div class="collapse-title text-xl font-medium">
+          What do you mean by REST API?
+        </div>
+        <div class="collapse-content">
+          <p><b>REST API :</b></p>
+          <p>
+            A REST API, or Representational State Transfer Application
+            Programming Interface, is a standardized approach which helps
+            building web services that enables different software applications
+            to communicate with each other throughout the internet. It defines a
+            set of rules and conventions for how data should be requested and
+            exchanged between clients and servers.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
