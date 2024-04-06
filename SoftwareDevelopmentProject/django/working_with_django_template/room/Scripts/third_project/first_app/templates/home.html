@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>this is home page</h1>
+    <h1>Author : {{author}}</h1>
+    <h1>age : {{age}}</h1>
+    <h1>{{lst}}</h1>
+    <h1>{{ lst | join:" " }}</h1>
+    <h1>{{ birthDate | date:"D d M Y" }}</h1>
+    <h1>{{ value | default:"an empty string" }}</h1>
+    <h1>{{ value | length }}</h1>
+    <h1>{{'python - is - fun' | cut:" "}}</h1>
+
+    <!--* https://earthly.dev/blog/django-template-filters/ -->
+
+    <!--* filtering -->
+
+    <!-- conditional statement -->
+
+    {% if age >= 20 %}
+    <h4>you will get the driving license</h4>
+    {% elif age >= 10 and age <= 19 %}
+    <h4>you will not get the driving license</h4>
+    {% else %}
+    <h4>you are a child</h4>
+    {% endif %}
+
+    <!-- for loop -->
+    {% for i in courses %}
+    <h3>{{i.id}} {{i.name}} {{i.fee}}</h3>
+    {% endfor %}
+  </body>
+</html>
