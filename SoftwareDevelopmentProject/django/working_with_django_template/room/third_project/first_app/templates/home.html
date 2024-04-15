@@ -6,15 +6,32 @@
     <title>Document</title>
   </head>
   <body>
+    <h1>{{ "joy is a slug " | wordcount }}</h1>
+    <h1>{{ courses | unordered_list }}</h1>
+    <h1>{{ "joy is a slug" | slugify }}</h1>
+    <h1>{{ courses | random }}</h1>
+    <h1>{{ author | upper }}</h1>
+    <h1>{{ author | make_list }}</h1>
+    <h1>{{ 'VALUE' | lower }}</h1>
+    <h1>{{ courses | linenumbers }}</h1>
+    <h1>{{ courses | length }}</h1>
+    <h1>{{ courses | last }}</h1>
+    <h1>{{ courses | first }}</h1>
+    <h1>{{ val | divisibleby:"3" }}</h1>
+    <h1>" {{ "jai" | center:"30" }}"</h1>
+    <h1>{{ courses | dictsort:"name" }}</h1>
+    <h1>{{ "value" | capfirst }}</h1>
+    <h1>{{ value | default:"an empty string" }}</h1>
+    <h1>{{ value | length }}</h1>
+    <h1>{{'python - is - fun' | cut:" "}}</h1>
+    <h1>{{ val | add:"2" }}</h1>
+    <h1>{{ "I’m Jai" | addslashes }}</h1>
     <h1>this is home page</h1>
     <h1>Author : {{author}}</h1>
     <h1>age : {{age}}</h1>
     <h1>{{lst}}</h1>
     <h1>{{ lst | join:" " }}</h1>
     <h1>{{ birthDate | date:"D d M Y" }}</h1>
-    <h1>{{ value | default:"an empty string" }}</h1>
-    <h1>{{ value | length }}</h1>
-    <h1>{{'python - is - fun' | cut:" "}}</h1>
 
     <!--* https://earthly.dev/blog/django-template-filters/ -->
 
