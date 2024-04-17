@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block content %}
+<h1 style="font-weight: 900; text-align: center" class="text-danger">Meals</h1>
+<div class="d-flex justify-content-center container mx-auto">
+  <div class="row row-gap-3 my-5">
+    {% for i in data %}
+    <div class="col-4">
+      <div
+        style="height: 400px; padding-left: 50px; padding-right: 50px"
+        class="card"
+        style="width: 18rem"
+      >
+        <img src="{{i.strCategoryThumb}}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h3 style="font-weight: 700" class="text-danger card-title">
+            {{i.idCategory}}
+          </h3>
+          <h5 class="card-title">{{i.strCategory}}</h5>
+          <p class="card-text">
+            {{ i.strCategoryDescription | truncatewords:10}}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
