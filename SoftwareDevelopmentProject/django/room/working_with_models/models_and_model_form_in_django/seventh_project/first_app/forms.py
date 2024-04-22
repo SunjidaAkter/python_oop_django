@@ -7,5 +7,16 @@ class StudentForm(forms.ModelForm):
         labels={
             'name':'Student Name',
             'roll':'Student Roll',
-
+        }
+        widgets={
+            'roll':forms.NumberInput(attrs={'placeholder':'Enter Roll Number'}),
+        }
+        help_texts={
+            'name':'Enter Student Name',
+            'roll':'Enter Student Roll Number',
+        }
+        error_messages={
+            'name':{
+                'required':"name required",
+            },
         }
