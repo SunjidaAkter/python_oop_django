@@ -9,12 +9,13 @@ class AlbumForm(forms.ModelForm):
             'name':'Album Name : ',
             'release_date':'Release Date : ',
             'rating':'Rating : ',
-            'Musician':'Musician Name : ',
+            'musician':'Musician : ',
         }
         widgets={
             'name':forms.TextInput(attrs={'placeholder':'Enter Album Name'}),
             'release_date':forms.DateInput(attrs={'placeholder':'Enter Release Date','type':'date'}),
-            'musician':forms.TextInput(attrs={'placeholder':'Choose Musician'}),
+            'rating':forms.Select(attrs={'placeholder':'Choose Rating'}),
+            # 'musician':forms.Select(attrs={'placeholder':'Choose Musician'}),
         }
         
         
