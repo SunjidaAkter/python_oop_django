@@ -6,6 +6,6 @@ from .views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home,name='homepage'),
-    # path('task/', include('task.urls')),
-    # path('category/', include('category.urls')),
+    path('task/', include('task.urls')),
+    path('category/', include('category.urls')),
 ]
