@@ -7,3 +7,6 @@ class Task(models.Model):
     is_completed = models.BooleanField(default=False)
     assign_date=models.DateField(auto_now_add=True)
     category=models.ManyToManyField(Category)
+
+    def __str__(self) -> str:
+        return self.title
