@@ -59,8 +59,12 @@
       </div>
     </nav>
     {% load crispy_forms_tags %}
-    <form class="w-50 m-auto">
-      {{form|crispy}}
+    <form class="w-50 m-auto" method="post" novalidate>
+      {% csrf_token %}
+      <h1 style="text-align: center" class="my-4">Signup Form</h1>
+      <!-- {{form|crispy}}  -->
+      {% for fm in form %} {{fm.label_tag}} {{fm}} {{fm.errors|striptags}}
+      {%endfor %}
       <button class="btn btn-primary mb-5" type="submit">Submit</button>
     </form>
     <link
