@@ -16,9 +16,9 @@ def signup(request):
             # messages.info(request,'Information')
             form.save(commit=False)
             print(form.cleaned_data)
-    return render(request, 'home.html',{'form':form})
+    return render(request, './signup.html',{'form':form})
 
-def login(request):
+def login_user(request):
     if request.method == 'POST':
         form=AuthenticationForm(request=request,data=request.POST)
         if form.is_valid():
@@ -34,4 +34,4 @@ def login(request):
 
 
 def profile(request):
-    return render(request,'./profile.html')          
+    return render(request,'./profile.html',{'user':request.user})          
