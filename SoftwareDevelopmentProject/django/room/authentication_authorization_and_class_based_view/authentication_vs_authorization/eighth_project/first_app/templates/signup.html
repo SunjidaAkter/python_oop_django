@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block content %} {% if messages %} {% for m in
+messages %}
+<!-- <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="..." class="rounded me-2" alt="..." />
+        <strong class="me-auto">Success</strong>
+        <small>11 mins ago</small>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div> -->
+<div {% if m.tags %} class="{{m.tags}}" {% endif %}>{{m}}</div>
+<!-- </div> -->
+{% endfor %} {% endif %} {% load crispy_forms_tags %}
+<form class="w-50 m-auto" method="post" novalidate>
+  {% csrf_token %}
+  <h1 style="text-align: center" class="my-4">Signup Form</h1>
+  <!-- {{form|crispy}}  -->
+  {% for fm in form %} {{fm.label_tag}} {{fm}} {{fm.errors|striptags}}
+  <br />
+  {%endfor %}
+  <button class="btn btn-primary mb-5" type="submit">Submit</button>
+</form>
+
+{% endblock %}
