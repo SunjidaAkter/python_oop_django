@@ -21,7 +21,9 @@
   {% for fm in form %} {{fm.label_tag}} {{fm}} {{fm.errors|striptags}}
   <br />
   {%endfor %}
-  <button class="btn btn-primary mb-5" type="submit">Submit</button>
+  <button class="btn btn-primary " type="submit">Submit</button>
+  <br>
+  <small>Already Have an account <a href="{% url 'login' %}">Login</a></small><br>
 </form>
 
 {% endblock %}
