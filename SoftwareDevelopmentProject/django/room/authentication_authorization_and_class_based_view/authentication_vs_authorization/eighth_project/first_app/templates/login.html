@@ -8,7 +8,7 @@
   {% endif %}
   <h1 style="text-align: center" class="my-4">Login Form</h1>
   <!-- {{form|crispy}}  -->
-  {% for fm in form %} {{fm.label_tag}} {{fm}} {{fm.errors|striptags}}
+  {% for fm in form %} {{fm.label_tag}} <p class="text-danger"><small>{{fm}}</small></p> {{fm.errors|striptags}}
   <br />
   {%endfor %}
   <button class="btn btn-warning mb-5" type="submit">Login</button>
