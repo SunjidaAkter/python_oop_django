@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from . import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate,login,logout 
+from django.contrib import messages
 # Create your views here.
 # def add_author(request):
 #     author_form = forms.RegistrationForm()
@@ -21,6 +22,7 @@ def register(request):
         register_form = forms.RegistrationForm(request.POST)  # Bind POST data to the form
         if register_form.is_valid():
             register_form.save()
+            messages.success(request, "Account Has Been Registered Successfully!")
             return redirect('register')
     return render(request, 'register.html', {'form': register_form,'type':'Register'})
 
@@ -33,9 +35,11 @@ def user_login(request):
                 user_pass=form.cleaned_data['password']
                 user=authenticate(username=user_name,password=user_pass)
                 if user is not None:
+                    messages.success(request,'Logged In Successfully!')
                     login(request,user)
                     return redirect('profile')
                 else:
+                    messages.warning(request,'Login InFo Is Inorrect!')
                     return redirect('register')
         else:            
             form=AuthenticationForm()
