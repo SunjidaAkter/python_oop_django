@@ -3,6 +3,7 @@ from . import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate,login,logout 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 # def add_author(request):
 #     author_form = forms.RegistrationForm()
@@ -44,3 +45,14 @@ def user_login(request):
                     return redirect('register')
                     
         return render(request,'register.html',{'form':form,'type':'Login'})
+
+@login_required
+def profile(request):
+    profile_form = forms.ChangeUserForm(instance=request.user)
+    if request.method == "POST":
+        profile_form = forms.ChangeUserForm(request.POST,instance=request.user)  # Bind POST data to the form
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request, "Profile Has Been Changed Successfully!")
+            return redirect('profile')
+    return render(request, 'profile.html', {'form': profile_form})
