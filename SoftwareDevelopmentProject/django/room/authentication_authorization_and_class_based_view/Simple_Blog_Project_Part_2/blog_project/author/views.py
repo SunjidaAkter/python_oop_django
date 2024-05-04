@@ -28,6 +28,7 @@ def register(request):
 
 def user_login(request):
     # if not request.user.is_authenticated():
+        form=AuthenticationForm()
         if request.method == "POST":
             form=AuthenticationForm(request,request.POST)
             if form.is_valid():
@@ -37,10 +38,9 @@ def user_login(request):
                 if user is not None:
                     messages.success(request,'Logged In Successfully!')
                     login(request,user)
-                    return redirect('profile')
+                    return redirect('user_login')
                 else:
-                    messages.warning(request,'Login InFo Is Inorrect!')
+                    messages.warning(request,'Login Information Is Inorrect!')
                     return redirect('register')
-        else:            
-            form=AuthenticationForm()
-            return render(request,'register.html',{'form':form,'type':'Login'})
+                    
+        return render(request,'register.html',{'form':form,'type':'Login'})
