@@ -1,12 +1,14 @@
 from django.shortcuts import render,redirect
 from . import forms
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate,login,logout 
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
+from django.contrib.auth import authenticate,login,logout ,update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from posts.models import Post
+
 # Create your views here.
 # def add_author(request):
-#     author_form = forms.RegistrationForm()
+#     author_form = forms.PasswordChangeForm()
 #     if request.method == "POST":
 #         author_form = forms.RegistrationForm(request.POST)  # Bind POST data to the form
 #         print(author_form.is_valid())  # Check if form is valid
@@ -39,7 +41,7 @@ def user_login(request):
                 if user is not None:
                     messages.success(request,'Logged In Successfully!')
                     login(request,user)
-                    return redirect('user_login')
+                    return redirect('profile')
                 else:
                     messages.warning(request,'Login Information Is Inorrect!')
                     return redirect('register')
@@ -48,6 +50,10 @@ def user_login(request):
 
 @login_required
 def profile(request):
+    data=Post.objects.filter(author=request.user)
+    return render(request,'profile.html',{'data':data})
+@login_required
+def edit_profile(request):
     profile_form = forms.ChangeUserForm(instance=request.user)
     if request.method == "POST":
         profile_form = forms.ChangeUserForm(request.POST,instance=request.user)  # Bind POST data to the form
@@ -55,4 +61,21 @@ def profile(request):
             profile_form.save()
             messages.success(request, "Profile Has Been Changed Successfully!")
             return redirect('profile')
-    return render(request, 'profile.html', {'form': profile_form})
+    return render(request, 'update_profile.html', {'form': profile_form})
+
+def pass_change(request):
+    form = PasswordChangeForm(user=request.user)
+    if request.method == "POST":
+        form = PasswordChangeForm(request.user,data=request.POST)  # Bind POST data to the form
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Password Has Been Updated Successfully!")
+            update_session_auth_hash(request,form.user)
+            return redirect('profile')
+    return render(request, 'pass_change.html', {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    messages.success(request, "Logged Out Successfully!")
+    return redirect('user_login')

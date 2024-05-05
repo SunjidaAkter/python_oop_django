@@ -1,8 +1,28 @@
 {% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
 
-<form style="width: 50%; margin: auto" method="post">
-    <h1>{{type}} Page</h1>
-    {% csrf_token %} {{form|crispy}}
-    <button class="btn btn-primary mb-5">Submit</button>
-</form>
+<div class="mt-5 text-center">
+    <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary">Edit Your Profile</a>
+</div>
+<div class="mt-5 d-flex flex-wrap justify-content-center px-5">
+    {% for post in data %}
+    <div class="col-sm-3">
+        <div class="card mx-2">
+            <div class="card-body">
+                <h5 class="card-title">{{post.title}}</h5>
+                <p class="card-text">{{post.content}}</p>
+                <p>Author : {{post.author.first_name}} {{post.author.last_name}}</p>
+                <p>
+                    {% for j in post.category.all %}
+                    <button class="btn btn-sm btn-outline-primary">{{j.name}}</button>
+                    {% endfor %}
+                </p>
+
+                <a href="{% url 'edit_post' post.id %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'delete_post' post.id %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}
