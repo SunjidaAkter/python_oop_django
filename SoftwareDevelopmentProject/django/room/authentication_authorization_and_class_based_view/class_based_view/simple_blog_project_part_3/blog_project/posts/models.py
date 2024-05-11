@@ -17,3 +17,6 @@ class Comment(models.Model):
     email=models.EmailField(unique=True) 
     body=models.TextField()     
     created_on=models.DateTimeField(auto_now_add=True)#live time
+
+    def __str__(self):
+        return f'Comment by {self.name}'
