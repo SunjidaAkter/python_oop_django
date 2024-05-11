@@ -39,11 +39,15 @@
     <h4>{{data|length}} Results Found</h4>
     <div class="pt-5 d-flex flex-wrap">
       {% for post in data %}
-      <div class="col-sm-3 mb-3">
-        <div class="card mx-2">
+      <div class="col-sm-3">
+        <div class="card m-2">
           <div class="card-body">
-            <h5 class="card-title">{{post.title}}</h5>
-            <p class="card-text">{{post.content}}</p>
+            {% if post.image %}
+            <img src="{{ post.image.url }}" class="card-img-top" alt="...">
+            {% endif %}
+            <h5 class="card-title"><a class="text-decoration-none text-dark"
+                href="{% url 'details_post' post.id %}">{{post.title}}</a></h5>
+            <p class="card-text">{{post.content|truncatewords:10}}</p>
             <p>Author : {{post.author.first_name}} {{post.author.last_name}}</p>
             <p>
               {% for j in post.category.all %}

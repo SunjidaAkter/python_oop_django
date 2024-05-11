@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from . import forms
 from . import models
 from django.urls import reverse_lazy
-from django.views.generic import CreateView,UpdateView,DeleteView
+from django.views.generic import CreateView,UpdateView,DeleteView,DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 # Create your views here.
@@ -70,3 +70,13 @@ class DeletePostView(DeleteView):
     template_name = 'delete.html'
     # pk_url_kwargs = 'id'
     success_url=reverse_lazy('profile')
+
+class DetailsPostView(DetailView):
+    model = models.Post
+    template_name='post_details.html'
+
+    def get_context_data(self,**kwargs) :
+        context=super().get_context_data(**kwargs)
+        post=self.get_object
+        comment=post.comments.objects.all()
+        return super().get_context_data(**kwargs)
