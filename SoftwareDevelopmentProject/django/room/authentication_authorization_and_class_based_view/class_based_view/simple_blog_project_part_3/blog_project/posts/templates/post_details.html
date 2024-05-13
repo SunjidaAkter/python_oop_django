@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="col-12">
     <div class="card m-2">
@@ -15,6 +16,24 @@
                 {% endfor %}
             </p>
         </div>
+    </div>
+</div>
+<div class="card m-2">
+    <h5 class="p-3">Total Comments : {{comments|length}}</h5>
+    {% for comment in comments %}
+    <div class="card-body border m-2">
+        <p class="px-3"><b>{{comment.name}}</b> {{comment.created_on}}</p>
+        <p class="px-3">{{comment.body}}</p>
+    </div>
+    {% endfor %}
+</div>
+<div class="card m-2">
+    <div class="card-body">
+        <form method="post">
+            <h1>Add Comment</h1>
+            {% csrf_token %} {{comment_form|crispy}}
+            <button class="btn btn-primary">Submit</button>
+        </form>
     </div>
 </div>
 {% endblock %}
