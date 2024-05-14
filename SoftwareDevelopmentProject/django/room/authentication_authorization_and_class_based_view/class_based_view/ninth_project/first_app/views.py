@@ -27,3 +27,8 @@ def set_session(request):
     }
     request.session.update(data)
     return render(request,'home.html')    
+
+
+def get_session(request):
+    data=request.session.get('name')
+    return render(request,'get_session.html',{'data':data})    
