@@ -16,3 +16,14 @@ def delete_cookies(request):
     response = render(request, 'delete_cookies.html')
     response.delete_cookie('name')
     return response
+
+
+
+def set_session(request):
+    data={
+        'name':'rahim',
+        'age':20,
+        'language':'Bangla'
+    }
+    request.session.update(data)
+    return render(request,'home.html')    
