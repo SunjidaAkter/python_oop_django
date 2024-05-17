@@ -1,17 +1,34 @@
 {% extends 'base.html' %}
+{% block content %}
+<div class="w-50 m-auto">
 
-{% block content%}
-{% load crispy_forms_tags %}
-<form method="post" class="w-50 m-auto" novalidate>
-    {% csrf_token %}
-    <h1 style="text-align: center" class="my-4">Signup Form</h1>
-    <!-- {{form|crispy}} -->
-    {% for fm in form %}
-    {{fm.label_tag}}
-    {{fm}}
-    {{fm.errors|striptags}}
-    <br />
+    {% if messages %}
+    {% for message in messages %}
+    <p {% if message.tags %} class="{{message.tags}} pb-1" {% endif %}><small><b>{{message}}</b></small></p>
     {% endfor %}
-    <button class="btn-primary" type="submit">Submit</button>
-</form>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+    {% for er in form.non_field_errors %}
+    <p class="text-danger text-center pb-1"><small><b>{{er}}</b></small></p>
+    {% endfor %}
+    {% endif %}
+
+    {% load crispy_forms_tags %}
+    <h1 class="text-center">{{type}} Form</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <!-- {{form|crispy}} -->
+        {% for fm in form %}
+        {{ fm.label_tag }}
+        {{ fm }}
+        <small class="text-danger">
+            <b>{{ fm.errors|striptags }}</b>
+        </small>
+        <br>
+        {% endfor %}
+        <button class="btn btn-primary" type="submit">{{type}}</button>
+    </form>
+
+</div>
 {% endblock %}
