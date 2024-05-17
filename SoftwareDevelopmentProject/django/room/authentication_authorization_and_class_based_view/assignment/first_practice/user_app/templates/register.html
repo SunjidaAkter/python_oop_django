@@ -27,6 +27,8 @@
         </small>
         <br>
         {% endfor %}
+        <p>Already have an account? <a href="{% url 'signin' %}">Login</a></p>
+        <p>Don't have an account? <a href="{% url 'signup' %}">Register</a></p>
         <button class="btn btn-primary" type="submit">{{type}}</button>
     </form>
 

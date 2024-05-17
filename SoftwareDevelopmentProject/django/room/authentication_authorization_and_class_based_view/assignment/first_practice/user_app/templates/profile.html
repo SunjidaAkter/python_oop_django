@@ -8,7 +8,7 @@
     {% endfor %}
     {% endif %}
 
-    <h1>Welcome {{}} to your profile</h1>
+    <h1>Welcome {{user}} to your profile</h1>
     <form method="post">
         {% csrf_token %}
         <!-- {{ form|crispy }} -->
@@ -18,7 +18,11 @@
         <small class="text-danger"><b>{{ f.errors|striptags }}</b></small>
         <br>
         {% endfor %}
-        <button type="submit" class="btn btn-primary">Logout</button>
+        <a href="{% url 'password_reset' %}" class="btn btn-outline-info">Change Password With Old Password</a>
+        <a href="{% url 'reset_password' %}" class="btn btn-outline-info">Change Password Without Old Password</a>
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
     </form>
 </div>
 {% endblock %}
