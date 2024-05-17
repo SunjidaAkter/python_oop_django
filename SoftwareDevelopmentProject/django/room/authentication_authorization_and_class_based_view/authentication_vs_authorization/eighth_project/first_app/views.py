@@ -31,6 +31,7 @@ def login_user(request):
                 if user is not None:
                     login(request,user)
                     return redirect('profile')
+                    messages.success(request,"User has been authenticated!")
                 # else:
                 #     messages.error(request,'Invalid credentials')
                 #     return render(request,'./login.html',{'form':form}) 
