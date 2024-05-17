@@ -65,6 +65,7 @@ class UserLoginView(LoginView):
         return super().form_invalid(form)
     
     def get_context_data(self, **kwargs) :
+        # klk
         context=super().get_context_data(**kwargs)
         context['type']='Login'
         return context
