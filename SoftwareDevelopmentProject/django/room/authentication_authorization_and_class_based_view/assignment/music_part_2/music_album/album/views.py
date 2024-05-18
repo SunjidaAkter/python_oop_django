@@ -1,33 +1,40 @@
 from django.shortcuts import render,redirect
 from . import forms,models
+from django.urls import reverse_lazy
+from django.views.generic import CreateView,DeleteView,UpdateView
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 # Create your views here.
-def add_album(request):
-    album_form = forms.AlbumForm()
-    if request.method == "POST":
-        album_form = forms.AlbumForm(request.POST)  
-        print(album_form.is_valid())  # Check if form is valid
-        if album_form.is_valid():
-            album_form.save()
-            return redirect('homepage')
-        else:
-            print(album_form.errors)  # Print form errors for debugging
-    return render(request, 'add_album.html', {'form': album_form})
+
+class AddAlbum(CreateView):
+    model = models.Album
+    form_class = forms.AlbumForm
+    template_name = 'add_album.html'
+    success_url = reverse_lazy('homepage')
+    def form_valid(self, form):
+        messages.success(self.request,'Album has been added successfully!')
+        return super().form_valid(form)
 
 
-def edit_album(request,id):
-    album = models.Album.objects.get(pk=id)
-    album_form = forms.AlbumForm(instance=album)
-    if request.method == "POST":
-        album_form = forms.AlbumForm(request.POST,instance=album)  
-        if album_form.is_valid():
-            print(album_form.is_valid())  # Check if form is valid
-            album_form.save()
-            return redirect('homepage')
-        else:
-            print(album_form.errors)  # Print form errors for debugging
-    return render(request, 'add_album.html', {'form': album_form})
+@method_decorator(login_required,name='dispatch')
+class EditAlbum(UpdateView):
+    model = models.Album
+    form_class = forms.AlbumForm
+    template_name = 'add_album.html'
+    success_url = reverse_lazy('homepage')
+    def form_valid(self, form):
+        messages.success(self.request,'Album has been updated successfully!')
+        return super().form_valid(form)
 
-def delete_album(request,id):
-    album = models.Album.objects.get(pk=id)
-    album.delete()
-    return redirect('homepage')
+
+@method_decorator(login_required,name='dispatch')
+class DeleteAlbum(DeleteView):
+    model = models.Album
+    template_name='delete_album.html'
+    success_url = reverse_lazy('homepage')
+    def form_valid(self, form):
+        messages.success(self.request,'Album has been deleted successfully!')
+        return super().form_valid(form)
+
+    

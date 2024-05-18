@@ -7,4 +7,5 @@ urlpatterns = [
     path('', base,name="homepage"),
     path('musician/', include('musician.urls')),
     path('album/', include('album.urls')),
+    path('user/', include('user_app.urls')),
 ]
