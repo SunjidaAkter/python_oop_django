@@ -1,9 +1,11 @@
 from django.db import models
 from brand.models import Brand
+from django.contrib.auth.models import User
 # Create your models here.
 class Car(models.Model):
     name=models.CharField(max_length=50)
-    description=models.CharField(max_length=50)
+    color=models.CharField(max_length=30,null=True,blank=True)
+    description=models.CharField(max_length=500)
     price=models.IntegerField()
     quantity=models.IntegerField()
     image=models.ImageField(upload_to='car/media/uploads/',blank=True,null=True)

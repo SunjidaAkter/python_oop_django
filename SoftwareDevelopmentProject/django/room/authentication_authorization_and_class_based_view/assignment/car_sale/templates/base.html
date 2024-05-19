@@ -27,6 +27,73 @@
 
 
         }
+
+        .single-item {
+            border-radius: 20px;
+            width: 100%;
+            /* height: ; */
+            background-image: linear-gradient(270deg, rgb(203, 207, 209), rgba(198, 195, 195, 0.548));
+            margin-top: 30px;
+            margin-bottom: 100px;
+        }
+
+        .single-item-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .single-container {
+            width: 50%;
+        }
+
+        .line {
+
+            text-align: left;
+        }
+
+        .butttn {
+            background-image: linear-gradient(0deg, rgb(33, 36, 37), rgb(59, 58, 58));
+            color: white;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            border: none;
+            font-size: 20px;
+            border-radius: 8px;
+            height: 100%;
+        }
+
+
+
+
+        @media only screen and (max-width:688px) {
+            .single-container {
+                width: 100%;
+            }
+
+            .single-item-container {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+
+                /* grid-gap: 40px; */
+                /* margin-top: 50px;
+        margin-bottom: 30px; */
+            }
+
+
+
+            .butttn {
+                background-image: linear-gradient(0deg, rgb(33, 36, 37), rgb(59, 58, 58));
+                color: white;
+                padding-top: 11px;
+                padding-bottom: 11px;
+                border: none;
+                padding-left: 10px;
+                padding-right: 10px;
+                border-radius: 10px;
+                font-size: 15px;
+                height: 100%;
+            }
+        }
     </style>
 </head>
 
