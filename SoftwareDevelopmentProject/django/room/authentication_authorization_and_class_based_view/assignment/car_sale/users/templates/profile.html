@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+<section class="p-4">
+    <h1 class='mb-3 text-center'>Welcome {{user}}</h1>
+    <div class="d-flex justify-content-center mb-5">
+        <a href="{% url 'update_profile' %}" class="btn btn-outline-dark ">Update Your Profile</a>
+
+    </div>
+    <div class="w-100 row justify-content-center px-3 pb-3 gap-4">
+        {% if orders %}
+        <h1 class="text-center mb-5">{{orders|length }} Cars Have Been Purchased</h1>
+        {% for order in orders %}
+        <div class="card col-3">
+            <img src="{{order.car.image.url}}" class="card-img-top" alt="{{car.title}}">
+            <div class="card-body">
+                <h5 class="card-title">{{order.car.title}}</h5>
+                <h5 class="card-title">Price: ${{order.car.price}}</h5>
+                <button class="btn btn-warning btn-sm">{{order.car.brand}}</button>
+                <p class="card-text">{{order.car.description|truncatewords:20}}</p>
+
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h1>NO CARS AVAILABLE</h1>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

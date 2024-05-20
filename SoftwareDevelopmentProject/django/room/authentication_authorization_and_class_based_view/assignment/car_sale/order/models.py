@@ -9,4 +9,4 @@ class Order(models.Model):
     created_on = models.DateField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return f"{self.car.name} Bought By {self.buyer.first_name} {self.buyer.last_name}"
+        return f"{self.car.name} Bought By {self.buyer.username}"

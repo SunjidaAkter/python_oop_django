@@ -31,7 +31,10 @@
                 <p class="line  mt-4"><b>Price : $</b>{{car.price}}</p>
                 <p class="line "><b>Quantity :</b> {{car.quantity}}</p>
                 <p class="line "><b>Description :</b> {{car.description}}</p>
-                <button class="d-block ms-0 mb-3 btn btn-danger">Buy Now</button>
+                <form action="{% url 'create_order' car.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Buy Now</button>
+                </form>
             </div>
         </div>
     </div>

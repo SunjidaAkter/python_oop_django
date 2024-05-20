@@ -10,4 +10,31 @@
     </div>
     <img class='w-100' src="{% static 'welcome-img.png' %}" alt="" />
 </div>
+<div class="w-100 flex justify-content-center btn-group">
+
+    {% for brand in brands %}
+    <a class="btn btn-primary mx-3" href="">
+        {{brand.name}}
+    </a>
+    {% endfor %}
+</div>
+<h2 class='p-4'>
+    Number of Cars: {{cars|length}}
+</h2>
+<div class="w-100 row justify-content-center px-3 pb-3 gap-4">
+    <h3>
+    </h3>
+    {% for car in cars %}
+    <div class="card col-3">
+        <img src="{{car.image.url}}" class="card-img-top" alt="{{car.title}}">
+        <div class="card-body">
+            <h5 class="card-title">{{car.title}}</h5>
+            <h5 class="card-title">Price: ${{car.price}}</h5>
+            <button class="btn btn-warning btn-sm">{{car.brand}}</button>
+            <p class="card-text">{{car.description|truncatewords:20}}</p>
+            <a href="{% url 'car_details' car.id %}" class="btn btn-primary">View Details</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
