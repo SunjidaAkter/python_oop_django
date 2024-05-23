@@ -18,11 +18,11 @@
         <small class="text-danger"><b>{{ f.errors|striptags }}</b></small>
         <br>
         {% endfor %}
-        <a href="{% url 'password_reset' %}" class="btn btn-outline-info">Change Password With Old Password</a>
-        <a href="{% url 'reset_password' %}" class="btn btn-outline-info">Change Password Without Old Password</a>
+        <a href="{% url 'password_reset' %}" class="btn btn-outline-dark">Change Password With Old Password</a>
+        <a href="{% url 'reset_password' %}" class="btn btn-outline-dark">Change Password Without Old Password</a>
         <br>
         <br>
-        <button type="submit" class="btn btn-primary">Update Profile</button>
+        <button type="submit" class="btn btn-dark">Update Profile</button>
     </form>
 </div>
 {% endblock %}

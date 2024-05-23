@@ -1,4 +1,5 @@
 from django.shortcuts import redirect
+from django.contrib import messages
 from . import forms
 from . import models
 from django.urls import reverse_lazy
@@ -7,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 # Create your views here.
 
-@method_decorator(login_required,name='dispatch')
+
 class DetailsCarView(DetailView):
     model = models.Car
     template_name='car_details.html'
@@ -19,6 +20,7 @@ class DetailsCarView(DetailView):
             new_comment = comment_form.save(commit=False)
             new_comment.car = self.object  # Assign the car to the comment
             new_comment.save()
+            messages.success(self.request,"Comment Has Been Added Successfully!")
             # Redirect to the same page to avoid re-posting the comment
             return redirect('car_details', pk=self.object.pk)
         else:

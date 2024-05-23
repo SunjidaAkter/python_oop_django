@@ -14,4 +14,4 @@ def home(request,brand_slug=None):
             # Handle the case when the category does not exist
             raise Http404("Brand does not exist")
     brands=Brand.objects.all()
-    return render(request,'home.html',{'data':data,'brands':brands})
+    return render(request,'home.html',{'cars':data,'brands':brands})

@@ -24,8 +24,6 @@
                 margin-top: 50px;
                 margin-bottom: 50px;
             }
-
-
         }
 
         .single-item {
@@ -47,7 +45,6 @@
         }
 
         .line {
-
             text-align: left;
         }
 
@@ -62,9 +59,6 @@
             height: 100%;
         }
 
-
-
-
         @media only screen and (max-width:688px) {
             .single-container {
                 width: 100%;
@@ -73,13 +67,10 @@
             .single-item-container {
                 display: grid;
                 grid-template-columns: repeat(1, 1fr);
-
                 /* grid-gap: 40px; */
                 /* margin-top: 50px;
-        margin-bottom: 30px; */
+                margin-bottom: 30px; */
             }
-
-
 
             .butttn {
                 background-image: linear-gradient(0deg, rgb(33, 36, 37), rgb(59, 58, 58));
@@ -100,7 +91,9 @@
 <body style="background-color: #e4e4e4;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Django Blog</a>
+            <a class="navbar-brand" href="#">
+                <h3>CarSale</h3>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -118,18 +111,18 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         {% if request.user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="mx-1 btn btn-outline-info" href="{% url 'signin' %}">Profile</a>
+                            <a class="mx-1 btn btn-outline-light" href="{% url 'profile' %}">Profile</a>
                         </li>
                         <form action="{% url 'signout' %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-outline-danger">Logout</button>
+                            <button type="submit" class="btn btn-outline-light">Logout</button>
                         </form>
                         {% else %}
                         <li class="nav-item">
-                            <a class="mx-1 btn btn-outline-info" href="{% url 'signup' %}">Register</a>
+                            <a class="mx-1 btn btn-outline-light" href="{% url 'signup' %}">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="mx-1 btn btn-outline-primary" href="{% url 'signin' %}">Login</a>
+                            <a class="mx-1 btn btn-outline-light" href="{% url 'signin' %}">Login</a>
                         </li>
                         {% endif %}
                     </ul>

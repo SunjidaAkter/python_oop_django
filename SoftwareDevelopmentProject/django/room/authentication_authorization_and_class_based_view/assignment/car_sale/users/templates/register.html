@@ -2,11 +2,11 @@
 {% block content %}
 <div class="w-50 m-auto">
 
-    {% if messages %}
+    <!-- {% if messages %}
     {% for message in messages %}
     <p class="text-success text-center pb-1"><small><b>{{message}}</b></small></p>
     {% endfor %}
-    {% endif %}
+    {% endif %} -->
 
     {% if form.non_field_errors %}
     {% for er in form.non_field_errors %}
@@ -28,7 +28,7 @@
         <br>
         {% endfor %}
 
-        <button class="btn btn-primary" type="submit">{{type}}</button>
+        <button class="btn btn-dark" type="submit">{{type}}</button>
     </form>
 
 </div>
