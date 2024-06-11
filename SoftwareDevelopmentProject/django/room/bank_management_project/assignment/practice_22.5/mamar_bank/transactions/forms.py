@@ -1,3 +1,4 @@
+from typing import Any
 from django import forms
 from .models import Transaction
 from django import forms
@@ -22,7 +23,19 @@ class TransactionForm(forms.ModelForm):
         self.instance.balance_after_transaction = self.account.balance
         return super().save()
 
-
+class TransferForm(TransactionForm):
+    class Meta:
+        model = Transaction
+        fields = [
+            'amount',
+            'transaction_type',
+            'to_account'
+        ]
+    def clean_amount(self):     
+       if self.instance.bankrupt:
+           raise forms.ValidationError(
+               f'Bank has been bankrupt'
+           ) 
 class DepositForm(TransactionForm):
     def clean_amount(self): # amount field ke filter korbo
         min_deposit_amount = 100
