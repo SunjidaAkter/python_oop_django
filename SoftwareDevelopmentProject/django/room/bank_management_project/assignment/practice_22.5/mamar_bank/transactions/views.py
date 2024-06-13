@@ -24,7 +24,7 @@ class TransactionCreateMixin(LoginRequiredMixin, CreateView):
     model = Transaction
     title = ''
     success_url = reverse_lazy('transaction_report')
-
+# jj
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({
