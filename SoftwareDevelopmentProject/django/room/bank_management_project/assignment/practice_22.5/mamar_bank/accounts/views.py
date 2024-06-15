@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponseRedirect
 from django.views.generic import FormView,View
 from django.contrib.auth import login ,logout
 from .forms import UserRegistrationForm,UserUpdateForm
@@ -25,11 +25,11 @@ class UserLoginView(LoginView):
         return super().form_valid(form)
 
 class UserLogoutView(LogoutView):
-     def get_success_url(self):
-        if self.request.user.is_authenticated:
-            logout(self.request)
-            messages.success(self.request, 'You have successfully logged out')
-        return reverse_lazy('home')
+     def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            messages.success(request, 'You have successfully logged out')
+            logout(request)
+        return HttpResponseRedirect(reverse_lazy('home'))
     
 class UserBankAccountUpdateView(View):
     template_name = 'accounts/profile.html'
