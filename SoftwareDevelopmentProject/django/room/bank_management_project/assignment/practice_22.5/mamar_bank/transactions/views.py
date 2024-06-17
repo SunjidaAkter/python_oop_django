@@ -1,20 +1,19 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
 from django.http import HttpResponse
 from django.views.generic import CreateView, ListView
-from transactions.constants import DEPOSIT, WITHDRAWAL,LOAN, LOAN_PAID
-from django.core.mail import EmailMessage, EmailMultiAlternatives
-from django.template.loader import render_to_string
+from transactions.constants import DEPOSIT, WITHDRAWAL, LOAN, LOAN_PAID, TRANSFER
 from datetime import datetime
 from django.db.models import Sum
+from django import forms
 from transactions.forms import (
     DepositForm,
     WithdrawForm,
     LoanRequestForm,
+    TransferForm
 )
 from transactions.models import Transaction
 from accounts.models import UserBankAccount
@@ -39,7 +38,6 @@ class TransactionCreateMixin(LoginRequiredMixin, CreateView):
         })
 
         return context
-
 
 class DepositMoneyView(TransactionCreateMixin):
     form_class = DepositForm
@@ -67,7 +65,6 @@ class DepositMoneyView(TransactionCreateMixin):
             f'{"{:,.2f}".format(float(amount))}$ was deposited to your account successfully'
         )
         return super().form_valid(form)
-
 
 class WithdrawMoneyView(TransactionCreateMixin):
     form_class = WithdrawForm
@@ -143,8 +140,7 @@ class TransactionReportView(LoginRequiredMixin, ListView):
         })
 
         return context
-    
-        
+            
 class PayLoanView(LoginRequiredMixin, View):
     def get(self, request, loan_id):
         loan = get_object_or_404(Transaction, id=loan_id)
@@ -170,7 +166,6 @@ class PayLoanView(LoginRequiredMixin, View):
 
         return redirect('loan_list')
 
-
 class LoanListView(LoginRequiredMixin,ListView):
     model = Transaction
     template_name = 'transactions/loan_request.html'
@@ -182,4 +177,39 @@ class LoanListView(LoginRequiredMixin,ListView):
         print(queryset)
         return queryset
 
+class TransferMoney(TransactionCreateMixin):
+    form_class = TransferForm
+    title = 'Money Transfer'
+
+    def get_initial(self):
+        initial = {'transaction_type': TRANSFER}
+        return initial
+
+    def form_valid(self, form):
+        amount = form.cleaned_data.get('amount')
+        to_account_number = form.cleaned_data.get('to_account')
+        try:
+            to_account = UserBankAccount.objects.get(account_no=to_account_number)
+        except UserBankAccount.DoesNotExist:
+            form.add_error('to_account', 'The account does not exist.')
+            return self.form_invalid(form)
+        account = self.request.user.account
+        account.balance -= amount # amount = 200, tar ager balance = 0 taka new balance = 0+200 = 200
+        to_account.balance += amount 
+        account.save(
+            update_fields=[
+                'balance'
+            ]
+        )
+        to_account.save(
+            update_fields=[
+                'balance'
+            ]
+        )
+
+        messages.success(
+            self.request,
+            f'{"{:,.2f}".format(float(amount))}$ was deposited to your account successfully'
+        )
+        return super().form_valid(form)
 

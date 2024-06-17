@@ -25,7 +25,7 @@ class UserLoginView(LoginView):
         return super().form_valid(form)
 
 class UserLogoutView(LogoutView):
-     def get(self, request, *args, **kwargs):
+     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             messages.success(request, 'You have successfully logged out')
             logout(request)

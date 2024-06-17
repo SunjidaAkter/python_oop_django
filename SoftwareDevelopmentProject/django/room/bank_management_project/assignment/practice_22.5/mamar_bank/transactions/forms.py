@@ -35,7 +35,14 @@ class TransferForm(TransactionForm):
        if self.instance.bankrupt:
            raise forms.ValidationError(
                f'Bank has been bankrupt'
-           ) 
+           )
+       amount=self.cleaned_data.get('amount')
+       if amount > self.account.balance:
+           raise forms.ValidationError(
+               f'You have {self.account.balance} $ in your account. '
+               'You can not transfer more than your account balance'
+           )
+       return amount 
 class DepositForm(TransactionForm):
     def clean_amount(self): # amount field ke filter korbo
         min_deposit_amount = 100
@@ -44,13 +51,16 @@ class DepositForm(TransactionForm):
             raise forms.ValidationError(
                 f'You need to deposit at least {min_deposit_amount} $'
             )
-
         return amount
 
 
 class WithdrawForm(TransactionForm):
 
     def clean_amount(self):
+        if self.instance.bankrupt:
+           raise forms.ValidationError(
+               f'Bank has been bankrupt'
+           )
         account = self.account
         min_withdraw_amount = 500
         max_withdraw_amount = 20000
