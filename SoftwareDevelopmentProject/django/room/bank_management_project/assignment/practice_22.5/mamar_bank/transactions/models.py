@@ -14,3 +14,10 @@ class Transaction(models.Model):
     
     class Meta:
         ordering = ['timestamp'] 
+
+class Bank(models.Model):
+    name = models.CharField(max_length=255,default='bankrupt',null=True,blank=True)
+    is_bankrupt = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{{is_bankrupt}}"        

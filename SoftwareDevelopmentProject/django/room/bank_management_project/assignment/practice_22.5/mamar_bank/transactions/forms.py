@@ -1,6 +1,6 @@
 from typing import Any
 from django import forms
-from .models import Transaction
+from .models import Transaction,Bank
 from django import forms
 from accounts.models import UserBankAccount
 
@@ -32,10 +32,8 @@ class TransferForm(TransactionForm):
             'to_account'
         ]
     def clean_amount(self):     
-       if self.instance.bankrupt:
-           raise forms.ValidationError(
-               f'Bank has been bankrupt'
-           )
+       if Bank.objects.first().is_bankrupt:
+            raise forms.ValidationError(f'The bank is bankrupt, no withdrawals allowed.')
        amount=self.cleaned_data.get('amount')
        if amount > self.account.balance:
            raise forms.ValidationError(
@@ -57,10 +55,12 @@ class DepositForm(TransactionForm):
 class WithdrawForm(TransactionForm):
 
     def clean_amount(self):
-        if self.instance.bankrupt:
-           raise forms.ValidationError(
-               f'Bank has been bankrupt'
-           )
+        bank, created = Bank.objects.get_or_create()
+        print(Bank.objects.get().is_bankrupt)
+        # Check if the bank is bankrupt
+        if bank.is_bankrupt:
+            raise forms.ValidationError('The bank is bankrupt, no withdrawals allowed.')
+
         account = self.account
         min_withdraw_amount = 500
         max_withdraw_amount = 20000
