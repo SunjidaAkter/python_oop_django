@@ -7,3 +7,5 @@ pillow
 psycopg2
 sqlparse
 tzdata
+psycopg2-binary
+dj-database-url
