@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'books',
     'user_account',
     'categories',
+    'borrow',
     'core',
 ]
 
