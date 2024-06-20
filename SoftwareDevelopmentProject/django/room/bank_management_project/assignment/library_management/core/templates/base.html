@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <title>
+        {% block head_title %}Library Management{% endblock %}
+    </title>
+    <style>
+        body {
+            background-image: linear-gradient(135deg, #e9cb9b, #766142);
+            ;
+            /* Replace with your image path */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            /* height: 100vh; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image {
+            border-radius: 10%;
+            position: absolute;
+            box-shadow: 0 44px 28px rgba(16, 15, 15, 0.2);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .image:hover {
+            transform: scale(1.05);
+        }
+
+        .image-1,
+        .image-3 {
+            width: 200px;
+            height: 300px;
+            z-index: 1;
+        }
+
+        .image-2 {
+            width: 250px;
+            height: 390px;
+            z-index: 2;
+        }
+
+        .image-1 {
+            left: 12%;
+        }
+
+        .image-2 {
+            z-index: 3;
+        }
+
+        .image-3 {
+            right: 12%;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% block head_extra %}{% endblock %}
+
+</head>
+
+<body class="">
+    <div class="min-h-screen ">
+        <div class=" container mx-auto p-8">
+            {% block body %}
+            <div class="">
+                {% block content %}
+                {% endblock %}
+            </div>
+
+            {% endblock %}
+        </div>
+    </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+</body>
+
+</html>
