@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .constants import GENDER_TYPE
 from django.contrib.auth.models import User
-from .models import UserAccount
+from .models import UserAccount,Transaction
 
 class UserRegistrationForm(UserCreationForm):
     birth_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
@@ -20,7 +20,7 @@ class UserRegistrationForm(UserCreationForm):
                 user=our_user,
                 gender=gender,
                 birth_date=birth_date,
-                account_no=100000+our_user.id
+                account_no=our_user.id
             )    
             return our_user
     def __init__(self, *args, **kwargs):
@@ -82,3 +82,27 @@ class UserUpdateForm(forms.ModelForm):
 
             
         return user    
+    
+class TransactionForm(forms.ModelForm):
+    class Meta:
+        model = Transaction
+        fields = [
+            'amount',
+        ]
+    def __init__(self, *args, **kwargs):
+        self.account = kwargs.pop('account') # account value ke pop kore anlam
+        super().__init__(*args, **kwargs)
+    def save(self, commit=True):
+        self.instance.account = self.account
+        return super().save()
+
+    def clean_amount(self): # amount field ke filter korbo
+        min_deposit_amount = 100
+        amount = self.cleaned_data.get('amount') # user er fill up kora form theke amra amount field er value ke niye aslam, 50
+        if amount < min_deposit_amount:
+            raise forms.ValidationError(
+                f'You need to deposit at least {min_deposit_amount} $'
+            )
+
+        return amount
+

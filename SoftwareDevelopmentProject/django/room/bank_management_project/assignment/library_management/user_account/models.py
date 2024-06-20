@@ -13,3 +13,7 @@ class UserAccount(models.Model):
     balance = models.DecimalField(default=0, max_digits=12,decimal_places=2)
     def __str__(self):
         return str(self.account_no)
+    
+class Transaction(models.Model):
+    account = models.ForeignKey(UserAccount, related_name = 'transactions', on_delete = models.CASCADE) # ekjon user er multiple transactions hote pare
+    amount = models.DecimalField(decimal_places=2, max_digits = 12)    

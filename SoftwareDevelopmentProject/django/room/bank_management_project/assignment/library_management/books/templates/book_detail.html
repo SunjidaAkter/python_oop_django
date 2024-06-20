@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="w-50 m-auto">
+    <div class=' single-item'>
+        <div div class="single-item-container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center">
+                <img class='w-75  rounded ' src="{{ books.image.url }}" alt="" />
+            </div>
+            <div class="px-5">
+                <h2 class="text font pt-2">{{books.name}}</h2>
+                <p class="line  mt-4"><b>Price : $</b>{{car.price}}</p>
+                <p class="line "><b>Description :</b> {{car.description}}</p>
+                <form action="{% url 'create_order' car.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="mb-3 btn btn-dark">Borrow Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w-75 m-auto">
+
+    <div class="card m-2">
+        <h5 class="p-3">Total Reviews : {{reviews|length}}</h5>
+        {% for review in reviews %}
+        <div class="card-body border m-2">
+            <p class="px-3"><b>{{review.name}}</b> {{review.created_on}}</p>
+            <p class="px-3">{{review.body}}</p>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="card m-2">
+        <div class="card-body">
+            <form method="post">
+                <h1>Add Review</h1>
+                {% csrf_token %} {{review_form|crispy}}
+                <button class="btn btn-dark">Review</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
