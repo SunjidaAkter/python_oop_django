@@ -1,4 +1,33 @@
-{% extends 'base.html' %} {% load static %} {% block head_title %}Banking System{% endblock %} {% block content %}
+{% extends 'base.html' %} {% load humanize %}{% load static %} {% block head_title %}Banking System{% endblock %}
+{% block content %}
+
+<div
+    class="card lg:card-side bg-[#fef5e6] flex justify-between items-center rounded-3xl mx-10 shadow-xl py-[100px] px-[350px]">
+    {% if user_account.gender == 'female' %}
+    <figure class="rounded-full">
+        <img src="https://png.pngtree.com/png-clipart/20220904/ourmid/pngtree-muslim-girl-using-hijab-png-image_6137399.png"
+            alt="Album" />
+    </figure>
+    {% else %}
+    <figure class="rounded-full">
+        <img src="https://png.pngtree.com/png-vector/20221203/ourmid/pngtree-cartoon-style-male-user-profile-icon-vector-illustraton-png-image_6489287.png"
+            alt="Album" />
+    </figure>
+    {% endif %}
+    <div class="">
+        <h2 class="mb-5 card-title">{{user_account.user.first_name}} {{user_account.user.last_name}}</h2>
+        <p class="mb-5">Balance : {{user_account.balance}}</p>
+        <p class="mb-5">Birth Date : {{user_account.birth_date}}</p>
+        <p class="mb-5">Gender : {{user_account.gender}}</p>
+        <div class="card-actions justify-start">
+            <button class="btn btn-primary">Listen</button>
+        </div>
+    </div>
+</div>
+
+
+
+
 {% if form.non_field_errors %} {% for error in form.non_field_errors %}
 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
     <p class="font-bold">Error!</p>
@@ -100,4 +129,56 @@
         </form>
     </div>
 </div>
+
+
+
+
+<div class="my-10 py-3 px-4 bg-white rounded-xl shadow-md">
+    <h1 class="font-bold text-3xl text-center pb-5 pt-2">borrow Report</h1>
+    <hr />
+    <table class="table-auto mx-auto w-full px-5 rounded-xl mt-8 border dark:border-neutral-500">
+        <thead class="bg-purple-900 text-white text-left">
+            <tr class="bg-gradient-to-tr from-[#766142] to-[#766142] rounded-md py-2 px-4 text-white font-bold">
+                <th class="px-4 py-2">Date</th>
+                <th class="px-4 py-2">Book Title</th>
+                <th class="px-4 py-2">Borrow Price</th>
+                <th class="px-4 py-2">Balance After Borrow</th>
+                <th class="px-4 py-2">Return</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for borrow in borrows %}
+            <tr class="border-b dark:border-neutral-500">
+                <td class="px-4 py-2">
+                    {{ borrow.timestamp|date:"F d, Y h:i A" }}
+                </td>
+                <td class="px-4 py-3 text-s border">
+                    <span class="px-2 py-1 font-bold leading-tight rounded-sm text-green-700 bg-green-100">
+                        {{ borrow.book.title }}
+                    </span>
+                </td>
+                <td class="px-4 py-2">
+                    $ {{ borrow.book.price }}
+                </td>
+                <td class="px-4 py-2">
+                    $ {{ borrow.user.balance }}
+                </td>
+                <td class="px-4 py-2">
+                    <button class="btn btn-warning">Return</button>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr class="bg-gray-800 text-white">
+                <th class="px-4 py-2 text-right" colspan="4">Current Balance</th>
+                <th class="px-4 py-2 text-left">
+                    $ {{ account.balance|floatformat:2|intcomma }}
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
 {% endblock %}

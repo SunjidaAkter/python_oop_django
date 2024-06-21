@@ -3,8 +3,9 @@ from django.contrib import messages
 from . import forms
 from . import models
 from borrow.models import Borrow
+from user_account.models import UserAccount
 from django.urls import reverse_lazy
-from django.views.generic import CreateView,UpdateView,DeleteView,DetailView
+from django.views.generic import DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 # Create your views here.
@@ -13,11 +14,12 @@ from django.utils.decorators import method_decorator
 class DetailsBookView(DetailView):
     model = models.Books
     template_name='book_detail.html'
-
+    
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()  # Retrieve the car object
         review_form = forms.ReviewForm(data=self.request.POST)
-        borrow=Borrow.objects.filter(borrower=self.request.user)
+        user_accout=UserAccount.objects.filter(user=self.request)
+        borrow=Borrow.objects.filter(borrower=user_accout)
         ok=False
         for obj in borrow.objects.all():
             if obj.book==self.object:

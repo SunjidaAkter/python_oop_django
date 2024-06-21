@@ -41,7 +41,7 @@ class UserRegistrationForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     birth_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
     gender = forms.ChoiceField(choices=GENDER_TYPE)
-    
+    account_no=forms.IntegerField()
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']

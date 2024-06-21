@@ -14,4 +14,4 @@ def HomeView(request,category_slug=None):
             # Handle the case when the category does not exist
             raise Http404("Category does not exist")
     categories=Categories.objects.all()
-    return render(request,'home.html',{'Books':data,'categories':categories})
+    return render(request,'index.html',{'Books':data,'categories':categories})

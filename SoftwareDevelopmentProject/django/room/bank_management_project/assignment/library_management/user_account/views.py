@@ -10,14 +10,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from .models import UserAccount,Transaction
-from django.views.generic import CreateView
+from django.views.generic import CreateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 # *-------------------------------------------------------------------------------------------
 from django.utils import timezone
 from django.views import View
 from datetime import datetime
 from django.db.models import Sum
-
+from borrow.models import Borrow
 
 
 # Create your views here.
@@ -52,21 +52,39 @@ class UserLogoutView(LogoutView):
             messages.success(self.request, 'You have successfully logged out')
         return HttpResponseRedirect(reverse_lazy('home'))
     
-class UserBankAccountUpdateView(View):
+class UserAccountUpdateView(View):
     template_name = 'accounts/profile.html'
 
     def get(self, request):
         form = UserUpdateForm(instance=request.user)
-        return render(request, self.template_name, {'form': form})
+        try:
+            user_account = UserAccount.objects.get(user=request.user)
+        except UserAccount.DoesNotExist:
+            user_account = None
+        borrows = Borrow.objects.filter(borrower=user_account)
+        print(user_account.gender)
+        context = {
+            'form': form,
+            'user_account': user_account,
+            'borrows': borrows,
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request):
         form = UserUpdateForm(request.POST, instance=request.user)
+        user_account = UserAccount.objects.filter(user=request.user)
+        borrows = Borrow.objects.filter(borrower=request.user_account)
         if form.is_valid():
             form.save()
-            return redirect('profile')  # Redirect to the user's profile page
-        return render(request, self.template_name, {'form': form})
-        
-
+            messages.success(request, "Profile updated successfully.")
+            return redirect('profile')
+        context = {
+            'form': form,
+            'user_account': user_account,
+            'borrows': borrows,
+        }
+        return render(request, self.template_name, context)
+    
 class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     template_name = 'accounts/password_change.html'
     success_url = reverse_lazy('profile')
@@ -122,7 +140,18 @@ class TransactionCreateMixin(LoginRequiredMixin, CreateView):
             self.request,
             f'{"{:,.2f}".format(float(amount))}$ was deposited to your account successfully'
         )
-        send_transaction_email(self.request.user, amount, "Deposite Message", "transactions/deposite_email.html")
+        # send_transaction_email(self.request.user, amount, "Deposite Message", "transactions/deposite_email.html")
         return super().form_valid(form)
 
 
+class ReturnBook(DeleteView):
+    model = Borrow
+    template_name='accounts/return_book.html'
+    success_url = reverse_lazy('homepage')
+    def form_valid(self, form):
+        book_price=self.get_object().book.price
+        user_account=UserAccount.objects.filter(user=self.request.user)
+        user_account.balance=user_account.balance+book_price
+        user_account.save()
+        messages.success(self.request,f"{self.get_object().book.title} has been returned successfully!")
+        return super().form_valid(form)
