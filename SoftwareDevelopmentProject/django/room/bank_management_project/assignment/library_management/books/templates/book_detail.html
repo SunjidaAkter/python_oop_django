@@ -1,43 +1,72 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% block head_title %}Book Details{% endblock %}
 {% block content %}
-<div class="w-50 m-auto">
-    <div class=' single-item'>
-        <div div class="single-item-container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center">
-                <img class='w-75  rounded ' src="{{ books.image.url }}" alt="" />
-            </div>
-            <div class="px-5">
-                <h2 class="text font pt-2">{{books.name}}</h2>
-                <p class="line  mt-4"><b>Price : $</b>{{car.price}}</p>
-                <p class="line "><b>Description :</b> {{car.description}}</p>
-                <form action="{% url 'create_order' car.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="mb-3 btn btn-dark">Borrow Now</button>
-                </form>
-            </div>
+<div
+    class="card lg:card-side bg-[#fef5e6] flex justify-between items-center rounded-3xl mx-10 shadow-xl py-[50px] px-[150px]">
+    <figure class=" w-1/2">
+        <img class="w-1/2 rounded-3xl" src="{{books.image.url}}" alt="{{books.title}}" />
+    </figure>
+    <div class="w-1/2">
+        <h2 class="mb-3 text-4xl font-bold text-[#615b51]">
+            {{books.title}}</h2>
+        <p class="mb-3 text-lg "><b>Category :</b> <span class="font-medium">{{books.categories}}</span></p>
+        <p class="mb-3 text-lg "><b>Borrow Price :</b> <span class="font-medium">${{books.price}}</span></p>
+        <p class="mb-3 text-lg "><b><span class="font-normal">{{books.description}}</span></p>
+        <div class="card-actions justify-start">
+            {% if not has_borrow %}
+            {% if books.id %}
+            <form action="{% url 'create_borrow' books.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn bg-[#766142] hover:bg-[#766142] text-white">Borrow</button>
+            </form>
+            {% endif %}
+            {% else %}
+            <button type="button" class="btn bg-gray-400 text-white" disabled>Borrowed</button>
+            {% endif %}
         </div>
     </div>
 </div>
-<div class="w-75 m-auto">
-
-    <div class="card m-2">
-        <h5 class="p-3">Total Reviews : {{reviews|length}}</h5>
-        {% for review in reviews %}
-        <div class="card-body border m-2">
-            <p class="px-3"><b>{{review.name}}</b> {{review.created_on}}</p>
-            <p class="px-3">{{review.body}}</p>
+<div class="">
+    <div class="m-10 bg-[#fef5e6] p-3 rounded-3xl">
+        <h5 class="text-2xl text-center text-[#615b51] ">Total Reviews : {{reviews|length}}</h5>
+        <div class="card m-2">
+            {% for review in reviews %}
+            <div class="p-4 border-2 border-[#766142] rounded-3xl m-2">
+                <p class="px-3 text-[#615b51] text-sm font-bold">{{review.name}} {{review.created_on}}</p>
+                <p class="px-3 text-[#615b51] text-3xl mt-2 font-normal">{{review.body}}</p>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-    <div class="card m-2">
+    <div class="bg-[#fef5e6] m-10 rounded-3xl">
+
         <div class="card-body">
             <form method="post">
-                <h1>Add Review</h1>
-                {% csrf_token %} {{review_form|crispy}}
-                <button class="btn btn-dark">Review</button>
+                <h1 class="text-4xl text-[#615b51] text-center">Add Review</h1>
+                {% csrf_token %} {% for field in review_form %}
+                <div class="mb-4">
+                    {% comment %} Customize label directly in template {% endcomment %}
+                    <label class="block text-[#615b51] text-sm font-bold mb-2" for="{{ field.id_for_label }}">
+                        {% if field.name == 'body' %}
+                        Give Your Review :
+                        {% elif field.name == 'another_field' %}
+                        Another Custom Label:
+                        {% else %}
+                        {{ field.label }}
+                        {% endif %}
+                    </label>
+                    {{ field }}
+                    {% if field.errors %}
+                    {% for error in field.errors %}
+                    <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn bg-[#766142] hover:bg-[#766142] text-white rounded-3xl">Review</button>
             </form>
         </div>
     </div>
 </div>
+
 {% endblock %}

@@ -1,9 +1,9 @@
-{% extends 'base.html' %} {% load humanize %}{% load static %} {% block head_title %}Banking System{% endblock %}
+{% extends 'base.html' %} {% load humanize %}{% load static %} {% block head_title %}Profile{% endblock %}
 {% block content %}
 
 <div
-    class="card lg:card-side bg-[#fef5e6] flex justify-between items-center rounded-3xl mx-10 shadow-xl py-[100px] px-[350px]">
-    {% if user_account.gender == 'female' %}
+    class="card lg:card-side bg-[#fef5e6] flex justify-between items-center rounded-3xl mx-10 shadow-xl py-[50px] px-[350px]">
+    {% if user_account.gender == 'Female' %}
     <figure class="rounded-full">
         <img src="https://png.pngtree.com/png-clipart/20220904/ourmid/pngtree-muslim-girl-using-hijab-png-image_6137399.png"
             alt="Album" />
@@ -15,163 +15,78 @@
     </figure>
     {% endif %}
     <div class="">
-        <h2 class="mb-5 card-title">{{user_account.user.first_name}} {{user_account.user.last_name}}</h2>
-        <p class="mb-5">Balance : {{user_account.balance}}</p>
-        <p class="mb-5">Birth Date : {{user_account.birth_date}}</p>
-        <p class="mb-5">Gender : {{user_account.gender}}</p>
-        <div class="card-actions justify-start">
-            <button class="btn btn-primary">Listen</button>
-        </div>
+        <h2 class="mb-3 text-4xl font-bold text-[#615b51]">
+            {{user_account.user.username}}</h2>
+        <p class="mb-3 text-lg "><b>Name :</b> {{user_account.user.first_name}} {{user_account.user.last_name}}</p>
+        <p class="mb-3 text-lg "><b>Email :</b> {{user_account.user.email}}</p>
+        <p class="mb-3 text-lg "><b>Balance :</b> {{user_account.balance}}</p>
+        <p class="mb-3 text-lg"><b>Birth Date :</b> {{user_account.birth_date}}</p>
+        <p class="mb-3 text-lg"><b>Gender :</b> {{user_account.gender}}</p>
+        <!-- <div class="card-actions justify-start">
+            <button class="btn bg-[#766142] hover:bg-[#766142] text-white">Change Profile Info</button>
+        </div> -->
     </div>
 </div>
 
 
 
 
-{% if form.non_field_errors %} {% for error in form.non_field_errors %}
-<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
-    <p class="font-bold">Error!</p>
-    <p class="block sm:inline">{{ error }}</p>
-</div>
-{% endfor %} {% endif %} {% if form.non_field_errors %} {% for error in form.non_field_errors %}
-<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
-    <p class="font-bold">Error!</p>
-    <p class="block sm:inline">{{ error }}</p>
-</div>
-{% endfor %} {% endif %}
-<div class="bg-white px-3 py-4 rounded-xl my-6">
-
-    <h4 class="font-bold text-3xl text-left pb-5">Account NO: {{request.user.account.account_no}}</h4>
-    <h1 class="font-bold text-3xl text-center pb-5">Update Profile Information</h1>
-    <div class="w-full mt-10">
-        <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            {% csrf_token %} {% for hidden_field in form.hidden_fields %} {{ hidden_field.errors }} {{ hidden_field }}
-            {% endfor %}
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="{{ form.first_name.id_for_label }}">
-                        {{ form.first_name.label }}
-                    </label> {{ form.first_name }} {% if form.first_name.errors %}
-                    {% for error in form.first_name.errors %}
-                    <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
-                    {% endfor %} {% endif %}
-                </div>
-                <div class="w-full md:w-1/2 px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="{{ form.last_name.id_for_label }}">
-                        {{ form.last_name.label }}
-                    </label> {{ form.last_name }} {% if form.last_name.errors %}
-                    {% for error in form.last_name.errors %}
-                    <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
-                    {% endfor %} {% endif %}
-                </div>
-            </div>
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-2/2 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="{{ form.email.id_for_label }}">
-                        {{ form.email.label }}
-                    </label> {{ form.email }} {% if form.email.errors %} {% for error in form.email.errors %}
-                    <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
-                    {% endfor %} {% endif %}
-                </div>
-            </div>
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="{{ form.gender.id_for_label }}">
-                        {{ form.gender.label }}
-                    </label> {{ form.gender }} {% if form.gender.errors %} {% for error in form.gender.errors %}
-                    <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
-                    {% endfor %} {% endif %}
-                </div>
-                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="{{ form.birth_date.id_for_label }}">
-                        {{ form.birth_date.label }}
-                    </label> {{ form.birth_date }} {% if form.birth_date.errors %}
-                    {% for error in form.birth_date.errors %}
-                    <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
-                    {% endfor %} {% endif %}
-                </div>
-            </div>
-            <div class="flex flex-wrap -mx-3">
-                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="{{ form.password1.id_for_label }}">
-                        {{ form.password1.label }}
-                    </label> {{ form.password1 }} {% if form.password1.errors %}
-                    {% for error in form.password1.errors %}
-                    <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
-                    {% endfor %} {% endif %}
-                </div>
-                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="{{ form.password2.id_for_label }}">
-                        {{ form.password2.label }}
-                    </label> {{ form.password2 }} {% if form.password2.errors %}
-                    {% for error in form.password2.errors %}
-                    <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
-                    {% endfor %} {% endif %}
-                </div>
-            </div>
-
-            {% for hidden_field in form.hidden_fields %} {{ hidden_field.errors }} {{ hidden_field }} {% endfor %}
-
-            <div class="flex items-center justify-between">
-                <button
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    type="submit">
-                    Update
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
 
 
 
 
-<div class="my-10 py-3 px-4 bg-white rounded-xl shadow-md">
-    <h1 class="font-bold text-3xl text-center pb-5 pt-2">borrow Report</h1>
+
+<div class="m-10 py-3 px-4 bg-[#fef5e6] rounded-xl shadow-md">
+    <h1 class="font-bold text-3xl text-center pb-5 pt-2 text-[#615b51]">Borrowing History</h1>
     <hr />
     <table class="table-auto mx-auto w-full px-5 rounded-xl mt-8 border dark:border-neutral-500">
         <thead class="bg-purple-900 text-white text-left">
             <tr class="bg-gradient-to-tr from-[#766142] to-[#766142] rounded-md py-2 px-4 text-white font-bold">
-                <th class="px-4 py-2">Date</th>
+                <th class="px-4 py-2">Book Image</th>
                 <th class="px-4 py-2">Book Title</th>
+                <th class="px-4 py-2">Borrowing Date</th>
                 <th class="px-4 py-2">Borrow Price</th>
                 <th class="px-4 py-2">Balance After Borrow</th>
-                <th class="px-4 py-2">Return</th>
+                <th class="px-4 py-2">Return Book</th>
             </tr>
         </thead>
         <tbody>
             {% for borrow in borrows %}
             <tr class="border-b dark:border-neutral-500">
                 <td class="px-4 py-2">
-                    {{ borrow.timestamp|date:"F d, Y h:i A" }}
+                    <div class="avatar">
+                        <div class="mask mask-squircle w-12 h-12">
+                            <img src="{{borrow.book.image.url}}" alt="{{borrow.book.title}}" />
+                        </div>
+                    </div>
                 </td>
-                <td class="px-4 py-3 text-s border">
-                    <span class="px-2 py-1 font-bold leading-tight rounded-sm text-green-700 bg-green-100">
-                        {{ borrow.book.title }}
-                    </span>
+                <td class="px-4 py-2">
+
+                    {{ borrow.book.title }}
+                </td>
+                <td class="px-4 py-2">
+                    {{ borrow.created_on }}
                 </td>
                 <td class="px-4 py-2">
                     $ {{ borrow.book.price }}
                 </td>
                 <td class="px-4 py-2">
-                    $ {{ borrow.user.balance }}
+                    $ {{ borrow.balance_after_borrow }}
                 </td>
                 <td class="px-4 py-2">
-                    <button class="btn btn-warning">Return</button>
+                    <form action="{% url 'return_book' borrow.pk %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit"
+                            class="border-2 border-[#766142] text-[#766142] px-3 py-2 font-bold rounded-xl">Return
+                            Book</button>
+                    </form>
                 </td>
             </tr>
             {% endfor %}
-            <tr class="bg-gray-800 text-white">
-                <th class="px-4 py-2 text-right" colspan="4">Current Balance</th>
+            <tr class=" bg-[#615b51] text-white">
+                <th class="px-4 py-2 text-right" colspan="5">Current Balance</th>
                 <th class="px-4 py-2 text-left">
-                    $ {{ account.balance|floatformat:2|intcomma }}
+                    $ {{ user_account.balance|floatformat:2|intcomma }}
                 </th>
             </tr>
         </tbody>

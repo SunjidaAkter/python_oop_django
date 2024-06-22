@@ -52,7 +52,7 @@ class UserLogoutView(LogoutView):
             messages.success(self.request, 'You have successfully logged out')
         return HttpResponseRedirect(reverse_lazy('home'))
     
-class UserAccountUpdateView(View):
+class UserAccountUpdateView(LoginRequiredMixin,View):
     template_name = 'accounts/profile.html'
 
     def get(self, request):
@@ -62,11 +62,13 @@ class UserAccountUpdateView(View):
         except UserAccount.DoesNotExist:
             user_account = None
         borrows = Borrow.objects.filter(borrower=user_account)
-        print(user_account.gender)
+        gender=user_account.gender
+        print(gender,"checking")
         context = {
             'form': form,
             'user_account': user_account,
             'borrows': borrows,
+            'gender':gender,
         }
         return render(request, self.template_name, context)
 
@@ -74,6 +76,8 @@ class UserAccountUpdateView(View):
         form = UserUpdateForm(request.POST, instance=request.user)
         user_account = UserAccount.objects.filter(user=request.user)
         borrows = Borrow.objects.filter(borrower=request.user_account)
+        gender=user_account.gender
+        print(gender,"checking")
         if form.is_valid():
             form.save()
             messages.success(request, "Profile updated successfully.")
@@ -82,6 +86,7 @@ class UserAccountUpdateView(View):
             'form': form,
             'user_account': user_account,
             'borrows': borrows,
+            'gender':gender,
         }
         return render(request, self.template_name, context)
     
@@ -93,12 +98,12 @@ class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
         messages.success(self.request, 'Password has been changed successfully!')
         send_transaction_email_password(self.request.user, "Reset Password", "accounts/password_change_email.html")
         return super().form_valid(form)        
-def send_transaction_email(user, amount, subject, template):
+def send_transaction_email(user_account, amount, subject, template):
         message = render_to_string(template, {
-            'user' : user,
+            'user_account' : user_account,
             'amount' : amount,
         })
-        send_email = EmailMultiAlternatives(subject, '', to=[user.email])
+        send_email = EmailMultiAlternatives(subject, '', to=[user_account.user.email])
         send_email.attach_alternative(message, "text/html")
         send_email.send()
 
@@ -118,8 +123,12 @@ class TransactionCreateMixin(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) # template e context data pass kora
+        user_account = UserAccount.objects.get(user=self.request.user)
+        gender=user_account.gender
+        print(gender,"checking")
         context.update({
-            'title': self.title
+            'title': self.title,
+            'gender': gender
         })
 
         return context
@@ -135,23 +144,31 @@ class TransactionCreateMixin(LoginRequiredMixin, CreateView):
                 'balance'
             ]
         )
-
+        user_account=UserAccount.objects.get(user=self.request.user)
         messages.success(
             self.request,
             f'{"{:,.2f}".format(float(amount))}$ was deposited to your account successfully'
         )
-        # send_transaction_email(self.request.user, amount, "Deposite Message", "transactions/deposite_email.html")
+        send_transaction_email(user_account, amount, "Deposite Message", "transactions/deposit_email.html")
         return super().form_valid(form)
 
 
-class ReturnBook(DeleteView):
-    model = Borrow
-    template_name='accounts/return_book.html'
-    success_url = reverse_lazy('homepage')
-    def form_valid(self, form):
-        book_price=self.get_object().book.price
-        user_account=UserAccount.objects.filter(user=self.request.user)
-        user_account.balance=user_account.balance+book_price
+class ReturnBook(View):
+    def post(self, request, *args, **kwargs):
+        # Retrieve the object to be deleted
+        borrow = Borrow.objects.get(pk=self.kwargs['pk'])
+        
+        # Perform the book return logic
+        book_price = borrow.book.price
+        user_account = UserAccount.objects.get(user=self.request.user)
+        user_account.balance += book_price
         user_account.save()
-        messages.success(self.request,f"{self.get_object().book.title} has been returned successfully!")
-        return super().form_valid(form)
+        
+        # Add success message
+        messages.success(self.request, f"{borrow.book.title} has been returned successfully!")
+        
+        # Delete the Borrow record
+        borrow.delete()
+        
+        # Redirect to the success URL
+        return redirect('profile')

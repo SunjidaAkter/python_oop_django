@@ -30,8 +30,8 @@ class UserRegistrationForm(UserCreationForm):
             self.fields[field].widget.attrs.update({
                 
                 'class' : (
-                    'appearance-none block w-full bg-gray-200 '
-                    'text-gray-700 border border-gray-200 rounded '
+                    'appearance-none block w-full bg-white '
+                    'text-gray-700 border border-white rounded '
                     'py-3 px-4 leading-tight focus:outline-none '
                     'focus:bg-white focus:border-gray-500'
                 ) 
@@ -51,8 +51,8 @@ class UserUpdateForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({
                 'class': (
-                    'appearance-none block w-full bg-gray-200 '
-                    'text-gray-700 border border-gray-200 rounded '
+                    'appearance-none block w-full bg-white '
+                    'text-gray-700 border border-white rounded '
                     'py-3 px-4 leading-tight focus:outline-none '
                     'focus:bg-white focus:border-gray-500'
                 )

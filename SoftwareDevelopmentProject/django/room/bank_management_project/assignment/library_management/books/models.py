@@ -6,7 +6,7 @@ class Books(models.Model):
     title=models.CharField(max_length=50)
     description=models.CharField(max_length=500)
     price=models.IntegerField()
-    image=models.ImageField(upload_to='book/media/uploads/',blank=True,null=True)
+    image=models.ImageField(upload_to='books/media/uploads/',blank=True,null=True)
     categories=models.ForeignKey(Categories,on_delete=models.CASCADE)
     def __str__(self) -> str:
         return self.title
