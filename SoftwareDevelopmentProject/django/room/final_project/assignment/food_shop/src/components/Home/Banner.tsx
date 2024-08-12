@@ -11,7 +11,7 @@ const Banner = () => {
             }}
           >
             <div className="ml-[10px] px=0 text-left text-white">
-              <div className="w-1/2">
+              <div className="lg:w-1/2 md:w-1/2 w-full lg:px-0 md:px-0 px-20">
                 <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
                 <p className="mb-5">
                   Provident cupiditate voluptatem et in. Quaerat fugiat ut
@@ -48,7 +48,7 @@ const Banner = () => {
             <div className="hero-overlay bg-opacity-40"></div>
             <div className=" px=0 text-center text-white">
               {" "}
-              <div className="max-w-md">
+              <div className="lg:max-w-md md:max-w-md w-[60%]">
                 <h1 className="mb-5 text-5xl font-bold">Hello there</h1>{" "}
                 <p className="mb-5">
                   Provident cupiditate voluptatem et in. Quaerat fugiat ut

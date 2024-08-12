@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div style={} className="">
+    <div className="">
       <p>hello</p>
       <img
         className="mb-[-90px] z-10"
