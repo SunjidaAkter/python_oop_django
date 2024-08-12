@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,33 @@
 
 .read-the-docs {
   color: #888;
+  mr-5 text-[18px] font-medium hover:text-[#93051c]
+} */
+.nav-link {
+  margin-right: 30px;
+  font-size: 20px;
+  font-weight: 500;
+  color: black;
+}
+.nav-link:hover {
+  color: #93051c;
+}
+.nav-link.active {
+  margin-right: 30px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #93051c;
+}
+.try:after {
+  /* content: "\f107"; */
+  font-size: 60%;
+  font-family: "FontAwesome";
+  display: inline-block;
+  vertical-align: middle;
+  transition: all 0.4s ease-in-out 0s;
+  position: relative;
+  width: auto;
+  height: auto;
+  background: transparent;
+  bottom: 0;
 }

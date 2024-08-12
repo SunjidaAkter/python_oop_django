@@ -1,9 +1,17 @@
 // import "./App.css";
 
+import Banner from "./components/Home/Banner";
+import Footer from "./components/Home/Footer";
+import Nav from "./components/Home/Nav";
+import Upper_Nav from "./components/Home/Upper_Nav";
+
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold text-red-800">Hello world!</h1>
+      <Upper_Nav />
+      <Nav />
+      <Banner />
+      <Footer />
     </>
   );
 }
