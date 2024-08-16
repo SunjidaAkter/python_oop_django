@@ -20,8 +20,8 @@ class MenuPagination(pagination.PageNumberPagination):
     max_page_size = 100
 
 class MenuViewset(viewsets.ModelViewSet):
-    queryset = models.Doctor.objects.all()
-    serializer_class = serializers.DoctorSerializer
+    queryset = models.Menu.objects.all()
+    serializer_class = serializers.MenuSerializer
     filter_backends = [filters.SearchFilter]
     pagination_class = MenuPagination
     search_fields = [ 'category__name', 'title']
