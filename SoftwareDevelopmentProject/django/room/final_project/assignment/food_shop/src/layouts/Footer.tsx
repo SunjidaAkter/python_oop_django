@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <div
-      className="mt-5 bg-cover"
+      className=" bg-cover"
       style={{
         backgroundImage:
           "url(https://yummi-theme.myshopify.com/cdn/shop/files/footer_1.jpg?v=1623926986&width=1920)",

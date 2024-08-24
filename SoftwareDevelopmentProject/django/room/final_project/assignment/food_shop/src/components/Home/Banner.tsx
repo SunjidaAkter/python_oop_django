@@ -2,6 +2,7 @@ const Banner = () => {
   return (
     <div>
       <div className="carousel w-full">
+        {/* Slide 1 */}
         <div id="slide1" className="carousel-item relative w-full">
           <div
             className="hero min-h-screen"
@@ -10,15 +11,19 @@ const Banner = () => {
                 "url(https://yummi-theme.myshopify.com/cdn/shop/files/slide1-bg.jpg?v=1614338364)",
             }}
           >
-            <div className="ml-[10px] px=0 text-left text-white">
-              <div className="lg:w-1/2 md:w-1/2 w-full lg:px-0 md:px-0 px-20">
-                <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
-                <p className="mb-5">
-                  Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                  assumenda excepturi exercitationem quasi. In deleniti eaque
-                  aut repudiandae et a id nisi.
+            <div className="ml-4 lg:ml-20 text-left text-white">
+              <div className="lg:w-1/2 md:w-2/3 w-full px-16 lg:px-0">
+                <h1 className="mb-5 text-3xl md:text-5xl font-bold text-[#f4b618]">
+                  Welcome to Yummi
+                </h1>
+                <p className="mb-5 text-md md:text-lg">
+                  Discover the finest selection of gourmet foods, curated just
+                  for you. Indulge in a world of flavors and enjoy a dining
+                  experience like no other.
                 </p>
-                <button className="btn bg-white text-black">Get Started</button>
+                <button className="btn bg-[#f4b618] text-black">
+                  Explore Now
+                </button>
               </div>
             </div>
           </div>
@@ -37,6 +42,8 @@ const Banner = () => {
             </a>
           </div>
         </div>
+
+        {/* Slide 2 */}
         <div id="slide2" className="carousel-item relative w-full">
           <div
             className="hero min-h-screen"
@@ -46,17 +53,20 @@ const Banner = () => {
             }}
           >
             <div className="hero-overlay bg-opacity-40"></div>
-            <div className=" px=0 text-center text-white">
-              {" "}
-              <div className="lg:max-w-md md:max-w-md w-[60%]">
-                <h1 className="mb-5 text-5xl font-bold">Hello there</h1>{" "}
-                <p className="mb-5">
-                  Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                  assumenda excepturi exercitationem quasi. In deleniti eaque
-                  aut repudiandae et a id nisi.
+            <div className="text-center text-white">
+              <div className=" w-[80%] mx-auto px-8">
+                <h1 className="mb-5 text-3xl md:text-5xl font-bold text-[#f4b618]">
+                  Gourmet Delights
+                </h1>
+                <p className="mb-5 text-sm md:text-lg">
+                  Our chefs are passionate about bringing you the finest
+                  culinary creations. Enjoy a symphony of tastes with every
+                  bite.
                 </p>
-                <button className="btn bg-white text-black">Get Started</button>{" "}
-              </div>{" "}
+                <button className="btn bg-[#f4b618] text-black">
+                  Order Now
+                </button>
+              </div>
             </div>
           </div>
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
@@ -80,35 +90,3 @@ const Banner = () => {
 };
 
 export default Banner;
-{
-  /* <div id="slide3" className="carousel-item relative w-full">
-  <div
-    className="hero min-h-screen"
-    style={{
-      backgroundImage:
-        "url(https://cdn.shopify.com/s/files/1/0013/2661/2531/files/slider-1_ec47c9ab-a301-48cf-8aef-9c9b4fef2946.jpg?v=1652416846)",
-    }}
-  >
-    <div className="hero-overlay bg-opacity-40"></div>
-    <div className="ml-[10px] px=0 text-left text-white">
-      <div className="w-1/2">
-        <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
-        <p className="mb-5">
-          Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-          excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a
-          id nisi.
-        </p>
-        <button className="btn btn-primary">Get Started</button>
-      </div>
-    </div>
-  </div>
-  <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-    <a href="#slide2" className="btn btn-circle">
-      ❮
-    </a>
-    <a href="#slide1" className="btn btn-circle">
-      ❯
-    </a>
-  </div>
-</div>; */
-}

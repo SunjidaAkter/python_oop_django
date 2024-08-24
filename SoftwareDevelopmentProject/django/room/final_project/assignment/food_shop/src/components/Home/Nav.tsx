@@ -1,20 +1,74 @@
-// export default Nav;
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import userIcon from "../../assets/man.png";
 import wishlistIcon from "../../assets/heart.png";
 import shoppingIcon from "../../assets/shopping-bag.png";
-import { NavLink } from "react-router-dom";
 import "../../App.css";
+import {
+  useGetUserAccountsListQuery,
+  useSingleUserQuery,
+} from "../../redux/features/food/foodApi";
+import { IUser } from "../../types/globalType";
+import Swal from "sweetalert2";
 
 const Nav = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [userImage, setUserImage] = useState(userIcon);
+  const userToken = localStorage.getItem("token"); // Check if user is logged in
+  const userId = localStorage.getItem("user_id"); // Check if user is logged in
 
+  const {
+    data: user,
+    // isLoading: isLoadingUser,
+    // error: errorUser,
+  } = useSingleUserQuery(userId);
+  const {
+    data: userList,
+    // isLoading: isLoadingUser,
+    // error: errorUser,
+  } = useGetUserAccountsListQuery(undefined);
+  console.log(userId);
+  const filteredUser = userList?.find((SingleUser: IUser) => {
+    return SingleUser?.user === user?.username;
+  });
+  console.log(filteredUser);
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
   const closeSidebar = () => {
     setSidebarOpen(false);
+  };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+  // Set the user image if the user is logged in
+  useEffect(() => {
+    const filteredUser = userList?.find(
+      (SingleUser: IUser) => SingleUser?.user === user?.username
+    );
+    if (userId && filteredUser?.image) {
+      setUserImage(filteredUser.image);
+    }
+  }, [userList, user, userId]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+    setDropdownOpen(false);
+
+    // Show success message
+    Swal.fire({
+      title: "Logged out!",
+      text: "You have successfully logged out.",
+      icon: "success",
+      confirmButtonText: "OK",
+    });
+
+    // Reset user image to default
+    setUserImage(userIcon);
   };
 
   return (
@@ -58,62 +112,105 @@ const Nav = () => {
             </li>
             <li>
               <NavLink
-                to="/deshi"
+                to="/about"
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                Deshi
+                About
               </NavLink>
             </li>
             <li>
               <NavLink
-                to="/indian"
+                to="/gallery"
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                Indian
+                Gallery
               </NavLink>
             </li>
             <li>
               <NavLink
-                to="/italian"
+                to="/cuisines"
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                Italian
+                Cuisins
               </NavLink>
             </li>
             <li>
               <NavLink
-                to="/thai"
+                to="/menu"
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                Thai
+                Menu
               </NavLink>
             </li>
             <li>
               <NavLink
-                to="/chinese"
+                to="/discount"
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                Chinese
+                Discount
               </NavLink>
             </li>
           </ul>
         </div>
-        <div className="navbar-end flex">
-          <img
-            className="w-[30px] h-[30px] ml-5"
-            src={userIcon}
-            alt="User Icon"
-          />
+        <div className="navbar-end flex relative">
+          {/* User Icon with Dropdown */}
+          <div className="relative">
+            <img
+              className="w-[30px] h-[30px] ml-5 cursor-pointer"
+              src={userId ? userImage : userIcon}
+              alt="User Icon"
+              onClick={toggleDropdown}
+            />
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-30">
+                {userToken && userId ? (
+                  <>
+                    <NavLink
+                      to={`/profile/${filteredUser.id}`}
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Profile
+                    </NavLink>
+                    <NavLink
+                      to="/"
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </NavLink>
+                  </>
+                ) : (
+                  <>
+                    <NavLink
+                      to="/login"
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Login
+                    </NavLink>
+                    <NavLink
+                      to="/register"
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Register
+                    </NavLink>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
           <img
             className="w-[30px] h-[30px] ml-5"
             src={wishlistIcon}
@@ -146,64 +243,58 @@ const Nav = () => {
               className={({ isActive }) =>
                 isActive ? "nav-link active" : "nav-link"
               }
-              onClick={closeSidebar}
             >
               Home
             </NavLink>
           </li>
           <li>
             <NavLink
-              to="/deshi"
+              to="/about"
               className={({ isActive }) =>
                 isActive ? "nav-link active" : "nav-link"
               }
-              onClick={closeSidebar}
             >
-              Deshi
+              About
             </NavLink>
           </li>
           <li>
             <NavLink
-              to="/indian"
+              to="/gallery"
               className={({ isActive }) =>
                 isActive ? "nav-link active" : "nav-link"
               }
-              onClick={closeSidebar}
             >
-              Indian
+              Gallery
             </NavLink>
           </li>
           <li>
             <NavLink
-              to="/italian"
+              to="/cuisines"
               className={({ isActive }) =>
                 isActive ? "nav-link active" : "nav-link"
               }
-              onClick={closeSidebar}
             >
-              Italian
+              Cuisins
             </NavLink>
           </li>
           <li>
             <NavLink
-              to="/thai"
+              to="/menu"
               className={({ isActive }) =>
                 isActive ? "nav-link active" : "nav-link"
               }
-              onClick={closeSidebar}
             >
-              Thai
+              Menu
             </NavLink>
           </li>
           <li>
             <NavLink
-              to="/chinese"
+              to="/discount"
               className={({ isActive }) =>
                 isActive ? "nav-link active" : "nav-link"
               }
-              onClick={closeSidebar}
             >
-              Chinese
+              Discount
             </NavLink>
           </li>
         </ul>

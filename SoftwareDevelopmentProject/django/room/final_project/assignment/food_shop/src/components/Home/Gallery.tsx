@@ -1,4 +1,4 @@
-const Gallery = () => {
+const GalleryComponent = () => {
   return (
     <div className="w-full">
       <p className="mt-10 mb-6 text-center text-[#3a3a3a] text-[30px] font-bold">
@@ -52,4 +52,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+export default GalleryComponent;

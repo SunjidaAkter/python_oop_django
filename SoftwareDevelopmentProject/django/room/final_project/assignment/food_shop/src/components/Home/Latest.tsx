@@ -8,31 +8,28 @@ const Latest = () => {
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
         }}
-        className="px-28"
+        className="lg:px-28 md:px-16 sm:px-8 px-4"
       >
-        <div className="w-[70%] py-20 pl-28">
+        <div className="lg:w-[70%] w-full py-20 lg:pl-28 pl-4">
           <h1 className="text-white text-[32px] font-bold pb-5">
             Upgrade To The Latest Taste!
           </h1>
           <p className="text-white text-[17px] pb-4">
-            Est sit amet facilisis magna etiam tempor. Dolor sed viverra ipsum
-            nunc aliquet bibendum enim. Magnis dis parturient montes nascetur
-            ridiculus mus mauris vitae ultricies. Commodo ullamcorper a lacus
-            vestibulum sed arcu non odio euismod. Elementum nisi quis eleifend
-            quam adipiscing vitae proin sagittis nisl. Auctor augue mauris
-            gravida.
+            Discover the freshest flavors that blend tradition with innovation.
+            Our chefs have curated dishes that tantalize your taste buds and
+            elevate your dining experience to a new level.
           </p>
           <p className="text-white text-[17px] pb-4">
-            Tristique sollicitudin nibh sit amet commodo nulla facilisi nullam.
-            Sodales ut eu sem integer vitae. Nibh tortor id aliquet lectus proin
-            nibh. Sed velit dignissim sodales ut.
+            Savor every bite as we bring you a perfect harmony of taste and
+            texture, designed to leave you craving more. It's not just a meal;
+            it's a journey through culinary excellence.
           </p>
           <img
             src="https://yummi-theme.myshopify.com/cdn/shop/files/signature.png?v=1614334584&width=200"
             alt=""
           />
           <p className="text-white text-[17px] font-semibold mt-6">
-            Tanya - Reciepe
+            Tanya - Executive Chef
           </p>
         </div>
       </div>

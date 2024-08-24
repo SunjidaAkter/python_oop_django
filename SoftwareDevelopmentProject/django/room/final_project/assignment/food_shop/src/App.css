@@ -117,6 +117,56 @@
   width: 30px;
   margin: 1px;
 }
+@media (max-width: 1024px) {
+  .slick-arrow.slick-next,
+  .slick-arrow.slick-prev {
+    height: 40px;
+    width: 40px;
+    top: -45px;
+  }
+
+  .slick-arrow.slick-next {
+    left: 90%;
+  }
+
+  .slick-arrow.slick-prev {
+    left: 85%;
+  }
+}
+
+@media (max-width: 768px) {
+  .slick-arrow.slick-next,
+  .slick-arrow.slick-prev {
+    height: 35px;
+    width: 35px;
+    top: -50px;
+  }
+
+  .slick-arrow.slick-next {
+    left: 85%;
+  }
+
+  .slick-arrow.slick-prev {
+    left: 75%;
+  }
+}
+
+@media (max-width: 480px) {
+  .slick-arrow.slick-next,
+  .slick-arrow.slick-prev {
+    height: 30px;
+    width: 30px;
+    top: -35px;
+  }
+
+  .slick-arrow.slick-next {
+    left: 80%;
+  }
+
+  .slick-arrow.slick-prev {
+    left: 70%;
+  }
+}
 .card {
   --c: #900a27; /* the border color */
   --b: 2px; /* the border thickness*/
