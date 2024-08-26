@@ -42,7 +42,7 @@ const handleRegistration = (event: FormEvent<HTMLFormElement>) => {
         formData.append("image", image);
       }
 
-      fetch("http://127.0.0.1:8000/user_accounts/register/", {
+      fetch("https://food-shop-server.onrender.com/user_accounts/register/", {
         method: "POST",
         body: formData,
       })

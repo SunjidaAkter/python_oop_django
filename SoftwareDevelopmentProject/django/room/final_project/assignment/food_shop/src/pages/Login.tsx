@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     if (username && password) {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/user_accounts/login/",
+          "https://food-shop-server.onrender.com/user_accounts/login/",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -38,7 +38,7 @@ const Login: React.FC = () => {
             showConfirmButton: false,
             confirmButtonColor: "#C00A27",
           }).then(() => {
-            window.location.href = "http://localhost:3000/";
+            window.location.href = "https://steady-concha-8cc923.netlify.app";
           });
         } else {
           Swal.fire({
@@ -82,7 +82,7 @@ const Login: React.FC = () => {
             Account
           </p>
           <p className="text-[20px] text-white font-semibold text-center">
-            Home/Register
+            Home/Login
           </p>
         </div>
       </div>
@@ -109,10 +109,7 @@ const Login: React.FC = () => {
                   className="input input-bordered w-full"
                 />
               </label>
-              <div className="flex justify-between mb-5">
-                <p className="text-gray-500 text-[14px] font-semibold">
-                  Forgot Password?
-                </p>
+              <div className="flex justify-center mb-5">
                 <Link to="/register">
                   <p className="text-gray-500 text-[14px] font-semibold">
                     Don't Have An Account?

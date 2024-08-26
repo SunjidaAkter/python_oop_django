@@ -258,7 +258,7 @@ class TransferMoney(TransactionCreateMixin):
 
         messages.success(
             self.request,
-            f'{"{:,.2f}".format(float(amount))}$ was deposited to your account successfully'
+            f'{"{:,.2f}".format(float(amount))}$ has been transfered from your account successfully'
         )
         send_transaction_email(self.request.user, amount, "Money Transfer Message", "transactions/money_transfer_email.html")
         send_transaction_email(to_account.user, amount, "Money Receive Message", "transactions/money_receive_email.html")

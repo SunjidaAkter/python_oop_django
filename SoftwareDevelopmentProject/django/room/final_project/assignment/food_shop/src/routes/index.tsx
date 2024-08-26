@@ -16,6 +16,9 @@ import AdminProfile from "../components/Dashboard/AdminProfile";
 import ManageHistory from "../components/Dashboard/ManageHistory";
 import AddMenu from "../components/Dashboard/AddMenu";
 import ManageMenu from "../components/Dashboard/ManageMenu";
+import Discounted from "../pages/Discounted";
+import CartDetail from "../pages/CartDetail";
+import Wishlist from "../pages/Wishlist";
 
 const routes = createBrowserRouter([
   {
@@ -27,20 +30,32 @@ const routes = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "register",
+        path: "register/",
         element: <Register />,
+      },
+      {
+        path: "cart_detail/:id",
+        element: <CartDetail />,
       },
       {
         path: "profile/:id",
         element: <Profile />,
       },
       {
+        path: "discounted/:id",
+        element: <Discounted />,
+      },
+      {
         path: "dashboard",
         element: <Dashboard />,
       },
       {
-        path: "cart/:id",
+        path: "cart/",
         element: <Cart />,
+      },
+      {
+        path: "wishlist/",
+        element: <Wishlist />,
       },
       {
         path: "/details/:id",

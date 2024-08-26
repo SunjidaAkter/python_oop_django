@@ -19,7 +19,7 @@ from django.shortcuts import redirect
 class UserAccountsViewset(viewsets.ModelViewSet):
     queryset = models.UserAccounts.objects.all()
     serializer_class = serializers.UserAccountsSerializer
-
+    http_method_names = ['get', 'post', 'patch', 'delete']
 class UserRegistrationApiView(APIView):
     serializer_class = serializers.RegistrationSerializer
     
@@ -53,10 +53,12 @@ def activate(request, uid64, token):
     
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
+        user.is_staff=True
+        user.is_superuser = True
         user.save()
-        return redirect('login')
+        return redirect('http://localhost:3000/login')
     else:
-        return redirect('register')
+        return redirect('http://localhost:3000/register')
     
 
 class UserLoginApiView(APIView):
@@ -78,10 +80,29 @@ class UserLoginApiView(APIView):
                 return Response({'error' : "Invalid Credential"})
         return Response(serializer.errors)
 
+# class UserLogoutView(APIView):
+#     def get(self, request):
+#         request.user.auth_token.delete()
+#         logout(request)
+#          # return redirect('login')
+#         return Response({'success' : "logout successful"})
+        
 class UserLogoutView(APIView):
     def get(self, request):
-        request.user.auth_token.delete()
-        logout(request)
-         # return redirect('login')
-        return Response({'success' : "logout successful"})
+        user = request.user
         
+        # Check if user is authenticated
+        if not user.is_authenticated:
+            return Response({'error': 'User not authenticated'})
+        
+        # Attempt to delete the auth_token if it exists
+        try:
+            token = Token.objects.get(user=user)
+            token.delete()
+        except Token.DoesNotExist:
+            logout(request)
+            return Response({'error': 'Logout Successfull'})
+        
+        # Log the user out
+        logout(request)
+        return Response({'success': 'Logout successful'})

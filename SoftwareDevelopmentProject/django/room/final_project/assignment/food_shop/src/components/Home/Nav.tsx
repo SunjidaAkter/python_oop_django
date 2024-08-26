@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import userIcon from "../../assets/man.png";
 import wishlistIcon from "../../assets/heart.png";
+import searchIcon from "../../assets/loupe.png";
 import shoppingIcon from "../../assets/shopping-bag.png";
 import "../../App.css";
 import {
@@ -53,7 +54,7 @@ const Nav = () => {
       setUserImage(filteredUser.image);
     }
   }, [userList, user, userId]);
-
+  console.log(filteredUser?.role);
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
@@ -175,13 +176,24 @@ const Nav = () => {
               <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-30">
                 {userToken && userId ? (
                   <>
-                    <NavLink
-                      to={`/profile/${filteredUser.id}`}
-                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                      onClick={() => setDropdownOpen(false)}
-                    >
-                      Profile
-                    </NavLink>
+                    {filteredUser?.role === "Admin" ? (
+                      <NavLink
+                        to={`/dashboard`}
+                        className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        Dashboard
+                      </NavLink>
+                    ) : (
+                      <NavLink
+                        to={`/profile/${filteredUser.id}`}
+                        className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        Profile
+                      </NavLink>
+                    )}
+
                     <NavLink
                       to="/"
                       className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
@@ -211,16 +223,27 @@ const Nav = () => {
               </div>
             )}
           </div>
-          <img
-            className="w-[30px] h-[30px] ml-5"
-            src={wishlistIcon}
-            alt="Wishlist Icon"
-          />
-          <img
-            className="w-[30px] h-[30px] ml-5"
-            src={shoppingIcon}
-            alt="Shopping Bag Icon"
-          />
+          <Link to="wishlist/">
+            <img
+              className="w-[30px] h-[30px] ml-5"
+              src={wishlistIcon}
+              alt="Wishlist Icon"
+            />
+          </Link>
+          <Link to="cart/">
+            <img
+              className="w-[30px] h-[30px] ml-5"
+              src={shoppingIcon}
+              alt="Shopping Bag Icon"
+            />
+          </Link>
+          <Link to="menu/">
+            <img
+              className="w-[30px] h-[30px] ml-5"
+              src={searchIcon}
+              alt="Shopping Bag Icon"
+            />
+          </Link>
         </div>
       </div>
 

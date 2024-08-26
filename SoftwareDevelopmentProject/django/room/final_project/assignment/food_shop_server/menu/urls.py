@@ -5,6 +5,7 @@ router = DefaultRouter()
 
 router.register('list', views.MenuViewset)
 router.register('category', views.CategoryViewset)
+router.register('cuisine', views.CuisineViewset)
 router.register('reviews', views.ReviewViewset)
 
 urlpatterns = [

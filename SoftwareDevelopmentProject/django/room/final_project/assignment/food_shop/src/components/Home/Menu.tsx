@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
 import { useGetMenuListQuery } from "../../redux/features/food/foodApi";
 import { IFood } from "../../types/globalType";
 
 const MenuComponent = () => {
   const { data, isLoading, error } = useGetMenuListQuery(undefined);
+  const filteredMenu = data?.filter((menu: IFood) => menu?.discount > 0);
 
   // Categorize rendering logic
   const categorise = () => {
@@ -16,7 +18,7 @@ const MenuComponent = () => {
       return (
         <div className="my-[200px]">
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong😓!
+            Something Went Wrong!!
           </p>
         </div>
       );
@@ -25,7 +27,7 @@ const MenuComponent = () => {
         <>
           <div className="my-[200px]">
             <p className="text-red-500 text-lg text-center font-extrabold">
-              No Menu Item Is Available In This Category😓!
+              No Menu Item Is Available In This Category!!
             </p>
           </div>
         </>
@@ -33,28 +35,34 @@ const MenuComponent = () => {
     } else {
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-4 sm:px-16 md:px-28">
-          {data?.map((menu: IFood) => (
-            <div
-              key={menu?.id}
-              className="grid grid-cols-[auto_1fr] gap-3 sm:gap-5"
-            >
-              <img className="mr-3 w-[100px]" src={menu?.image} alt="" />
-              <div>
-                <div className="flex justify-between items-center">
-                  <p className="text-[#C00A27] text-[18px] sm:text-[20px] font-bold">
-                    {menu?.title}
-                  </p>
-                  <p className="text-[18px] sm:text-[20px] font-bold text-[#ef2222]">
-                    {menu?.discount}% OFF
+          {filteredMenu?.map((menu: IFood) => (
+            <Link key={menu?.id} to={`discounted/${menu?.id}`}>
+              <div className="grid grid-cols-[auto_1fr] gap-3 sm:gap-5">
+                <img
+                  className="mr-3 w-[100px]"
+                  src={
+                    menu?.image ||
+                    "https://i.pinimg.com/originals/2e/ce/ce/2ececec5431d0a1b7eae4e1acac7c59f.gif"
+                  }
+                  alt=""
+                />
+                <div>
+                  <div className="flex justify-between items-center">
+                    <p className="text-[#C00A27] text-[18px] sm:text-[20px] font-bold">
+                      {menu?.title || "Loading..."}
+                    </p>
+                    <p className="text-[18px] sm:text-[20px] font-bold text-[#ef2222]">
+                      {menu?.discount || "Loading..."}% OFF
+                    </p>
+                  </div>
+                  <div className="border-t-2 border-dotted border-t-[#3a3a3a] my-2"></div>
+                  <p className="text-sm sm:text-base">
+                    {menu?.description.split(" ").slice(0, 10).join(" ") +
+                      (menu?.description.split(" ").length > 10 ? "..." : "")}
                   </p>
                 </div>
-                <div className="border-t-2 border-dotted border-t-[#3a3a3a] my-2"></div>
-                <p className="text-sm sm:text-base">
-                  {menu?.description.split(" ").slice(0, 10).join(" ") +
-                    (menu?.description.split(" ").length > 10 ? "..." : "")}
-                </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       );

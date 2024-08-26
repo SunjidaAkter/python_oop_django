@@ -5,17 +5,19 @@ from . import models
 from borrow.models import Borrow
 from user_account.models import UserAccount
 from django.views.generic import DetailView
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 
-@method_decorator(login_required, name='dispatch')
 class DetailsBookView(DetailView):
     model = models.Books
     template_name = 'book_detail.html'
-    
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()  # Retrieve the book object
         review_form = forms.ReviewForm(data=self.request.POST)
+        
+        if not request.user.is_authenticated:
+            messages.error(self.request, "You need to be logged in to leave a review.")
+            return redirect('login')
+
         user_account = get_object_or_404(UserAccount, user=self.request.user)
         borrow = Borrow.objects.filter(borrower=user_account, book=self.object).exists()
 
@@ -38,14 +40,19 @@ class DetailsBookView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         books = self.object
-        user_account = get_object_or_404(UserAccount, user=self.request.user)
-        has_borrow = Borrow.objects.filter(borrower=user_account, book=books).exists()
+
+        if self.request.user.is_authenticated:
+            user_account = get_object_or_404(UserAccount, user=self.request.user)
+            has_borrow = Borrow.objects.filter(borrower=user_account, book=books).exists()
+            gender = user_account.gender
+            context['gender'] = gender
+            context['has_borrow'] = has_borrow
+        else:
+            context['gender'] = None
+            context['has_borrow'] = False
+
         reviews = books.reviews.all()
         review_form = forms.ReviewForm()
-        gender=user_account.gender
-        print(gender,"checking")
-        context['gender'] = gender
         context['reviews'] = reviews
         context['review_form'] = review_form
-        context['has_borrow'] = has_borrow
         return context

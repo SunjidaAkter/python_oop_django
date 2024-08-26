@@ -114,12 +114,19 @@ const Category: React.FC = () => {
   const handleCategoryClick = (category: number) => {
     setSelectedCategory(category);
   };
-
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value.toLowerCase());
+  };
   // Filter the menu based on the selected category
-  const filteredMenu =
-    selectedCategory === 0
-      ? data
-      : data?.filter((menu: IFood) => menu.category === selectedCategory);
+  const filteredMenu = data?.filter((menu: IFood) => {
+    const matchesCategory =
+      selectedCategory === 0 || menu.category === selectedCategory;
+    const matchesSearch = menu.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   // Categorize rendering logic
   const categorise = () => {
@@ -133,7 +140,7 @@ const Category: React.FC = () => {
       return (
         <div className="my-[200px]">
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong😓!
+            Something Went Wrong!!
           </p>
         </div>
       );
@@ -142,7 +149,7 @@ const Category: React.FC = () => {
         <>
           <div className="my-[200px]">
             <p className="text-red-500 text-lg text-center font-extrabold">
-              No Menu Item Is Available In This Category😓!
+              No Menu Item Is Available In This Category!!
             </p>
           </div>
         </>
@@ -213,15 +220,33 @@ const Category: React.FC = () => {
   return (
     <div className="relative">
       <p className="mt-10 mb-6 text-center text-[#3a3a3a] text-[30px] font-bold">
-        Our Products
+        Our Menu
       </p>
 
-      <div className="flex justify-center ">
-        <p className="text-center font-semibold mb-24 w-[50%]">
-          Quam pellentesque nec nam aliquam sem et tortor consequat. Ut placerat
-          orci nulla pellentesque dignissim enim sit amet venenatis.
-        </p>
+      <div className="w-[50%] mx-auto mb-40">
+        <label className="input input-bordered flex items-center gap-2">
+          <input
+            type="text"
+            className="grow"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            className="h-4 w-4 opacity-70"
+          >
+            <path
+              fillRule="evenodd"
+              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </label>
       </div>
+
       <div className="flex justify-start w-[85%] mx-auto">
         {[0, 1, 2, 3].map((category) => (
           <p

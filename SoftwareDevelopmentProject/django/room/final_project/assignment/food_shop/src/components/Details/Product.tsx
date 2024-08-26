@@ -3,14 +3,18 @@ import StarRatings from "react-star-ratings";
 import Swal from "sweetalert2";
 import {
   useGetCartQuery,
+  useGetCuisineQuery,
   useGetOrderQuery,
   useGetUserAccountsListQuery,
+  useGetWishlistQuery,
   usePostCartMutation,
   usePostOrderMutation,
+  usePostWishlistMutation,
   useSingleMenuQuery,
   useSingleUserQuery,
   useUpdateCartMutation,
   useUpdateOrderMutation,
+  useUpdateWishlistMutation,
 } from "../../redux/features/food/foodApi";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import {
@@ -22,10 +26,11 @@ import { ICuisine, IOrder, IUser } from "../../types/globalType";
 const Product = () => {
   const [postCart, { isError: isErrorCart, isLoading: isLoadingCart }] =
     usePostCartMutation();
-  const [postOrder, { isError: isErrorOrder, isLoading: isLoadingOrder }] =
-    usePostOrderMutation();
+  const [postWishlist] = usePostWishlistMutation();
+  const [postOrder] = usePostOrderMutation();
   const [updateOrder] = useUpdateOrderMutation();
   const [updateCart] = useUpdateCartMutation();
+  const [updateWishlist] = useUpdateWishlistMutation();
   const { currentPage, currentCost } = useAppSelector((state) => state.food);
   const { id } = useParams();
   const userID = localStorage.getItem("user_id");
@@ -45,12 +50,23 @@ const Product = () => {
   });
   const { data: orders } = useGetOrderQuery(filteredUser?.id); // Fetch existing orders
   const { data: cart } = useGetCartQuery(filteredUser?.id); // Fetch existing orders
+  const { data: wishlist } = useGetWishlistQuery(filteredUser?.id); // Fetch existing orders
   const {
     data: menu,
     isLoading: isLoadingMenu,
     error: errorMenu,
   } = useSingleMenuQuery(id);
-
+  let totalOrderCosts: number = 0;
+  const notPaid = orders?.filter((order: IOrder) => order?.is_paid === false);
+  if (notPaid?.length > 0) {
+    notPaid?.map((order: IOrder) => (totalOrderCosts += order?.cost));
+  }
+  let totalCartCosts: number = 0;
+  if (cart?.length > 0) {
+    cart?.map((crt: IOrder) => (totalCartCosts += crt?.cost));
+  }
+  const totalCost = totalCartCosts + totalOrderCosts;
+  console.log(filteredUser?.amount >= currentCost + totalCost);
   const dispatch = useAppDispatch();
 
   const handlePreviousPage = () => {
@@ -60,7 +76,7 @@ const Product = () => {
   };
 
   const handleNextPage = () => {
-    if (filteredUser?.amount >= currentCost) {
+    if (filteredUser?.amount >= totalCost + currentCost) {
       dispatch(setCurrentPageForNext(menu?.price));
     }
   };
@@ -100,26 +116,16 @@ const Product = () => {
         postOrder(options);
       }
 
-      if (isErrorOrder && !isLoadingOrder) {
-        Swal.fire({
-          icon: "error",
-          title: "Order Failed!",
-          text: "There was an issue placing your order. Please try again.",
-        });
-      } else if (isLoadingOrder) {
-        console.log("loading order");
-      } else if (!isErrorOrder && !isLoadingOrder) {
-        Swal.fire({
-          icon: "success",
-          title: "Order Placed!",
-          text: "Your order has been successfully placed.",
-        });
-      }
+      Swal.fire({
+        icon: "success",
+        title: "Order Placed!",
+        text: "Your order has been successfully placed.",
+      });
     } else if (!userId && !userToken) {
       Swal.fire({
         icon: "error",
         title: "Order Failed!",
-        text: "There was an issue placing your order. Please try again.",
+        text: "You are not logged in. Please try again.",
       });
     }
   };
@@ -168,12 +174,56 @@ const Product = () => {
     } else if (!userId && !userToken) {
       Swal.fire({
         icon: "error",
-        title: "Cart Failed!",
-        text: "There was an issue placing your order. Please try again.",
+        title: "Cart Adding Failed!",
+        text: "You are not logged in. Please try again.",
       });
     }
   };
+  const handleWishlist = async () => {
+    if (userToken && userId && menu) {
+      const existingWishlist = wishlist?.find(
+        (crt: IOrder) => crt.customer === userId && crt.menu === menu.id
+      );
+      console.log(existingWishlist);
+      if (existingWishlist) {
+        // If the order exists, update the quantity
+        const updatedWishlist = {
+          id: existingWishlist?.id,
+          data: {
+            quantity: existingWishlist.quantity + currentPage,
+            cost: existingWishlist.cost + currentCost,
+          },
+        };
 
+        updateWishlist(updatedWishlist);
+      } else {
+        // If the Cart does not exist, create a new Cart
+        console.log("object", menu.id);
+        const options = {
+          customer: parseInt(userId),
+          menu: menu?.id,
+          quantity: currentPage,
+          cost: currentCost,
+        };
+        console.log(options, menu.id);
+
+        postWishlist(options);
+      }
+
+      Swal.fire({
+        icon: "success",
+        title: "Wishlist Placed!",
+        text: "Your order has been successfully placed.",
+      });
+    } else if (!userId && !userToken) {
+      Swal.fire({
+        icon: "error",
+        title: "Wishlist Failed!",
+        text: "You are not logged in. Please try again.",
+      });
+    }
+  };
+  const { data: cuisineData } = useGetCuisineQuery(undefined);
   if (isLoadingMenu) {
     return (
       <div className="h-screen flex justify-center items-center">
@@ -184,7 +234,7 @@ const Product = () => {
     return (
       <div className="my-[200px]">
         <p className="text-red-500 text-lg text-center font-extrabold">
-          Something Went Wrong😓!
+          Something Went Wrong!!
         </p>
       </div>
     );
@@ -247,16 +297,21 @@ const Product = () => {
                     {currentCost}
                   </p>
                   <div className="mb-5">
-                    {menu?.cuisine.map((csn: ICuisine) => {
-                      return (
-                        <p
-                          key={csn?.id}
-                          className="inline mr-2 text-[18px] border-2 border-[#686464] rounded-sm px-3 font-semibold text-[#686464] mb-5"
-                        >
-                          {csn?.name}
-                        </p>
-                      );
-                    })}
+                    {cuisineData
+                      ?.filter((csns: ICuisine) =>
+                        menu?.cuisine.includes(csns?.id)
+                      )
+                      .map((csn: ICuisine) => {
+                        return (
+                          <p
+                            key={csn?.id}
+                            className="inline mr-2 text-[18px] border-2 border-[#686464] rounded-sm px-3 font-semibold text-[#686464] mb-5"
+                          >
+                            {csn?.name || "Loading..."}
+                          </p>
+                        );
+                      })}
+                    ;
                     {/* <p className="inline mr-2 text-[18px] border-2 border-[#686464] rounded-sm px-3 font-semibold text-[#686464] mb-5">
                       Deshi
                     </p>
@@ -266,7 +321,11 @@ const Product = () => {
                   </div>
                   <div className="mb-5">
                     <p className="inline text-[18px] border-2 border-[#686464] rounded-sm px-3 font-semibold text-[#686464] mb-5">
-                      {menu?.category?.name}
+                      {menu?.category === 1
+                        ? "Breakfast"
+                        : menu?.category === 2
+                        ? "Lunch"
+                        : "Dinner"}
                     </p>
                   </div>
                   <div className="flex justify-start">
@@ -290,7 +349,7 @@ const Product = () => {
                     <div
                       onClick={handleNextPage}
                       className={
-                        filteredUser?.amount >= currentCost
+                        filteredUser?.amount >= currentCost + totalCost
                           ? "border-2 hover:border border-[#686464] rounded-none w-10 h-10 flex justify-center items-center font-bold hover:bg-[#C00A27] hover:text-white text-[#686464]"
                           : "border-2 hover:border border-[#686464] bg-[#715257] text-white rounded-none w-10 h-10 flex justify-center items-center font-extrabold hover:bg-[#715257] hover:text-white "
                       }
@@ -301,36 +360,51 @@ const Product = () => {
                 </div>
               </div>
               <div className="flex justify-between mb-5">
-                <p className="w-[48%] bg-[#C00A27] text-white px-5 py-2 rounded-sm text-center">
+                <p
+                  onClick={handleWishlist}
+                  className="w-[48%] bg-[#C00A27] text-white px-5 py-2 rounded-sm text-center"
+                >
                   Add to Wishlist
                 </p>
                 <p
                   onClick={
-                    filteredUser?.amount >= currentCost ? handleCart : undefined
+                    filteredUser?.amount >= currentCost + totalCost
+                      ? currentPage > 0
+                        ? handleCart
+                        : undefined
+                      : undefined
                   }
                   className={
-                    filteredUser?.amount >= currentCost && currentPage > 0
+                    filteredUser?.amount >= currentCost + totalCost &&
+                    currentPage > 0
                       ? "w-[48%] bg-[#C00A27] text-white px-5 py-2 rounded-sm text-center"
                       : "w-[48%] bg-[#715257] text-white px-5 py-2 rounded-sm text-center"
                   }
                 >
-                  Add to Cart
+                  {filteredUser?.amount >= currentCost + totalCost
+                    ? currentPage > 0
+                      ? "Add to Cart"
+                      : "Add Quantity"
+                    : "Insufficient Account Balance"}
                 </p>
               </div>
               <div className="flex justify-center">
                 <p
                   onClick={
-                    filteredUser?.amount >= currentCost
-                      ? handleOrder
+                    filteredUser?.amount >= currentCost + totalCost
+                      ? currentPage > 0
+                        ? handleOrder
+                        : undefined
                       : undefined
                   }
                   className={
-                    filteredUser?.amount >= currentCost && currentPage > 0
+                    filteredUser?.amount >= currentCost + totalCost &&
+                    currentPage > 0
                       ? "w-full bg-[#C00A27] text-white px-5 py-2 rounded-sm text-center"
                       : "w-full bg-[#715257] text-white px-5 py-2 rounded-sm text-center"
                   }
                 >
-                  {filteredUser?.amount >= currentCost
+                  {filteredUser?.amount >= currentCost + totalCost
                     ? currentPage > 0
                       ? "Order"
                       : "Add Quantity"

@@ -36,7 +36,7 @@ const Reviews = () => {
       return (
         <div className="my-[200px]">
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong😓!
+            Something Went Wrong!!
           </p>
         </div>
       );

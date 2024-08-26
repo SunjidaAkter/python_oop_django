@@ -3,7 +3,7 @@ from django.contrib import messages
 from . import forms
 from . import models
 from django.urls import reverse_lazy
-from django.views.generic import CreateView,UpdateView,DeleteView,DetailView
+from django.views.generic import DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 # Create your views here.

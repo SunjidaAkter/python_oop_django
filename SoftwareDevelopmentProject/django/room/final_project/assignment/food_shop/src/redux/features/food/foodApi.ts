@@ -9,6 +9,7 @@ const bookApi = api.injectEndpoints({
     getMenuList: builder.query({
       query: () => ({
         url: "/menu/list",
+        provideTags: ["menu"],
       }),
     }),
     getCategory: builder.query({
@@ -25,6 +26,9 @@ const bookApi = api.injectEndpoints({
     }),
     getCartList: builder.query({
       query: () => "/cart",
+    }),
+    getWishlistList: builder.query({
+      query: () => "/wishlist",
     }),
     getOrderList: builder.query({
       query: () => "/orders",
@@ -55,6 +59,10 @@ const bookApi = api.injectEndpoints({
     getCart: builder.query({
       query: (id) => `/cart/?customer_id=${id}`,
       providesTags: ["cart"],
+    }),
+    getWishlist: builder.query({
+      query: (id) => `/wishlist/?customer_id=${id}`,
+      providesTags: ["wishlist"],
     }),
     singleMenu: builder.query({
       query: (id) => `/menu/list/${id}`,
@@ -92,6 +100,14 @@ const bookApi = api.injectEndpoints({
       }),
       invalidatesTags: ["cart"],
     }),
+    updateWishlist: builder.mutation({
+      query: (options) => ({
+        url: `/wishlist/${options?.id}/`,
+        method: "PATCH",
+        body: options?.data,
+      }),
+      invalidatesTags: ["wishlist"],
+    }),
     postOrder: builder.mutation({
       query: (data) => ({
         url: "/orders/",
@@ -116,19 +132,41 @@ const bookApi = api.injectEndpoints({
       }),
       invalidatesTags: ["cart"],
     }),
+    postWishlist: builder.mutation({
+      query: (data) => ({
+        url: `/wishlist/`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["wishlist"],
+    }),
     deleteCart: builder.mutation({
       query: (id) => ({
-        url: `/cart/${id}`,
+        url: `/cart/${id}/`,
         method: "DELETE",
       }),
       invalidatesTags: ["cart"],
     }),
+    deleteWishlist: builder.mutation({
+      query: (id) => ({
+        url: `/wishlist/${id}/`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["wishlist"],
+    }),
     deleteMenu: builder.mutation({
       query: (id) => ({
-        url: `/menu/list/${id}`,
+        url: `/menu/list/${id}/`,
         method: "DELETE",
       }),
       invalidatesTags: ["menu"],
+    }),
+    deleteOrder: builder.mutation({
+      query: (id) => ({
+        url: `/orders/${id}/`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["orders"],
     }),
     // postRead: builder.mutation({
     //   query: ({ id, data }) => ({
@@ -168,13 +206,16 @@ export const {
   useUpdateAccountMutation,
   useUpdateOrderMutation,
   useUpdateCartMutation,
+  useUpdateWishlistMutation,
   usePostCartMutation,
+  usePostWishlistMutation,
   usePostReviewMutation,
   usePostOrderMutation,
   useSingleMenuQuery,
   useSingleUserQuery,
   useSingleUserAccountQuery,
   useGetCartQuery,
+  useGetWishlistQuery,
   useGetReviewsQuery,
   useGetOrderQuery,
   useGetMenuQuery,
@@ -182,11 +223,14 @@ export const {
   useGetOrderListQuery,
   useGetUserAccountsListQuery,
   useGetCartListQuery,
+  useGetWishlistListQuery,
   useGetMenuListQuery,
   useGetCategoryQuery,
   useGetCuisineQuery,
   useDeleteCartMutation,
+  useDeleteWishlistMutation,
   useDeleteMenuMutation,
+  useDeleteOrderMutation,
   //   usePostReadMutation,
   //   usePostStatusMutation,
   //   useUpdateStatusMutation,

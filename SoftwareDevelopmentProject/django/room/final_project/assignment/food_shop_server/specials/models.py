@@ -1,14 +1,17 @@
+# models.py
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models import Avg
+import math
 
-# Create your models here.
-from django.db import models
-from menu.models import Menu
-# Create your models here.
 
 class Specials(models.Model):
-    menu = models.ForeignKey(Menu, on_delete = models.CASCADE)
-    discount = models.IntegerField()
+    title = models.CharField(max_length=50, blank=True,null=True)
+    description = models.CharField(max_length=500, blank=True,null=True)
+    image = models.ImageField(upload_to="specials/images/", blank=True,null=True)
+    discount = models.IntegerField(default=0)
     
     def __str__(self):
-        return f"Item : {self.menu.title}"
+        return self.title
+
     

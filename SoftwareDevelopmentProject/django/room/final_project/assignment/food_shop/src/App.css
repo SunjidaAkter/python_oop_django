@@ -143,11 +143,11 @@
   }
 
   .slick-arrow.slick-next {
-    left: 85%;
+    left: 95%;
   }
 
   .slick-arrow.slick-prev {
-    left: 75%;
+    left: 85%;
   }
 }
 
@@ -156,15 +156,15 @@
   .slick-arrow.slick-prev {
     height: 30px;
     width: 30px;
-    top: -35px;
+    top: -45px;
   }
 
   .slick-arrow.slick-next {
-    left: 80%;
+    left: 90%;
   }
 
   .slick-arrow.slick-prev {
-    left: 70%;
+    left: 80%;
   }
 }
 .card {

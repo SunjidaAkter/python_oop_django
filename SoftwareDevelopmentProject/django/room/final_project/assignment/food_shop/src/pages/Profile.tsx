@@ -23,8 +23,8 @@ const Profile = () => {
   console.log(menuList);
   const {
     data: userData,
-    // isLoading: userLoading,
-    // error: userError,
+    isLoading: userLoading,
+    error: userError,
   } = useSingleUserAccountQuery(id);
   const { data: usersData } = useGetUserListQuery(undefined);
 
@@ -32,15 +32,23 @@ const Profile = () => {
     return SingleUser?.username === userData?.user;
   });
 
-  const handlePayment = (id: number) => {
+  const handlePayment = (orderId: number, orderCost: number) => {
     const updatedOrder = {
-      id: id,
+      id: orderId,
       data: {
         is_paid: true,
       },
     };
 
     updateOrder(updatedOrder);
+    const updatedAccount = {
+      id: id,
+      data: {
+        amount: userData?.amount - orderCost,
+      },
+    };
+
+    updateAccount(updatedAccount);
     Swal.fire({
       title: "Payment Successful!",
       icon: "success",
@@ -53,6 +61,20 @@ const Profile = () => {
     isLoading: orderLoading,
     error: orderError,
   } = useGetOrderQuery(id);
+  let totalOrderCost: number = 0;
+  const notPaid = orderData?.filter((ord: IOrder) => {
+    return ord?.is_paid === false;
+  });
+  console.log(notPaid);
+  if (notPaid) {
+    notPaid?.map((order: IOrder) => {
+      totalOrderCost += order?.cost;
+    });
+    console.log(totalOrderCost);
+  } else {
+    totalOrderCost = 0;
+  }
+
   const categorise = () => {
     if (orderLoading) {
       return (
@@ -64,7 +86,7 @@ const Profile = () => {
       return (
         <div className="my-[200px]">
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong😓!
+            Something Went Wrong!!
           </p>
         </div>
       );
@@ -72,7 +94,7 @@ const Profile = () => {
       return (
         <div className="my-[200px]">
           <p className="text-red-500 text-lg text-center font-extrabold">
-            No Reviews Available!
+            No Order History Available!
           </p>
         </div>
       );
@@ -103,7 +125,8 @@ const Profile = () => {
                               src={
                                 menuList?.find(
                                   (men: IFood) => men.id === order.menu
-                                )?.image
+                                )?.image ||
+                                "https://i.pinimg.com/originals/2e/ce/ce/2ececec5431d0a1b7eae4e1acac7c59f.gif"
                               }
                               alt="Avatar Tailwind CSS Component"
                             />
@@ -142,7 +165,8 @@ const Profile = () => {
                         } py-2`}
                         disabled={order?.is_paid}
                         onClick={() =>
-                          !order?.is_paid && handlePayment(order?.id)
+                          !order?.is_paid &&
+                          handlePayment(order?.id, order?.cost)
                         }
                       >
                         {order.is_paid ? "Paid" : "Pay"}
@@ -150,8 +174,96 @@ const Profile = () => {
                     </th>
                   </tr>
                 ))}
+                <tr className="text-[23px]">
+                  <th colSpan={5} className="text-right">
+                    Total Cost from Order:
+                  </th>
+                  <th>${totalOrderCost}</th>
+                </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      );
+    }
+  };
+  const categorise1 = () => {
+    if (userLoading) {
+      return (
+        <div className="h-screen flex justify-center items-center">
+          <span className="loading loading-ring loading-lg"></span>
+        </div>
+      );
+    } else if (userError) {
+      return (
+        <div className="my-[200px]">
+          <p className="text-red-500 text-lg text-center font-extrabold">
+            Something Went Wrong!!
+          </p>
+        </div>
+      );
+    } else if (!userLoading && userData?.length === 0) {
+      return (
+        <div className="my-[200px]">
+          <p className="text-red-500 text-lg text-center font-extrabold">
+            No Profile Info Available!
+          </p>
+        </div>
+      );
+    } else {
+      return (
+        <div className="pt-4 w-full flex flex-col md:flex-row justify-between items-center">
+          <div>
+            <img
+              src={userData?.image}
+              alt="Profile Picture"
+              className="border-[2px] border-[#900A27] w-[150px] h-[150px] sm:w-[155px] sm:h-[155px] object-cover rounded-full mb-5 md:mb-0"
+            />
+            <p className="text-center text-[#5f5f5f] text-[20px] lg:text-[30px] mt-2 font-bold">
+              {userData?.user}
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center justify-between">
+            <p className="text-center text-[#363636] text-[40px] lg:text-[50px] mt-2 font-extrabold">
+              ${userData?.amount}
+            </p>
+
+            <div
+              onClick={() => handleTransaction("deposit")}
+              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#900A27] text-center cursor-pointer"
+            >
+              Deposit
+            </div>
+
+            <div
+              onClick={() => handleTransaction("withdraw")}
+              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#900A27] text-center cursor-pointer"
+            >
+              Withdraw
+            </div>
+          </div>
+
+          <div className="text-center md:text-left">
+            <p className="text-[18px] sm:text-[20px] text-black my-2">
+              <span className="font-semibold">User Name:</span> {userData?.user}
+            </p>
+            <p className="text-[18px] sm:text-[20px] text-black my-2">
+              <span className="font-semibold">Full Name:</span>{" "}
+              {filteredUser?.first_name} {filteredUser?.last_name}
+            </p>
+            <p className="text-[18px] sm:text-[20px] text-black my-2">
+              <span className="font-semibold">Email:</span>{" "}
+              {filteredUser?.email}
+            </p>
+            <p className="text-[18px] sm:text-[20px] text-black my-2">
+              <span className="font-semibold">Mobile No:</span>{" "}
+              {userData?.mobile_no}
+            </p>
+            <p className="text-[18px] sm:text-[20px] text-black my-2">
+              <span className="font-semibold">Address:</span>{" "}
+              {userData?.address}
+            </p>
           </div>
         </div>
       );
@@ -222,10 +334,10 @@ const Profile = () => {
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content py-10 flex-col">
           <p className="text-[36px] font-bold text-white text-center">
-            Account
+            Profile
           </p>
           <p className="text-[20px] text-white font-semibold text-center">
-            Home/Register
+            Home/Profile
           </p>
         </div>
       </div>
@@ -233,61 +345,7 @@ const Profile = () => {
       <div className="relative bg-[url(https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920)] bg-no-repeat bg-cover">
         <div className="w-[90%] md:w-[80%] lg:w-[80%] xl:w-[80%] mx-auto rounded-md shadow-2xl flex-col justify-center items-center py-4 px-5 sm:px-10 bg-white">
           <div className="mb-10 xl:w-[80%] lg:w-[80%] w-full mx-auto flex-col items-center justify-center">
-            <div className="pt-4 w-full flex flex-col md:flex-row justify-between items-center">
-              <div>
-                <img
-                  src={userData?.image}
-                  alt="Profile Picture"
-                  className="border-[2px] border-[#900A27] w-[150px] h-[150px] sm:w-[155px] sm:h-[155px] object-cover rounded-full mb-5 md:mb-0"
-                />
-                <p className="text-center text-[#5f5f5f] text-[20px] lg:text-[30px] mt-2 font-bold">
-                  {userData?.user}
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center justify-between">
-                <p className="text-center text-[#363636] text-[40px] lg:text-[50px] mt-2 font-extrabold">
-                  ${userData?.amount}
-                </p>
-
-                <div
-                  onClick={() => handleTransaction("deposit")}
-                  className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#900A27] text-center cursor-pointer"
-                >
-                  Deposit
-                </div>
-
-                <div
-                  onClick={() => handleTransaction("withdraw")}
-                  className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#900A27] text-center cursor-pointer"
-                >
-                  Withdraw
-                </div>
-              </div>
-
-              <div className="text-center md:text-left">
-                <p className="text-[18px] sm:text-[20px] text-black my-2">
-                  <span className="font-semibold">User Name:</span>{" "}
-                  {userData?.user}
-                </p>
-                <p className="text-[18px] sm:text-[20px] text-black my-2">
-                  <span className="font-semibold">Full Name:</span>{" "}
-                  {filteredUser?.first_name} {filteredUser?.last_name}
-                </p>
-                <p className="text-[18px] sm:text-[20px] text-black my-2">
-                  <span className="font-semibold">Email:</span>{" "}
-                  {filteredUser?.email}
-                </p>
-                <p className="text-[18px] sm:text-[20px] text-black my-2">
-                  <span className="font-semibold">Mobile No:</span>{" "}
-                  {userData?.mobile_no}
-                </p>
-                <p className="text-[18px] sm:text-[20px] text-black my-2">
-                  <span className="font-semibold">Address:</span>{" "}
-                  {userData?.address}
-                </p>
-              </div>
-            </div>
+            {categorise1()}
             <div className="w-full flex flex-col md:flex-row justify-between items-center"></div>
           </div>
           <div className="divider" />

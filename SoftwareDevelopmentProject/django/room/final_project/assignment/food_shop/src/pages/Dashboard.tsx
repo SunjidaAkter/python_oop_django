@@ -28,8 +28,11 @@ const Dashboard = () => {
           <Outlet />
           <label
             htmlFor="my-drawer-2"
-            className="btn btn-primary drawer-button lg:hidden"
-          ></label>
+            className="font-bold drawer-button lg:hidden"
+          >
+            {" "}
+            DashBoard Manubar
+          </label>
         </div>
         <div className="drawer-side">
           <label

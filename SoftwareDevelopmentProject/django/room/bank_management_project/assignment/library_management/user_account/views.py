@@ -147,7 +147,7 @@ class TransactionCreateMixin(LoginRequiredMixin, CreateView):
         user_account=UserAccount.objects.get(user=self.request.user)
         messages.success(
             self.request,
-            f'{"{:,.2f}".format(float(amount))}$ was deposited to your account successfully'
+            f'{"{:,.2f}".format(float(amount))}$ was deposited to your account successfully! Email Has Been Sent!'
         )
         send_transaction_email(user_account, amount, "Deposite Message", "transactions/deposit_email.html")
         return super().form_valid(form)

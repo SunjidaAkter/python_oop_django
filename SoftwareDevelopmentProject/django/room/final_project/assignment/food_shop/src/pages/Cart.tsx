@@ -1,10 +1,12 @@
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   useDeleteCartMutation,
   useGetCartQuery,
   useGetMenuListQuery,
+  useGetUserAccountsListQuery,
+  useSingleUserQuery,
 } from "../redux/features/food/foodApi";
-import { ICart, IFood, IOrder } from "../types/globalType";
+import { ICart, IFood, IOrder, IUser } from "../types/globalType";
 import Swal from "sweetalert2";
 
 const Cart = () => {
@@ -15,7 +17,24 @@ const Cart = () => {
   } = useGetMenuListQuery(undefined);
   console.log(menuList);
 
-  const { id } = useParams();
+  const userId = localStorage.getItem("user_id"); // Check if user is logged in
+
+  const {
+    data: user,
+    // isLoading: isLoadingUser,
+    // error: errorUser,
+  } = useSingleUserQuery(userId);
+  const {
+    data: userList,
+    // isLoading: isLoadingUser,
+    // error: errorUser,
+  } = useGetUserAccountsListQuery(undefined);
+  console.log(userId);
+  const filteredUser = userList?.find((SingleUser: IUser) => {
+    return SingleUser?.user === user?.username;
+  });
+  console.log(filteredUser);
+  const id = filteredUser?.id;
   const {
     data: orderData,
     isLoading: orderLoading,
@@ -23,9 +42,11 @@ const Cart = () => {
   } = useGetCartQuery(id);
   const [deleteCart] = useDeleteCartMutation();
   let total = 0;
-  orderData?.map((order: IOrder) => {
-    total += order?.cost;
-  });
+  if (orderData?.length > 0) {
+    orderData?.map((order: IOrder) => {
+      total += order?.cost;
+    });
+  }
   console.log(total);
   const handleDelete = (cartId: number) => {
     Swal.fire({
@@ -65,7 +86,7 @@ const Cart = () => {
       return (
         <div className="my-[200px]">
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong😓!
+            Something Went Wrong!
           </p>
         </div>
       );
@@ -73,7 +94,7 @@ const Cart = () => {
       return (
         <div className="my-[200px]">
           <p className="text-red-500 text-lg text-center font-extrabold">
-            No Reviews Available!
+            No Cart Items Available!
           </p>
         </div>
       );
@@ -103,7 +124,8 @@ const Cart = () => {
                               src={
                                 menuList?.find(
                                   (men: IFood) => men.id === order.menu
-                                )?.image
+                                )?.image ||
+                                "https://i.pinimg.com/originals/2e/ce/ce/2ececec5431d0a1b7eae4e1acac7c59f.gif"
                               }
                               alt="Avatar Tailwind CSS Component"
                             />
@@ -128,9 +150,15 @@ const Cart = () => {
                     <td>{order?.quantity}</td>
                     <td>{order?.cost}</td>
                     <th>
-                      <button className="badge badge-[#900A27] badge-outline py-2">
+                      <Link
+                        to={`/cart_detail/${
+                          menuList?.find((men: IFood) => men.id === order.menu)
+                            ?.id
+                        }`}
+                        className="badge badge-[#900A27] badge-outline py-2"
+                      >
                         Detail
-                      </button>
+                      </Link>
                     </th>
                     <th>
                       <button
@@ -142,6 +170,12 @@ const Cart = () => {
                     </th>
                   </tr>
                 ))}
+                <tr className="text-[23px]">
+                  <th colSpan={4} className="text-right">
+                    Total Cost from Cart:
+                  </th>
+                  <th>${total}</th>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -157,11 +191,9 @@ const Cart = () => {
       >
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content py-10 flex-col">
-          <p className="text-[36px] font-bold text-white text-center">
-            Account
-          </p>
+          <p className="text-[36px] font-bold text-white text-center">Cart</p>
           <p className="text-[20px] text-white font-semibold text-center">
-            Home/Register
+            Home/Cart
           </p>
         </div>
       </div>

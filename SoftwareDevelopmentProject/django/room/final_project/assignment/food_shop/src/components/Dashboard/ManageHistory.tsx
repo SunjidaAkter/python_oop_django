@@ -1,29 +1,63 @@
 import Swal from "sweetalert2";
 import {
+  useDeleteOrderMutation,
   useGetMenuListQuery,
   useGetOrderListQuery,
   // useGetOrderQuery,
   useGetUserAccountsListQuery,
-  useSingleUserQuery,
+  // useSingleUserQuery,
   useUpdateOrderMutation,
 } from "../../redux/features/food/foodApi";
 import { IFood, IOrder, IUSER } from "../../types/globalType";
 
 const ManageHistory = () => {
   const [updateOrder] = useUpdateOrderMutation();
-  const userId = localStorage.getItem("user_id"); // Check if user is logged in
-  const { data: singleUser } = useSingleUserQuery(userId);
+  const [deleteOrder] = useDeleteOrderMutation();
+  // const userId = localStorage.getItem("user_id"); // Check if user is logged in
+  // const { data: singleUser } = useSingleUserQuery(userId);
   const { data: userAccountsData } = useGetUserAccountsListQuery(undefined);
-  const filteredUserAccount = userAccountsData?.find(
-    (SingleUserAccount: IUSER) => {
-      return SingleUserAccount?.user === singleUser?.username;
-    }
-  );
+  // const filteredUserAccount = userAccountsData?.find(
+  //   (SingleUserAccount: IUSER) => {
+  //     return SingleUserAccount?.user === singleUser?.username;
+  //   }
+  // );
+  const handleDelete = (orderId: number) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#900A27",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // User confirmed the deletion
+        // const options = {
+        //   id: id,
+        // };
+        deleteOrder(orderId);
+        // navigate("/all-books");
+        Swal.fire({
+          title: "Order Deleted Successfully!",
+          icon: "success",
+          confirmButtonText: "Cool!",
+          confirmButtonColor: "#900A27",
+        });
+      }
+    });
+  };
+  // const handleDD = (order: IOrder) => {
+  //   const kk = userAccountsData?.find((acnt: IUSER) => {
+  //     return order?.customer === acnt?.id;
+  //   });
+  //   console.log(kk?.user);
+  // };
   const handleDelivery = (id: number) => {
     const updatedOrder = {
       id: id,
       data: {
-        is_paid: true,
+        order_status: "Delivering",
       },
     };
 
@@ -58,7 +92,7 @@ const ManageHistory = () => {
       return (
         <div className="my-[200px]">
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong😓!
+            Something Went Wrong!!
           </p>
         </div>
       );
@@ -66,7 +100,7 @@ const ManageHistory = () => {
       return (
         <div className="my-[200px]">
           <p className="text-red-500 text-lg text-center font-extrabold">
-            No Reviews Available!
+            No History Available!
           </p>
         </div>
       );
@@ -86,6 +120,7 @@ const ManageHistory = () => {
                   <th>Delivering Status</th>
                   <th>Paying Status</th>
                   <th>Deliver</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -99,7 +134,8 @@ const ManageHistory = () => {
                               src={
                                 menuList?.find(
                                   (men: IFood) => men.id === order.menu
-                                )?.image
+                                )?.image ||
+                                "https://i.pinimg.com/originals/2e/ce/ce/2ececec5431d0a1b7eae4e1acac7c59f.gif"
                               }
                               alt="Avatar Tailwind CSS Component"
                             />
@@ -123,11 +159,15 @@ const ManageHistory = () => {
 
                     <td>{order?.quantity}</td>
                     <td>{order?.cost}</td>
-                    <td>{filteredUserAccount?.user}</td>
+                    <td>
+                      {userAccountsData?.find((acnt: IUSER) => {
+                        return order?.customer === acnt?.id;
+                      })?.user || "Loading..."}
+                    </td>
                     <td>{order?.created_on}</td>
                     <th>
                       <button className="badge badge-outline py-2">
-                        {order?.order_status}
+                        {order?.is_paid ? "Completed" : order?.order_status}
                       </button>
                     </th>
                     <th>
@@ -151,6 +191,14 @@ const ManageHistory = () => {
                         {order.order_status === "Delivering"
                           ? "Delivered"
                           : "Deliver"}
+                      </button>
+                    </th>
+                    <th>
+                      <button
+                        className="badge badge-error badge-outline"
+                        onClick={() => handleDelete(order?.id)}
+                      >
+                        Delete
                       </button>
                     </th>
                   </tr>

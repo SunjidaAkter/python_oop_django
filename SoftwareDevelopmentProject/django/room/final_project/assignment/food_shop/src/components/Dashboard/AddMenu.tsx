@@ -37,7 +37,7 @@ const handleAddMenu = (event: FormEvent<HTMLFormElement>) => {
     formData.append("image", image);
   }
 
-  fetch("http://127.0.0.1:8000/menu/list/", {
+  fetch("https://food-shop-server.onrender.com/menu/list/", {
     method: "POST",
     body: formData,
   })
