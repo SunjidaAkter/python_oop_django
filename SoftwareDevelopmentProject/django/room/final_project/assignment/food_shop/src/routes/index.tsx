@@ -19,6 +19,7 @@ import ManageMenu from "../components/Dashboard/ManageMenu";
 import Discounted from "../pages/Discounted";
 import CartDetail from "../pages/CartDetail";
 import Wishlist from "../pages/Wishlist";
+import EditMenu from "../components/Dashboard/EditMenu";
 
 const routes = createBrowserRouter([
   {
@@ -102,6 +103,10 @@ const routes = createBrowserRouter([
       {
         path: "add_menu",
         element: <AddMenu />,
+      },
+      {
+        path: "edit_menu/:id",
+        element: <EditMenu />,
       },
       {
         path: "manage_menu",

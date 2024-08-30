@@ -43,7 +43,7 @@ const Category: React.FC = () => {
   // Slider settings
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     slidesToShow: 3, // Default slidesToShow for large screens
     slidesToScroll: 1,
     autoplay: false,

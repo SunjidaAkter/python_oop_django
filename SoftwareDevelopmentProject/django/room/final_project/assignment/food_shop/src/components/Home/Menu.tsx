@@ -1,11 +1,14 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useGetMenuListQuery } from "../../redux/features/food/foodApi";
 import { IFood } from "../../types/globalType";
 
 const MenuComponent = () => {
   const { data, isLoading, error } = useGetMenuListQuery(undefined);
   const filteredMenu = data?.filter((menu: IFood) => menu?.discount > 0);
-
+  const navigate = useNavigate();
+  const handleDiscount = (id: number) => {
+    navigate(`/discounted/${id}`, { replace: true });
+  };
   // Categorize rendering logic
   const categorise = () => {
     if (isLoading) {
@@ -36,7 +39,7 @@ const MenuComponent = () => {
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-4 sm:px-16 md:px-28">
           {filteredMenu?.map((menu: IFood) => (
-            <Link key={menu?.id} to={`discounted/${menu?.id}`}>
+            <div key={menu?.id} onClick={() => handleDiscount(menu?.id)}>
               <div className="grid grid-cols-[auto_1fr] gap-3 sm:gap-5">
                 <img
                   className="mr-3 w-[100px]"
@@ -62,7 +65,7 @@ const MenuComponent = () => {
                   </p>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       );

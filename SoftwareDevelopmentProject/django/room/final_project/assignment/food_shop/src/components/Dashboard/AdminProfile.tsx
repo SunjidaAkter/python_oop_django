@@ -19,7 +19,11 @@ const AdminProfile = () => {
   //   } = useSingleUserAccountQuery(id);
   const userId = localStorage.getItem("user_id"); // Check if user is logged in
   const { data: singleUser } = useSingleUserQuery(userId);
-  const { data: userAccountsData } = useGetUserAccountsListQuery(undefined);
+  const {
+    data: userAccountsData,
+    isLoading: userLoading,
+    isError: userError,
+  } = useGetUserAccountsListQuery(undefined);
   const filteredUserAccount = userAccountsData?.find(
     (SingleUserAccount: IUSER) => {
       return SingleUserAccount?.user === singleUser?.username;
@@ -82,68 +86,87 @@ const AdminProfile = () => {
       }
     }
   };
+  const categorise = () => {
+    if (userLoading) {
+      return (
+        <div className="h-screen flex justify-center items-center">
+          <span className="loading loading-ring loading-lg"></span>
+        </div>
+      );
+    } else if (userError) {
+      return (
+        <div className="my-[200px]">
+          <p className="text-red-500 text-lg text-center font-extrabold">
+            Something Went Wrong!!
+          </p>
+        </div>
+      );
+    } else {
+      return (
+        <div className="pt-4 w-full flex flex-col md:flex-row justify-between items-center">
+          <div>
+            <img
+              src={filteredUserAccount?.image}
+              alt="Profile Picture"
+              className="border-[2px] border-[#900A27] w-[150px] h-[150px] sm:w-[155px] sm:h-[155px] object-cover rounded-full mb-5 md:mb-0"
+            />
+            <p className="text-center text-[#5f5f5f] text-[20px] lg:text-[30px] mt-2 font-bold">
+              {filteredUserAccount?.user}
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center justify-between">
+            <p className="text-center text-[#363636] text-[40px] lg:text-[50px] mt-2 font-extrabold">
+              ${filteredUserAccount?.amount}
+            </p>
+
+            <div
+              onClick={() => handleTransaction("deposit")}
+              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#900A27] text-center cursor-pointer"
+            >
+              Deposit
+            </div>
+
+            <div
+              onClick={() => handleTransaction("withdraw")}
+              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#900A27] text-center cursor-pointer"
+            >
+              Withdraw
+            </div>
+          </div>
+
+          <div className="text-center md:text-left">
+            <p className="text-[18px] sm:text-[20px] text-black my-2">
+              <span className="font-semibold">User Name:</span>{" "}
+              {filteredUserAccount?.user}
+            </p>
+            <p className="text-[18px] sm:text-[20px] text-black my-2">
+              <span className="font-semibold">Full Name:</span>{" "}
+              {singleUser?.first_name} {singleUser?.last_name}
+            </p>
+            <p className="text-[18px] sm:text-[20px] text-black my-2">
+              <span className="font-semibold">Email:</span> {singleUser?.email}
+            </p>
+            <p className="text-[18px] sm:text-[20px] text-black my-2">
+              <span className="font-semibold">Mobile No:</span>{" "}
+              {filteredUserAccount?.mobile_no}
+            </p>
+            <p className="text-[18px] sm:text-[20px] text-black my-2">
+              <span className="font-semibold">Address:</span>{" "}
+              {filteredUserAccount?.address}
+            </p>
+          </div>
+        </div>
+      );
+    }
+  };
   return (
     <div className="w-full h-full bg-[url(https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920)] bg-no-repeat bg-cover flex-col items-center">
       {/* Hero section and Profile UI */}
       <div className="">
         <div className="w-[90%] my-40 md:w-[80%] lg:w-[80%] xl:w-[80%] mx-auto rounded-md shadow-2xl flex-col justify-center items-center py-4 px-5 sm:px-10 bg-white">
           <div className="mb-10 xl:w-[80%] lg:w-[80%] w-full mx-auto flex-col items-center justify-center">
-            <div className="pt-4 w-full flex flex-col md:flex-row justify-between items-center">
-              <div>
-                <img
-                  src={filteredUserAccount?.image}
-                  alt="Profile Picture"
-                  className="border-[2px] border-[#900A27] w-[150px] h-[150px] sm:w-[155px] sm:h-[155px] object-cover rounded-full mb-5 md:mb-0"
-                />
-                <p className="text-center text-[#5f5f5f] text-[20px] lg:text-[30px] mt-2 font-bold">
-                  {filteredUserAccount?.user}
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center justify-between">
-                <p className="text-center text-[#363636] text-[40px] lg:text-[50px] mt-2 font-extrabold">
-                  ${filteredUserAccount?.amount}
-                </p>
-
-                <div
-                  onClick={() => handleTransaction("deposit")}
-                  className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#900A27] text-center cursor-pointer"
-                >
-                  Deposit
-                </div>
-
-                <div
-                  onClick={() => handleTransaction("withdraw")}
-                  className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#900A27] text-center cursor-pointer"
-                >
-                  Withdraw
-                </div>
-              </div>
-
-              <div className="text-center md:text-left">
-                <p className="text-[18px] sm:text-[20px] text-black my-2">
-                  <span className="font-semibold">User Name:</span>{" "}
-                  {filteredUserAccount?.user}
-                </p>
-                <p className="text-[18px] sm:text-[20px] text-black my-2">
-                  <span className="font-semibold">Full Name:</span>{" "}
-                  {singleUser?.first_name} {singleUser?.last_name}
-                </p>
-                <p className="text-[18px] sm:text-[20px] text-black my-2">
-                  <span className="font-semibold">Email:</span>{" "}
-                  {singleUser?.email}
-                </p>
-                <p className="text-[18px] sm:text-[20px] text-black my-2">
-                  <span className="font-semibold">Mobile No:</span>{" "}
-                  {filteredUserAccount?.mobile_no}
-                </p>
-                <p className="text-[18px] sm:text-[20px] text-black my-2">
-                  <span className="font-semibold">Address:</span>{" "}
-                  {filteredUserAccount?.address}
-                </p>
-              </div>
-            </div>
-            <div className="w-full flex flex-col md:flex-row justify-between items-center"></div>
+            {categorise()}
           </div>
         </div>
       </div>

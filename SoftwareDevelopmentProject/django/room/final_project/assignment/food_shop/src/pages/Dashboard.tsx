@@ -2,6 +2,10 @@ import { NavLink, Outlet } from "react-router-dom";
 import "../App.css";
 import Navbar from "../layouts/Navbar";
 import Footer from "../layouts/Footer";
+import admin from "../assets/admin-panel2.png";
+import addMenu from "../assets/add-to-playlist.png";
+import ManageMenu from "../assets/menu2.png";
+import ManageHistor from "../assets/history2.png";
 
 const Dashboard = () => {
   return (
@@ -40,9 +44,10 @@ const Dashboard = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="bg-base-200 text-base-content min-h-full w-80 p-4">
+          <ul className="bg-base-200 text-base-content min-h-full w-80 px-12 py-12">
             {/* Sidebar content here */}
-            <li>
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg border-[1px] border-[#a84359] text-[20px]">
+              <img className="w-[20px] h-[20px] mr-1" src={admin} alt="" />
               <NavLink
                 to="/dashboard/"
                 className={({ isActive }) =>
@@ -52,7 +57,8 @@ const Dashboard = () => {
                 Admin Profile
               </NavLink>
             </li>
-            <li>
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg hover:border-[1px] hover:border-[#900A27] text-[20px]">
+              <img className="w-[20px] h-[20px] mr-1" src={addMenu} alt="" />
               <NavLink
                 to="/dashboard/add_menu"
                 className={({ isActive }) =>
@@ -62,7 +68,8 @@ const Dashboard = () => {
                 Add Menu
               </NavLink>
             </li>
-            <li>
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg hover:border-[1px] hover:border-[#900A27] text-[20px]">
+              <img className="w-[20px] h-[20px] mr-1" src={ManageMenu} alt="" />
               <NavLink
                 to="/dashboard/manage_menu"
                 className={({ isActive }) =>
@@ -72,7 +79,12 @@ const Dashboard = () => {
                 Manage Menu
               </NavLink>
             </li>
-            <li>
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg hover:border-[1px] hover:border-[#900A27] text-[20px]">
+              <img
+                className="w-[20px] h-[20px] mr-1"
+                src={ManageHistor}
+                alt=""
+              />
               <NavLink
                 to="/dashboard/history"
                 className={({ isActive }) =>

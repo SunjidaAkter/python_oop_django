@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   useDeleteMenuMutation,
   useGetMenuListQuery,
@@ -40,7 +41,10 @@ const ManageMenu = () => {
       }
     });
   };
-
+  const navigate = useNavigate();
+  const handleEdit = (id: number) => {
+    navigate(`/dashboard/edit_menu/${id}`, { replace: true });
+  };
   const categorise = () => {
     if (isLoading) {
       return (
@@ -118,10 +122,16 @@ const ManageMenu = () => {
                     ${menu?.price}
                   </p>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex flex-col items-center justify-center">
+                  <p
+                    onClick={() => handleEdit(menu?.id)}
+                    className="btn btn-error btn-outline w-1/2 mt-5 py-1"
+                  >
+                    Edit
+                  </p>
                   <p
                     onClick={() => handleDelete(menu?.id)}
-                    className="btn btn-error mt-5 py-2"
+                    className="btn btn-error btn-outline w-1/2 mt-2 py-1"
                   >
                     Delete
                   </p>

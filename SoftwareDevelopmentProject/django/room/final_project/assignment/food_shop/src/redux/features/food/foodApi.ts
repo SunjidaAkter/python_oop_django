@@ -2,15 +2,11 @@ import { api } from "../../api/apiSlice";
 
 const bookApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    // getTopBooks: builder.query({
-    //   query: () => "/books",
-    //   providesTags: ["status"],
-    // }),
     getMenuList: builder.query({
       query: () => ({
         url: "/menu/list",
-        provideTags: ["menu"],
       }),
+      providesTags: ["menu"],
     }),
     getCategory: builder.query({
       query: () => "/menu/category",
@@ -19,19 +15,34 @@ const bookApi = api.injectEndpoints({
       query: () => "/menu/cuisine",
     }),
     getUserAccountsList: builder.query({
-      query: () => "/user_accounts/list",
+      query: () => ({
+        url: "/user_accounts/list",
+      }),
+      providesTags: ["accounts"],
     }),
     getUserList: builder.query({
-      query: () => "/users",
+      query: () => ({
+        url: "/users",
+      }),
+      providesTags: ["users"],
     }),
     getCartList: builder.query({
-      query: () => "/cart",
+      query: () => ({
+        url: "/cart",
+      }),
+      providesTags: ["cart"],
     }),
     getWishlistList: builder.query({
-      query: () => "/wishlist",
+      query: () => ({
+        url: "/wishlist",
+      }),
+      providesTags: ["wishlist"],
     }),
     getOrderList: builder.query({
-      query: () => "/orders",
+      query: () => ({
+        url: "/orders",
+      }),
+      providesTags: ["orders"],
     }),
     getMenu: builder.query({
       query: (options) => ({
@@ -168,38 +179,6 @@ const bookApi = api.injectEndpoints({
       }),
       invalidatesTags: ["orders"],
     }),
-    // postRead: builder.mutation({
-    //   query: ({ id, data }) => ({
-    //     url: `/books/read-list/${id}`,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    //   invalidatesTags: [],
-    // }),
-    // postWish: builder.mutation({
-    //   query: ({ id, data }) => ({
-    //     url: `/books/wish-list/${id}`,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    //   invalidatesTags: [],
-    // }),
-    // updateStatus: builder.mutation({
-    //   query: ({ id, data }) => ({
-    //     url: `/books/read-status/${id}`,
-    //     method: "PATCH",
-    //     body: data,
-    //   }),
-    //   invalidatesTags: ["status"],
-    // }),
-    // postStatus: builder.mutation({
-    //   query: ({ data }) => ({
-    //     url: "/books/read-status",
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    //   invalidatesTags: [],
-    // }),
   }),
 });
 export const {
@@ -231,8 +210,4 @@ export const {
   useDeleteWishlistMutation,
   useDeleteMenuMutation,
   useDeleteOrderMutation,
-  //   usePostReadMutation,
-  //   usePostStatusMutation,
-  //   useUpdateStatusMutation,
-  //   usePostWishMutation,
 } = bookApi;

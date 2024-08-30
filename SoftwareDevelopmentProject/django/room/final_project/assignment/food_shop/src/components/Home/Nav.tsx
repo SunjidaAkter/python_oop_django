@@ -1,41 +1,52 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import userIcon from "../../assets/man.png";
 import wishlistIcon from "../../assets/heart.png";
 import searchIcon from "../../assets/loupe.png";
 import shoppingIcon from "../../assets/shopping-bag.png";
 import "../../App.css";
 import {
+  useGetCartQuery,
   useGetUserAccountsListQuery,
+  useGetWishlistQuery,
   useSingleUserQuery,
 } from "../../redux/features/food/foodApi";
-import { IUser } from "../../types/globalType";
+import { ICart, IUser } from "../../types/globalType";
 import Swal from "sweetalert2";
 
 const Nav = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [userImage, setUserImage] = useState(userIcon);
   const userToken = localStorage.getItem("token"); // Check if user is logged in
   const userId = localStorage.getItem("user_id"); // Check if user is logged in
-
-  const {
-    data: user,
-    // isLoading: isLoadingUser,
-    // error: errorUser,
-  } = useSingleUserQuery(userId);
-  const {
-    data: userList,
-    // isLoading: isLoadingUser,
-    // error: errorUser,
-  } = useGetUserAccountsListQuery(undefined);
-  console.log(userId);
+  const navigate = useNavigate();
+  const { data: user } = useSingleUserQuery(userId);
+  const { data: userList } = useGetUserAccountsListQuery(undefined);
   const filteredUser = userList?.find((SingleUser: IUser) => {
     return SingleUser?.user === user?.username;
   });
-  console.log(filteredUser);
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
+  };
+  useEffect(() => {
+    const filteredUser = userList?.find(
+      (SingleUser: IUser) => SingleUser?.user === user?.username
+    );
+    if (userId && filteredUser?.image) {
+      setUserImage(filteredUser.image);
+    }
+  }, [userList, user, userId]);
+
+  const handleCart = () => {
+    navigate("/cart", { replace: true });
+  };
+  const handleWishlist = () => {
+    navigate("/wishlist", { replace: true });
+  };
+  const handleMenu = () => {
+    navigate("/menu", { replace: true });
   };
 
   const closeSidebar = () => {
@@ -45,35 +56,42 @@ const Nav = () => {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
-  // Set the user image if the user is logged in
-  useEffect(() => {
-    const filteredUser = userList?.find(
-      (SingleUser: IUser) => SingleUser?.user === user?.username
-    );
-    if (userId && filteredUser?.image) {
-      setUserImage(filteredUser.image);
-    }
-  }, [userList, user, userId]);
-  console.log(filteredUser?.role);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
     setDropdownOpen(false);
-
-    // Show success message
     Swal.fire({
       title: "Logged out!",
       text: "You have successfully logged out.",
       icon: "success",
       confirmButtonText: "OK",
     });
-
-    // Reset user image to default
     setUserImage(userIcon);
   };
-
+  const { data: cartData } = useGetCartQuery(filteredUser?.id);
+  let cartLength = 0;
+  cartData?.map((cart: ICart) => (cartLength += cart.quantity));
+  const { data: wishlistData } = useGetWishlistQuery(filteredUser?.id);
+  console.log(wishlistData);
+  const wishlistLength = wishlistData?.length;
+  const handleScroll = () => {
+    const offset = window.scrollY;
+    if (offset > 62) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  });
   return (
-    <div>
+    <div
+      className={`${
+        scrolled ? "top-0 shadow-2xl fixed " : "top-0"
+      } z-10 w-full transition-all duration-300`}
+    >
       {/* Main Navbar */}
       <div className="navbar bg-base-100 lg:px-16 md:px-10 px-6 py-6">
         <div className="navbar-start">
@@ -223,27 +241,33 @@ const Nav = () => {
               </div>
             )}
           </div>
-          <Link to="wishlist/">
+          <div className="indicator" onClick={handleWishlist}>
+            <span className="indicator-item bg-white border-[2px] border-zinc-900 text-zinc-900 px-[6px] text-sm rounded-2xl">
+              {wishlistLength || "0"}
+            </span>
             <img
               className="w-[30px] h-[30px] ml-5"
               src={wishlistIcon}
               alt="Wishlist Icon"
             />
-          </Link>
-          <Link to="cart/">
+          </div>
+          <div className="indicator" onClick={handleCart}>
+            <span className="indicator-item bg-white border-[2px] border-zinc-900 text-zinc-900 px-[6px] text-sm rounded-2xl">
+              {cartLength || "0"}
+            </span>
             <img
               className="w-[30px] h-[30px] ml-5"
               src={shoppingIcon}
               alt="Shopping Bag Icon"
             />
-          </Link>
-          <Link to="menu/">
+          </div>
+          <div onClick={handleMenu}>
             <img
               className="w-[30px] h-[30px] ml-5"
               src={searchIcon}
               alt="Shopping Bag Icon"
             />
-          </Link>
+          </div>
         </div>
       </div>
 
