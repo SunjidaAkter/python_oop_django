@@ -3,7 +3,7 @@ import phoneIcon from "../../assets/phone-call.png";
 
 const Upper_Nav = () => {
   return (
-    <div className="bg-[#f4b618] px-16 py-4 ">
+    <div className="bg-[#f4b618] px-16 py-4 z-40">
       <div className="lg:flex lg:flex-row lg:justify-start md:flex md:flex-row md:justify-start flex flex-col">
         <div className="flex items-center">
           <img

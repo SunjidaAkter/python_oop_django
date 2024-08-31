@@ -73,10 +73,12 @@ const handleRegistration = (event: FormEvent<HTMLFormElement>) => {
         text: "Password must contain eight characters, at least one letter, one number, and one special character.",
         icon: "warning",
         confirmButtonText: "OK",
+        confirmButtonColor: "#C00A27",
       });
     }
   } else {
     Swal.fire({
+      confirmButtonColor: "#C00A27",
       title: "Password Mismatch",
       text: "Password and confirm password do not match.",
       icon: "warning",

@@ -2,10 +2,15 @@ import { NavLink, Outlet } from "react-router-dom";
 import "../App.css";
 import Navbar from "../layouts/Navbar";
 import Footer from "../layouts/Footer";
-import admin from "../assets/admin-panel2.png";
-import addMenu from "../assets/add-to-playlist.png";
-import ManageMenu from "../assets/menu2.png";
-import ManageHistor from "../assets/history2.png";
+// import admin from "../assets/admin-panel2.png";
+// import addMenu from "../assets/add-to-playlist.png";
+// import ManageMenu from "../assets/menu2.png";
+// import ManageHistor from "../assets/history2.png";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { MdManageHistory } from "react-icons/md";
+import { RiMenuAddLine } from "react-icons/ri";
+// import { IoFastFoodOutline } from "react-icons/io5";
+import { MdOutlineFastfood } from "react-icons/md";
 
 const Dashboard = () => {
   return (
@@ -46,51 +51,55 @@ const Dashboard = () => {
           ></label>
           <ul className="bg-base-200 text-base-content min-h-full w-80 px-12 py-12">
             {/* Sidebar content here */}
-            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg border-[1px] border-[#a84359] text-[20px]">
-              <img className="w-[20px] h-[20px] mr-1" src={admin} alt="" />
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg border-[0.5px] shadow group  shadow-[#900A27] text-[20px]">
               <NavLink
                 to="/dashboard/"
                 className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
+                  isActive
+                    ? "nav-link active flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
+                    : "nav-link flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
                 }
               >
+                <MdOutlineAdminPanelSettings className="mr-2" />
                 Admin Profile
               </NavLink>
             </li>
-            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg hover:border-[1px] hover:border-[#900A27] text-[20px]">
-              <img className="w-[20px] h-[20px] mr-1" src={addMenu} alt="" />
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg hover:border-[0.5px] shadow group  shadow-[#900A27] ">
               <NavLink
                 to="/dashboard/add_menu"
                 className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
+                  isActive
+                    ? "nav-link active flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
+                    : "nav-link flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
                 }
               >
+                <RiMenuAddLine className="mr-2" />
                 Add Menu
               </NavLink>
             </li>
-            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg hover:border-[1px] hover:border-[#900A27] text-[20px]">
-              <img className="w-[20px] h-[20px] mr-1" src={ManageMenu} alt="" />
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg hover:border-[0.5px] shadow group  shadow-[#900A27] ">
               <NavLink
                 to="/dashboard/manage_menu"
                 className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
+                  isActive
+                    ? "nav-link active flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
+                    : "nav-link flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
                 }
               >
+                <MdOutlineFastfood className="mr-2" />
                 Manage Menu
               </NavLink>
             </li>
-            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg hover:border-[1px] hover:border-[#900A27] text-[20px]">
-              <img
-                className="w-[20px] h-[20px] mr-1"
-                src={ManageHistor}
-                alt=""
-              />
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg hover:border-[0.5px] shadow group  shadow-[#900A27] ">
               <NavLink
                 to="/dashboard/history"
                 className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
+                  isActive
+                    ? "nav-link active flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
+                    : "nav-link flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
                 }
               >
+                <MdManageHistory className="mr-2" />
                 Manage History
               </NavLink>
             </li>

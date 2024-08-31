@@ -56,35 +56,45 @@ const bookApi = api.injectEndpoints({
       providesTags: ["menu"],
     }),
     getReviews: builder.query({
-      query: (id) => `/menu/reviews/?menu_id=${id}`,
-      providesTags: ["reviews"],
-    }),
-    getSingleReview: builder.query({
-      query: (id) => `/books/reviews/?menu_id=${id}`,
+      query: (id) => ({
+        url: `/menu/reviews/?menu_id=${id}`,
+      }),
       providesTags: ["reviews"],
     }),
     getOrder: builder.query({
-      query: (id) => `/orders/?customer_id=${id}`,
+      query: (id) => ({
+        url: `/orders/?customer_id=${id}`,
+      }),
       providesTags: ["orders"],
     }),
     getCart: builder.query({
-      query: (id) => `/cart/?customer_id=${id}`,
+      query: (id) => ({
+        url: `/cart/?customer_id=${id}`,
+      }),
       providesTags: ["cart"],
     }),
     getWishlist: builder.query({
-      query: (id) => `/wishlist/?customer_id=${id}`,
+      query: (id) => ({
+        url: `/wishlist/?customer_id=${id}`,
+      }),
       providesTags: ["wishlist"],
     }),
     singleMenu: builder.query({
-      query: (id) => `/menu/list/${id}`,
+      query: (id) => ({
+        url: `/menu/list/${id}`,
+      }),
       providesTags: ["menu"],
     }),
     singleUser: builder.query({
-      query: (id) => `/users/${id}`,
+      query: (id) => ({
+        url: `/users/${id}`,
+      }),
       providesTags: ["users"],
     }),
     singleUserAccount: builder.query({
-      query: (id) => `/user_accounts/list/${id}`,
+      query: (id) => ({
+        url: `/user_accounts/list/${id}`,
+      }),
       providesTags: ["accounts"],
     }),
     updateAccount: builder.mutation({

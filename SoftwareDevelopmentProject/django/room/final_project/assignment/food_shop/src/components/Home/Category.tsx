@@ -252,10 +252,10 @@ const Category: React.FC = () => {
           <p
             key={category}
             onClick={() => handleCategoryClick(category)}
-            className={`mr-4 px-3 py-2 mt-[-30px] rounded-md mb-[30px] text-white font-semibold lg:text-[20px] md:text-[17px] text-[13px] cursor-pointer ${
+            className={`mr-4 px-3 py-2 mt-[-30px] rounded-md mb-[30px] font-semibold lg:text-[20px] md:text-[17px] text-[13px] cursor-pointer ${
               selectedCategory === category
                 ? "bg-yellow-300 text-gray-700"
-                : "bg-[#C00A27] hover:bg-yellow-300 hover:text-gray-700"
+                : "bg-[#C00A27] hover:bg-yellow-300 hover:text-gray-700 text-white"
             }`}
           >
             {category === 0

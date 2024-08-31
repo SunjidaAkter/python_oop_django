@@ -1,3 +1,4 @@
+import "../../App.css";
 const Special = () => {
   return (
     <div className="px-4 lg:px-16 pt-10">
@@ -9,7 +10,7 @@ const Special = () => {
       </p>
       <div className="flex flex-col lg:flex-row justify-evenly items-center mt-8">
         <div className="lg:w-[25%] w-full mb-8 lg:mb-0">
-          <div className="mb-5 flex justify-between items-center">
+          <div className="mb-5 flex justify-between items-center flip-container">
             <div>
               <p className="text-[20px] font-semibold text-right text-[#93051c]">
                 African Cuisines
@@ -20,12 +21,12 @@ const Special = () => {
               </p>
             </div>
             <img
-              className="ml-[22px] w-[60px] h-[60px]"
+              className="ml-[22px] w-[60px] h-[60px] flip-image"
               src="https://yummi-theme.myshopify.com/cdn/shop/files/icon-6.png?v=1614334577&width=710"
               alt="African Cuisines"
             />
           </div>
-          <div className="mb-5 flex justify-between items-center">
+          <div className="mb-5 flex justify-between items-center flip-container">
             <div>
               <p className="text-[20px] font-semibold text-right text-[#93051c]">
                 Asian Cuisines
@@ -36,12 +37,12 @@ const Special = () => {
               </p>
             </div>
             <img
-              className="ml-[22px] w-[60px] h-[60px]"
+              className="ml-[22px] w-[60px] h-[60px] flip-image"
               src="https://yummi-theme.myshopify.com/cdn/shop/files/icon-5.png?v=1614334577&width=710"
               alt="Asian Cuisines"
             />
           </div>
-          <div className="mb-5 flex justify-between items-center">
+          <div className="mb-5 flex justify-between items-center flip-container">
             <div>
               <p className="text-[20px] font-semibold text-right text-[#93051c]">
                 European Cuisines
@@ -52,7 +53,7 @@ const Special = () => {
               </p>
             </div>
             <img
-              className="ml-[22px] w-[60px] h-[60px]"
+              className="ml-[22px] w-[60px] h-[60px] flip-image"
               src="https://yummi-theme.myshopify.com/cdn/shop/files/icon-4.png?v=1614334577&width=710"
               alt="European Cuisines"
             />
@@ -66,9 +67,9 @@ const Special = () => {
           />
         </div>
         <div className="lg:w-[25%] w-full">
-          <div className="mb-5 flex justify-between items-center">
+          <div className="mb-5 flex justify-between items-center flip-container">
             <img
-              className="w-[60px] h-[60px] mr-[22px]"
+              className="w-[60px] h-[60px] flip-image mr-[22px]"
               src="https://yummi-theme.myshopify.com/cdn/shop/files/icon-3.png?v=1614334577&width=710"
               alt="Middle Eastern Cuisines"
             />
@@ -82,9 +83,9 @@ const Special = () => {
               </p>
             </div>
           </div>
-          <div className="mb-5 flex justify-between items-center">
+          <div className="mb-5 flex justify-between items-center flip-container">
             <img
-              className="w-[60px] h-[60px] mr-[22px]"
+              className="w-[60px] h-[60px] flip-image mr-[22px]"
               src="https://yummi-theme.myshopify.com/cdn/shop/files/icon-2.png?v=1614334577&width=710"
               alt="Latin American Cuisines"
             />
@@ -98,9 +99,9 @@ const Special = () => {
               </p>
             </div>
           </div>
-          <div className="mb-5 flex justify-between items-center">
+          <div className="mb-5 flex justify-between items-center flip-container">
             <img
-              className="w-[60px] h-[60px] mr-[22px]"
+              className="w-[60px] h-[60px] flip-image mr-[22px]"
               src="https://yummi-theme.myshopify.com/cdn/shop/files/icon-1.png?v=1614334577&width=710"
               alt="North American Cuisines"
             />

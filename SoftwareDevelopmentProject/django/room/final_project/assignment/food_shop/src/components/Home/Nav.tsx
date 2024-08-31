@@ -19,6 +19,8 @@ const Nav = () => {
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [userImage, setUserImage] = useState(userIcon);
+  const [cartLength, setCartLength] = useState(0);
+  const [wishlistLength, setWishlistLength] = useState(0);
   const userToken = localStorage.getItem("token"); // Check if user is logged in
   const userId = localStorage.getItem("user_id"); // Check if user is logged in
   const navigate = useNavigate();
@@ -30,14 +32,28 @@ const Nav = () => {
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+  const { data: cartData } = useGetCartQuery(filteredUser?.id);
+  const { data: wishlistData } = useGetWishlistQuery(filteredUser?.id);
   useEffect(() => {
-    const filteredUser = userList?.find(
-      (SingleUser: IUser) => SingleUser?.user === user?.username
-    );
+    if (wishlistData?.length > 0) {
+      setWishlistLength(wishlistData.length);
+    }
+  }, [wishlistData]);
+
+  useEffect(() => {
+    if (cartData?.length > 0) {
+      let totalQuantity = 0;
+      cartData.forEach((cart: ICart) => {
+        totalQuantity += cart.quantity;
+      });
+      setCartLength(totalQuantity);
+    }
+  }, [cartData]);
+  useEffect(() => {
     if (userId && filteredUser?.image) {
       setUserImage(filteredUser.image);
     }
-  }, [userList, user, userId]);
+  }, [wishlistData, cartData, userList, user, userId, filteredUser]);
 
   const handleCart = () => {
     navigate("/cart", { replace: true });
@@ -66,15 +82,12 @@ const Nav = () => {
       text: "You have successfully logged out.",
       icon: "success",
       confirmButtonText: "OK",
+      confirmButtonColor: "#900A27",
     });
+    setWishlistLength(0);
+    setCartLength(0);
     setUserImage(userIcon);
   };
-  const { data: cartData } = useGetCartQuery(filteredUser?.id);
-  let cartLength = 0;
-  cartData?.map((cart: ICart) => (cartLength += cart.quantity));
-  const { data: wishlistData } = useGetWishlistQuery(filteredUser?.id);
-  console.log(wishlistData);
-  const wishlistLength = wishlistData?.length;
   const handleScroll = () => {
     const offset = window.scrollY;
     if (offset > 62) {
@@ -90,7 +103,7 @@ const Nav = () => {
     <div
       className={`${
         scrolled ? "top-0 shadow-2xl fixed " : "top-0"
-      } z-10 w-full transition-all duration-300`}
+      } z-50 w-full transition-all duration-300`}
     >
       {/* Main Navbar */}
       <div className="navbar bg-base-100 lg:px-16 md:px-10 px-6 py-6">
@@ -204,7 +217,7 @@ const Nav = () => {
                       </NavLink>
                     ) : (
                       <NavLink
-                        to={`/profile/${filteredUser.id}`}
+                        to={`/profile/${filteredUser?.id}`}
                         className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
                         onClick={() => setDropdownOpen(false)}
                       >
