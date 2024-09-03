@@ -13,6 +13,7 @@ import {
 } from "../../redux/features/food/foodApi";
 import { ICart, IUser } from "../../types/globalType";
 import Swal from "sweetalert2";
+import { Fade } from "react-awesome-reveal";
 
 const Nav = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -102,11 +103,13 @@ const Nav = () => {
   return (
     <div
       className={`${
-        scrolled ? "top-0 shadow-2xl fixed " : "top-0"
-      } z-50 w-full transition-all duration-300`}
+        scrolled
+          ? "top-0 shadow-2xl fixed bg-opacity-[0.97] bg-white"
+          : "top-0 bg-opacity-50 bg-white"
+      } z-40 w-full transition-all ease-in-out duration-1000`}
     >
       {/* Main Navbar */}
-      <div className="navbar bg-base-100 lg:px-16 md:px-10 px-6 py-6">
+      <div className="navbar lg:px-16 md:px-10 px-6 py-3">
         <div className="navbar-start">
           {/* Mobile Menu Icon */}
           <button onClick={toggleSidebar} className="btn btn-ghost lg:hidden">
@@ -132,66 +135,78 @@ const Nav = () => {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="flex justify-between px-1">
-            <li>
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/gallery"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Gallery
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/cuisines"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Cuisins
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/menu"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Menu
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/discount"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Discount
-              </NavLink>
-            </li>
+            <Fade cascade direction="up" duration={1000}>
+              <li>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
+            </Fade>
+            <Fade cascade delay={100} direction="up" duration={1000}>
+              <li>
+                <NavLink
+                  to="/about"
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  About
+                </NavLink>
+              </li>
+            </Fade>
+            <Fade cascade delay={200} direction="up" duration={1000}>
+              <li>
+                <NavLink
+                  to="/gallery"
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  Gallery
+                </NavLink>
+              </li>
+            </Fade>
+            <Fade cascade delay={300} direction="up" duration={1000}>
+              <li>
+                <NavLink
+                  to="/cuisines"
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  Cuisines
+                </NavLink>
+              </li>
+            </Fade>
+            <Fade cascade delay={400} direction="up" duration={1000}>
+              <li>
+                <NavLink
+                  to="/menu"
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  Menu
+                </NavLink>
+              </li>
+            </Fade>
+            <Fade cascade delay={500} direction="up" duration={1000}>
+              <li>
+                <NavLink
+                  to="/discount"
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  Discount
+                </NavLink>
+              </li>
+            </Fade>
           </ul>
         </div>
         <div className="navbar-end flex relative">
@@ -286,7 +301,7 @@ const Nav = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 w-64 h-full bg-base-100 z-50 transform ${
+        className={`fixed top-0 left-0 w-64 h-full bg-base-100 z-40 transform ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out`}
       >
@@ -334,7 +349,7 @@ const Nav = () => {
                 isActive ? "nav-link active" : "nav-link"
               }
             >
-              Cuisins
+              Cuisines
             </NavLink>
           </li>
           <li>

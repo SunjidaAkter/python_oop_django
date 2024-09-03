@@ -1,4 +1,5 @@
 import Slider from "react-slick";
+import { Fade } from "react-awesome-reveal";
 interface ArrowProps {
   className?: string;
   style?: React.CSSProperties;
@@ -64,7 +65,7 @@ const Banner = () => {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     autoplay: true,
-    speed: 1000,
+    speed: 4000,
     autoplaySpeed: 3000,
     cssEase: "linear",
   };
@@ -83,17 +84,23 @@ const Banner = () => {
             >
               <div className="ml-4 lg:ml-20 text-left text-white">
                 <div className="lg:w-1/2 md:w-2/3 w-full px-16 lg:px-0">
-                  <h1 className="mb-5 text-3xl md:text-5xl font-bold text-[#f4b618]">
-                    Welcome to Yummi
-                  </h1>
-                  <p className="mb-5 text-md md:text-lg">
-                    Discover the finest selection of gourmet foods, curated just
-                    for you. Indulge in a world of flavors and enjoy a dining
-                    experience like no other.
-                  </p>
-                  <button className="btn bg-[#f4b618] text-black">
-                    Explore Now
-                  </button>
+                  <Fade cascade direction="up" duration={2000}>
+                    <h1 className="mb-5 text-3xl md:text-5xl font-bold text-[#f4b618]">
+                      Welcome to Yummi
+                    </h1>
+                  </Fade>
+                  <Fade cascade direction="up" delay={500} duration={2000}>
+                    <p className="mb-5 text-md md:text-lg">
+                      Discover the finest selection of gourmet foods, curated
+                      just for you. Indulge in a world of flavors and enjoy a
+                      dining experience like no other.
+                    </p>
+                  </Fade>
+                  <Fade cascade direction="up" delay={1000} duration={2000}>
+                    <button className="btn bg-[#f4b618] text-black">
+                      Explore Now
+                    </button>
+                  </Fade>
                 </div>
               </div>
             </div>
@@ -111,17 +118,23 @@ const Banner = () => {
               <div className="hero-overlay bg-opacity-40"></div>
               <div className="text-center text-white">
                 <div className=" w-[80%] mx-auto px-8">
-                  <h1 className="mb-5 text-3xl md:text-5xl font-bold text-[#f4b618]">
-                    Gourmet Delights
-                  </h1>
-                  <p className="mb-5 text-sm md:text-lg">
-                    Our chefs are passionate about bringing you the finest
-                    culinary creations. Enjoy a symphony of tastes with every
-                    bite.
-                  </p>
-                  <button className="btn bg-[#f4b618] text-black">
-                    Order Now
-                  </button>
+                  <Fade cascade direction="up" delay={1000} duration={2000}>
+                    <h1 className="mb-5 text-3xl md:text-5xl font-bold text-[#f4b618]">
+                      Gourmet Delights
+                    </h1>
+                  </Fade>
+                  <Fade cascade direction="up" delay={500} duration={2000}>
+                    <p className="mb-5 text-sm md:text-lg">
+                      Our chefs are passionate about bringing you the finest
+                      culinary creations. Enjoy a symphony of tastes with every
+                      bite.
+                    </p>
+                  </Fade>
+                  <Fade cascade direction="up" duration={2000}>
+                    <button className="btn bg-[#f4b618] text-black">
+                      Order Now
+                    </button>
+                  </Fade>
                 </div>
               </div>
             </div>

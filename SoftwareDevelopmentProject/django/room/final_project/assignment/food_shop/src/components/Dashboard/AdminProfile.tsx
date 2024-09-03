@@ -161,11 +161,11 @@ const AdminProfile = () => {
     }
   };
   return (
-    <div className="w-full h-full bg-[url(https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920)] bg-no-repeat bg-cover flex-col items-center">
-      {/* Hero section and Profile UI */}
-      <div className="">
-        <div className="w-[90%] my-40 md:w-[80%] lg:w-[80%] xl:w-[80%] mx-auto rounded-md shadow-2xl flex-col justify-center items-center py-4 px-5 sm:px-10 bg-white">
-          <div className="mb-10 xl:w-[80%] lg:w-[80%] w-full mx-auto flex-col items-center justify-center">
+    <div className=" w-full h-full bg-[url('https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920')] bg-contain bg-center">
+      <div className="py-44 flex items-center justify-center">
+        {/* Hero section and Profile UI */}
+        <div className="w-[90%] m-auto rounded-md shadow-2xl flex flex-col justify-center items-center py-4 px-5 sm:px-10 bg-white">
+          <div className="w-full mx-auto flex flex-col items-center justify-center">
             {categorise()}
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { Fade } from "react-awesome-reveal";
 const Footer = () => {
   return (
     <div
@@ -62,20 +63,29 @@ const Footer = () => {
           },
         ].map((section, index) => (
           <nav key={index}>
-            <h6 className="text-2xl font-bold mb-5">{section.title}</h6>
+            <Fade cascade direction="up" duration={2000}>
+              <h6 className="text-2xl font-bold mb-5">{section.title}</h6>
+            </Fade>
             {section.links?.map((link, i) => (
-              <a key={i} className="mb-3 text-lg font-semibold link link-hover">
-                {link}
-              </a>
+              <Fade cascade direction="up" duration={2000} delay={500}>
+                <a
+                  key={i}
+                  className="mb-3 text-lg font-semibold link link-hover"
+                >
+                  {link}
+                </a>
+              </Fade>
             ))}
             {section.contactDetails?.map((detail, i) => (
-              <p
-                key={i}
-                className="mb-3 text-lg font-semibold link link-hover flex items-start"
-              >
-                <i className={`fa ${detail.icon} mr-2 text-xl`}></i>
-                {detail.text}
-              </p>
+              <Fade cascade direction="up" duration={2000} delay={500}>
+                <p
+                  key={i}
+                  className="mb-3 text-lg font-semibold link link-hover flex items-start"
+                >
+                  <i className={`fa ${detail.icon} mr-2 text-xl`}></i>
+                  {detail.text}
+                </p>
+              </Fade>
             ))}
           </nav>
         ))}

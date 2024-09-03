@@ -211,7 +211,7 @@ const ManageHistory = () => {
     }
   };
   return (
-    <div className="w-full h-full bg-[url(https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920)] bg-no-repeat bg-cover flex-col items-center">
+    <div className="w-full h-full bg-[url(https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920)] bg-contain flex-col items-center">
       {/* Hero section and Profile UI */}
       <div className="">
         <div className="w-[90%] my-40 md:w-[90%] lg:w-[90%] xl:w-[90%] mx-auto rounded-md shadow-2xl flex-col justify-center items-center py-4 px-5 sm:px-10 bg-white">

@@ -202,3 +202,52 @@
   transform-style: preserve-3d;
   /* backface-visibility: hidden; */
 }
+
+.gallery-item {
+  position: relative;
+  width: 33.33%; /* or 25% if you want four images per row */
+  padding: 2px;
+  overflow: hidden;
+}
+
+.gallery-image {
+  width: 100%;
+  height: auto;
+  transition: transform 1s ease;
+}
+
+.gallery-item:hover .gallery-image {
+  transform: scale(1.25);
+}
+
+.gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-caption-title {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.gallery-caption-subtitle {
+  color: white;
+  font-size: 16px;
+  font-weight: normal;
+}

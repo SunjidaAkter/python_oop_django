@@ -212,7 +212,7 @@ const EditMenu = () => {
     }
   };
   return (
-    <div className="w-full h-full bg-[url(https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920)] bg-no-repeat bg-cover relative">
+    <div className="w-full h-full bg-[url(https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920)] bg-no-repeat bg-contain relative">
       <div className="relative">
         {categorise()}
         <div className="absolute top-0 right-0 w-[30%] md:w-[25%] lg:w-[30%] -z-10">

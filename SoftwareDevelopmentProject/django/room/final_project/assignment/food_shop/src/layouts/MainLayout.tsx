@@ -19,7 +19,10 @@ const MainLayout = () => {
     <div>
       {loading ? (
         <div className="fixed inset-0 flex items-center justify-center bg-white">
-          <div className="loader">Loading...</div>{" "}
+          <img
+            src="https://yummi-theme.myshopify.com/cdn/shop/files/Yummy-GIF.gif?v=1684403888&width=1920"
+            alt=""
+          />
           {/* Replace this with your loading spinner */}
         </div>
       ) : (

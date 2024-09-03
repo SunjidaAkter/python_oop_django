@@ -32,12 +32,12 @@ const Dashboard = () => {
       </div>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col items-center justify-center">
+        <div className="drawer-content flex flex-col items-center justify-center relative">
           {/* Page content here */}
           <Outlet />
           <label
             htmlFor="my-drawer-2"
-            className="font-bold drawer-button lg:hidden"
+            className="font-bold drawer-button lg:hidden absolute top-[80px] p-3 shadow shadow-[#900A27] rounded"
           >
             {" "}
             DashBoard Manubar
@@ -49,7 +49,7 @@ const Dashboard = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="bg-base-200 text-base-content min-h-full w-80 px-12 py-12">
+          <ul className="bg-base-200 text-base-content min-h-full w-80 px-12 py-12 z-50">
             {/* Sidebar content here */}
             <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg border-[0.5px] shadow group  shadow-[#900A27] text-[20px]">
               <NavLink
@@ -64,7 +64,7 @@ const Dashboard = () => {
                 Admin Profile
               </NavLink>
             </li>
-            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg hover:border-[0.5px] shadow group  shadow-[#900A27] ">
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg  shadow group  shadow-[#900A27] ">
               <NavLink
                 to="/dashboard/add_menu"
                 className={({ isActive }) =>
@@ -77,7 +77,7 @@ const Dashboard = () => {
                 Add Menu
               </NavLink>
             </li>
-            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg hover:border-[0.5px] shadow group  shadow-[#900A27] ">
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg  shadow group  shadow-[#900A27] ">
               <NavLink
                 to="/dashboard/manage_menu"
                 className={({ isActive }) =>
@@ -90,7 +90,7 @@ const Dashboard = () => {
                 Manage Menu
               </NavLink>
             </li>
-            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg hover:border-[0.5px] shadow group  shadow-[#900A27] ">
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg  shadow group  shadow-[#900A27] ">
               <NavLink
                 to="/dashboard/history"
                 className={({ isActive }) =>

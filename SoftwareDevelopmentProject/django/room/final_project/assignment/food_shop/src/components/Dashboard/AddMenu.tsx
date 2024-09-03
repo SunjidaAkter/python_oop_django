@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 import Swal from "sweetalert2";
-import spoons from "../../assets/pngwing.com.png";
-import shwarma from "../../assets/pngwing.com (2).png";
+// import spoons from "../../assets/pngwing.com.png";
+// import shwarma from "../../assets/pngwing.com (2).png";
 import { useGetCuisineQuery } from "../../redux/features/food/foodApi";
 import { ICuisine } from "../../types/globalType";
 
@@ -83,7 +83,7 @@ const AddMenu = () => {
   const { data: cuisineData } = useGetCuisineQuery(undefined);
   console.log(cuisineData);
   return (
-    <div className="w-full h-full bg-[url(https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920)] bg-no-repeat bg-cover relative">
+    <div className="w-full h-full bg-[url(https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920)] bg-no-repeat bg-contain relative">
       <div className="relative">
         <form
           onSubmit={handleAddMenu}
@@ -123,8 +123,8 @@ const AddMenu = () => {
                   </option>
                   {cuisineData?.map((cuisine: ICuisine) => {
                     return (
-                      <option key={cuisine.id} value={cuisine.id}>
-                        {cuisine.name}
+                      <option key={cuisine?.id} value={cuisine?.id}>
+                        {cuisine?.name || "Loading..."}
                       </option>
                     );
                   })}
@@ -180,12 +180,12 @@ const AddMenu = () => {
             </div>
           </div>
         </form>
-        <div className="absolute top-0 right-0 w-[30%] md:w-[25%] lg:w-[30%] -z-10">
+        {/* <div className="absolute top-0 right-0 w-[30%] md:w-[25%] lg:w-[30%] -z-10">
           <img src={spoons} alt="" />
         </div>
         <div className="absolute bottom-0 left-0 w-[30%] md:w-[25%] lg:w-[30%] -z-10">
           <img src={shwarma} alt="" />
-        </div>
+        </div> */}
       </div>
     </div>
   );
