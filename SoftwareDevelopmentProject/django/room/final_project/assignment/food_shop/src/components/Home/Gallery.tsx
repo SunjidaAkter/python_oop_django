@@ -1,19 +1,20 @@
 import { Fade } from "react-awesome-reveal";
+import { NavLink } from "react-router-dom";
 
 const GalleryComponent = () => {
   return (
     <div className="w-full">
-      <Fade direction="up" cascade duration={2000}>
+      <Fade direction="up" cascade duration={4000}>
         <p className="my-20 text-center text-[#3a3a3a] text-[30px] font-bold">
           Our Gallery
         </p>
       </Fade>
 
       {/* Container to ensure consistent layout */}
-      <Fade cascade duration={2000} direction="up" className="overflow-hidden">
+      <Fade cascade duration={7000} className="overflow-hidden">
         <div className="flex flex-wrap">
           <div className="w-1/3 px-[2px] py-[0px] group relative overflow-hidden">
-            {/* <Fade cascade duration={3000}> */}
+            {/* <Fade cascade duration={7000}> */}
             <img
               className="w-full h-auto transform group-hover:scale-125 transition-transform duration-1000"
               src="https://yummi-theme.myshopify.com/cdn/shop/files/home-01.jpg?v=1628143320&width=1500"
@@ -24,11 +25,16 @@ const GalleryComponent = () => {
               <p className="text-white text-xl font-semibold">
                 Caption caption caption 1
               </p>
+              <NavLink to="/menu">
+                <p className="my-5 p-3 bg-[#900A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
+                  View All Collections
+                </p>
+              </NavLink>
             </div>
             {/* </Fade> */}
           </div>
           <div className="w-1/3 px-[2px] py-[0px] group relative overflow-hidden">
-            {/* <Fade cascade duration={3000}> */}
+            {/* <Fade cascade duration={7000}> */}
             <img
               className="w-full h-auto transform group-hover:scale-125 transition-transform duration-1000"
               src="https://yummi-theme.myshopify.com/cdn/shop/files/1.jpg?v=1614335085&width=1500"
@@ -39,11 +45,16 @@ const GalleryComponent = () => {
               <p className="text-white text-xl font-semibold">
                 Caption caption caption 2
               </p>
+              <NavLink to="/menu">
+                <p className="my-5 p-3 bg-[#900A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
+                  View All Collections
+                </p>
+              </NavLink>
             </div>
             {/* </Fade> */}
           </div>
           <div className="w-1/3 px-[2px] py-[2px] group relative overflow-hidden">
-            {/* <Fade cascade duration={3000}> */}
+            {/* <Fade cascade duration={7000}> */}
             <img
               className="w-full h-auto transform group-hover:scale-125 transition-transform duration-1000"
               src="https://yummi-theme.myshopify.com/cdn/shop/files/2.jpg?v=1614335086&width=1500"
@@ -54,16 +65,21 @@ const GalleryComponent = () => {
               <p className="text-white text-xl font-semibold">
                 Caption caption caption 3
               </p>
+              <NavLink to="/menu">
+                <p className="my-5 p-3 bg-[#900A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
+                  View All Collections
+                </p>
+              </NavLink>
             </div>
             {/* </Fade> */}
           </div>
         </div>
       </Fade>
       {/* Second row of images */}
-      <Fade cascade duration={2000} direction="up" className="overflow-hidden">
+      <Fade cascade duration={7000} className="overflow-hidden">
         <div className="flex flex-wrap ">
           <div className="w-1/4 px-[2px] py-[0px] group relative overflow-hidden">
-            {/* <Fade cascade duration={3000}> */}
+            {/* <Fade cascade duration={7000}> */}
             <img
               className="w-full h-auto transform group-hover:scale-125 transition-transform duration-1000"
               src="https://yummi-theme.myshopify.com/cdn/shop/files/gallery-1.jpg?v=1614334580&width=1500"
@@ -74,12 +90,17 @@ const GalleryComponent = () => {
               <p className="text-white text-xl font-semibold">
                 Caption caption caption 4
               </p>
+              <NavLink to="/menu">
+                <p className="my-5 p-3 bg-[#900A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
+                  View All Collections
+                </p>
+              </NavLink>
             </div>
             {/* </Fade> */}
           </div>
           <div className=" group px-[2px] py-[0px] w-1/4 ">
             <div className="relative overflow-hidden">
-              {/* <Fade cascade duration={3000}> */}
+              {/* <Fade cascade duration={7000}> */}
               <img
                 className="w-full h-auto transform group-hover:scale-125 transition-transform duration-1000"
                 src="https://yummi-theme.myshopify.com/cdn/shop/files/gallery-6.jpg?v=1614334580&width=1500"
@@ -90,12 +111,17 @@ const GalleryComponent = () => {
                 <p className="text-white text-xl font-semibold">
                   Caption caption caption 5
                 </p>
+                <NavLink to="/menu">
+                  <p className="my-5 p-3 bg-[#900A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
+                    View All Collections
+                  </p>
+                </NavLink>
               </div>
               {/* </Fade> */}
             </div>
           </div>
           <div className="w-1/4 px-[2px] py-[0px] group relative overflow-hidden">
-            {/* <Fade cascade duration={3000}> */}
+            {/* <Fade cascade duration={7000}> */}
             <img
               className="w-full h-auto transform group-hover:scale-125 transition-transform duration-1000"
               src="https://yummi-theme.myshopify.com/cdn/shop/files/gallery-2.jpg?v=1614334580&width=1500"
@@ -106,11 +132,16 @@ const GalleryComponent = () => {
               <p className="text-white text-xl font-semibold">
                 Caption caption caption 6
               </p>
+              <NavLink to="/menu">
+                <p className="my-5 p-3 bg-[#900A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
+                  View All Collections
+                </p>
+              </NavLink>
             </div>
             {/* </Fade> */}
           </div>
           <div className="w-1/4 px-[2px] py-[0px] group relative overflow-hidden">
-            {/* <Fade cascade duration={3000}> */}
+            {/* <Fade cascade duration={7000}> */}
             <img
               className="w-full h-auto transform group-hover:scale-125 transition-transform duration-1000"
               src="https://yummi-theme.myshopify.com/cdn/shop/files/gallery-4.jpg?v=1614334580&width=1500"
@@ -121,6 +152,11 @@ const GalleryComponent = () => {
               <p className="text-white text-xl font-semibold">
                 Caption caption caption 7
               </p>
+              <NavLink to="/menu">
+                <p className="my-5 p-3 bg-[#900A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
+                  View All Collections
+                </p>
+              </NavLink>
             </div>
             {/* </Fade> */}
           </div>
