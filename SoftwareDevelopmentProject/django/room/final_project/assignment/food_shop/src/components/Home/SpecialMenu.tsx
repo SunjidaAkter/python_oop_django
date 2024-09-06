@@ -10,20 +10,20 @@ const SpecialMenu = () => {
           alt=""
         />
         <div className="w-[45%]">
-          <Fade cascade duration={2000} direction="up">
+          <Fade cascade duration={1000} direction="up">
             <p className="text-[30px] font-semibold text-[#3A3A3A] pt-5">
               What Makes Our Menus Special ?
             </p>
           </Fade>
-          <Fade cascade duration={2000} delay={200} direction="up">
-            <div className="group flex justify-between mt-7 w-[80%] flip-container">
+          <Fade cascade duration={1000} direction="up">
+            <div className="group flex justify-between mt-5 w-[80%] flip-container">
               <img
                 className="mr-5 flip-image"
                 src="https://yummi-theme.myshopify.com/cdn/shop/files/icon-7_c08b5cdb-f091-48b2-93c1-e09b38cca5f1.png?v=1614334579&width=710"
                 alt=""
               />
               <div>
-                <p className="text-[#900A27] group-hover:text-yellow-500 transition-all duration-500 mb-3 text-[25px] font-semibold">
+                <p className="text-[#900A27] group-hover:text-yellow-500 transition-all duration-500 mb-1 text-[25px] font-semibold">
                   Pure Ingredients
                 </p>
                 <p>
@@ -33,15 +33,15 @@ const SpecialMenu = () => {
               </div>
             </div>
           </Fade>
-          <Fade cascade duration={2000} delay={300} direction="up">
-            <div className="group flex justify-between mt-7 w-[80%] flip-container">
+          <Fade cascade duration={1000} direction="up">
+            <div className="group flex justify-between mt-3 w-[80%] flip-container">
               <img
                 className="mr-5 flip-image"
                 src="https://yummi-theme.myshopify.com/cdn/shop/files/icon-8_3fa55acb-a7d3-4358-9a71-260d4a3d61ae.png?v=1614334579&width=710"
                 alt=""
               />
               <div>
-                <p className="text-[#900A27] group-hover:text-yellow-500 transition-all duration-500 mb-3 text-[25px] font-semibold">
+                <p className="text-[#900A27] group-hover:text-yellow-500 transition-all duration-500 mb-1 text-[25px] font-semibold">
                   Sustainability
                 </p>
                 <p>
@@ -51,15 +51,15 @@ const SpecialMenu = () => {
               </div>
             </div>
           </Fade>
-          <Fade cascade duration={2000} delay={400} direction="up">
-            <div className="group flex justify-between mt-7 w-[80%] flip-container">
+          <Fade cascade duration={1000} direction="up">
+            <div className="group flex justify-between mt-3 w-[80%] flip-container">
               <img
                 className="mr-5 flip-image"
                 src="https://yummi-theme.myshopify.com/cdn/shop/files/icon-9.png?v=1614334579&width=710"
                 alt=""
               />
               <div>
-                <p className="text-[#900A27] group-hover:text-yellow-500 transition-all duration-500 mb-3 text-[25px] font-semibold">
+                <p className="text-[#900A27] group-hover:text-yellow-500 transition-all duration-500 mb-1 text-[25px] font-semibold">
                   Environmentalism
                 </p>
                 <p>
@@ -69,15 +69,15 @@ const SpecialMenu = () => {
               </div>
             </div>
           </Fade>
-          <Fade cascade duration={2000} delay={400} direction="up">
-            <div className="group flex justify-between mt-7 w-[80%] flip-container">
+          <Fade cascade duration={1000} direction="up">
+            <div className="group flex justify-between mt-3 w-[80%] flip-container">
               <img
                 className="mr-5 flip-image"
                 src="https://yummi-theme.myshopify.com/cdn/shop/files/icon-10.png?v=1614334579&width=710"
                 alt=""
               />
               <div>
-                <p className="text-[#900A27] group-hover:text-yellow-500 transition-all duration-500 mb-3 text-[25px] font-semibold">
+                <p className="text-[#900A27] group-hover:text-yellow-500 transition-all duration-500 mb-1 text-[25px] font-semibold">
                   Formula Transparency
                 </p>
                 <p>

@@ -162,7 +162,7 @@ const Category: React.FC = () => {
             <Link key={menu.id} to={`/details/${menu.id}`}>
               <Fade
                 cascade
-                duration={2000}
+                duration={1000}
                 delay={(iter += 100)}
                 direction="left"
               >
@@ -229,7 +229,7 @@ const Category: React.FC = () => {
   let iters = 0;
   return (
     <div className="relative">
-      <Fade cascade duration={2000} direction="up">
+      <Fade cascade duration={1000} direction="up">
         <p className="mt-10 mb-6 text-center text-[#3a3a3a] text-[30px] font-bold">
           Our Menu
         </p>
@@ -260,7 +260,7 @@ const Category: React.FC = () => {
 
       <div className="flex justify-start w-[85%] mx-auto">
         {[0, 1, 2, 3].map((category) => (
-          <Fade cascade duration={2000} delay={(iters += 200)}>
+          <Fade cascade duration={1000} delay={(iters += 200)}>
             <p
               key={category}
               onClick={() => handleCategoryClick(category)}

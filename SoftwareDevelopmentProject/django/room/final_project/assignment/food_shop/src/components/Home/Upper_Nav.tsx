@@ -5,7 +5,7 @@ const Upper_Nav = () => {
   return (
     <div className="bg-[#f4b618] px-16 py-4 z-40">
       <div className="lg:flex lg:flex-row lg:justify-start md:flex md:flex-row md:justify-start flex flex-col">
-        <Fade direction="up" duration={3000}>
+        <Fade direction="up" duration={1000}>
           <div className="flex items-center">
             <img
               className="lg:w-[25px] lg:h-[20px] md:w-[25px] md:h-[20px] w-[20px] h-[15px] mt-1 mr-2"
@@ -17,7 +17,7 @@ const Upper_Nav = () => {
             </p>
           </div>
         </Fade>
-        <Fade direction="up" delay={500} duration={3000}>
+        <Fade direction="up" delay={500} duration={1000}>
           <div className="flex items-center">
             <img
               className="lg:w-[25px] lg:h-[20px] md:w-[25px] md:h-[20px] w-[20px] h-[15px] mt-1 mr-2"

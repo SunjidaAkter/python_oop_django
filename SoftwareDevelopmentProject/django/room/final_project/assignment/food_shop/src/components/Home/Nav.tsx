@@ -213,7 +213,7 @@ const Nav = () => {
           {/* User Icon with Dropdown */}
           <div className="relative">
             <img
-              className="w-[30px] h-[30px] ml-5 cursor-pointer"
+              className="w-[30px] h-[30px] ml-5 cursor-pointer rounded-full"
               src={userId ? userImage : userIcon}
               alt="User Icon"
               onClick={toggleDropdown}

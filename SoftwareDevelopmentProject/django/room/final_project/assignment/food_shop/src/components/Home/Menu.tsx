@@ -41,12 +41,16 @@ const MenuComponent = () => {
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-4 sm:px-16 md:px-28 overflow-hidden">
           {filteredMenu?.map((menu: IFood) => (
-            <div key={menu?.id} onClick={() => handleDiscount(menu?.id)}>
+            <div
+              key={menu?.id}
+              className="group"
+              onClick={() => handleDiscount(menu?.id)}
+            >
               <Slide
                 cascade
                 direction={iter % 2 === 0 ? "left" : "right"}
                 delay={(iter += 201)}
-                duration={2000}
+                duration={1000}
               >
                 <div className="grid grid-cols-[auto_1fr] gap-3 sm:gap-5">
                   <img
@@ -59,14 +63,14 @@ const MenuComponent = () => {
                   />
                   <div>
                     <div className="flex justify-between items-center">
-                      <p className="text-[#C00A27] text-[18px] sm:text-[20px] font-bold">
+                      <p className="text-[#900A27] group-hover:text-yellow-500 text-[18px] sm:text-[20px] transition-all duration-500 font-bold">
                         {menu?.title || "Loading..."}
                       </p>
                       <p className="text-[18px] sm:text-[20px] font-bold text-[#ef2222]">
                         {menu?.discount || "Loading..."}% OFF
                       </p>
                     </div>
-                    <div className="border-t-2 border-dotted border-t-[#3a3a3a] my-2"></div>
+                    <div className="border-t-2 group-hover:border-solid border-dotted transition-all duration-500 border-t-[#3a3a3a] my-2"></div>
                     <p className="text-sm sm:text-base">
                       {menu?.description.split(" ").slice(0, 10).join(" ") +
                         (menu?.description.split(" ").length > 10 ? "..." : "")}
@@ -103,18 +107,18 @@ const MenuComponent = () => {
         src="https://yummi-theme.myshopify.com/cdn/shop/files/background-4_1.png?v=1614335490&width=500"
         alt=""
       />
-      <Fade cascade direction="up" duration={2000}>
+      <Fade cascade direction="up" duration={1000}>
         <p className="mt-10 mb-6 text-center text-[#3a3a3a] text-[24px] sm:text-[30px] font-bold">
           Our Flavorful Menus
         </p>
       </Fade>
-      <Fade cascade direction="up" duration={2000} delay={200}>
+      <Fade cascade direction="up" duration={1000} delay={200}>
         <p className="text-center font-semibold">
           Odio morbi quis commodo odio aenean sed adipiscing. Neque ornare
           aenean{" "}
         </p>
       </Fade>
-      <Fade cascade direction="up" duration={2000} delay={400}>
+      <Fade cascade direction="up" duration={1000} delay={400}>
         <p className="mb-16 text-center font-semibold">
           euismod elementum nisi quis.
         </p>
