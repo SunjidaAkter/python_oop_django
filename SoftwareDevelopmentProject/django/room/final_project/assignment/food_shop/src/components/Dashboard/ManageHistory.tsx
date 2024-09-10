@@ -27,7 +27,7 @@ const ManageHistory = () => {
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#900A27",
+      confirmButtonColor: "#C00A27",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
@@ -42,7 +42,7 @@ const ManageHistory = () => {
           title: "Order Deleted Successfully!",
           icon: "success",
           confirmButtonText: "Cool!",
-          confirmButtonColor: "#900A27",
+          confirmButtonColor: "#C00A27",
         });
       }
     });

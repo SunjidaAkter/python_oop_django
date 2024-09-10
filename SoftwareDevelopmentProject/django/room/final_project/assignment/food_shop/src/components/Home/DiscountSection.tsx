@@ -9,7 +9,7 @@ const DiscountSection = () => {
           </p>
         </Fade>
         <Fade cascade direction="up" duration={1000}>
-          <p className="text-[#900A27] lg:text-[60px] md:text-[60px] text-[30px] font-semibold text-center my-3">
+          <p className="text-[#C00A27] lg:text-[60px] md:text-[60px] text-[30px] font-semibold text-center my-3">
             Simple And Delicious Food
           </p>
         </Fade>
@@ -20,7 +20,7 @@ const DiscountSection = () => {
         </Fade>
         <Fade cascade direction="up" duration={1000}>
           <div className="flex justify-center items-center mt-10 font-medium">
-            <p className="bg-[#900A27] hover:bg-yellow-500 text-[white] hover:text-[#3A3A3A] transition-colors duration-500 p-4 text-center w-[20%]">
+            <p className="bg-[#C00A27] hover:bg-yellow-500 text-[white] hover:text-[#3A3A3A] transition-colors duration-500 p-4 text-center w-[20%]">
               Order Now
             </p>
           </div>

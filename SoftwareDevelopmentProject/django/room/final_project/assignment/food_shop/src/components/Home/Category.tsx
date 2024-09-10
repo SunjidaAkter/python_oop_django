@@ -173,10 +173,10 @@ const Category: React.FC = () => {
                     </figure>
                     <div className="p-[32px] bg-[#f9f9f9] ">
                       <div className="flex justify-between items-center">
-                        <p className="font-semibold text-[20px] text-[#900A27] mb-3">
+                        <p className="font-semibold text-[20px] text-[#C00A27] mb-3">
                           {menu?.title}
                         </p>
-                        <p className="badge badge-outline text-[#900A27] border-2 font-semibold mb-3">
+                        <p className="badge badge-outline text-[#C00A27] border-2 font-semibold mb-3">
                           {menu?.category === 1
                             ? "Breakfast"
                             : menu?.category === 2
@@ -208,8 +208,8 @@ const Category: React.FC = () => {
                         </p>
                       </div>
                       <div className="card-actions justify-center">
-                        <div className="bg-[#900A27] w-4 h-4 rotate-45 mb-[-18px]"></div>
-                        <div className="bg-[#bcbaba] transition-all group-hover:bg-[#900A27] w-full h-[1px]  "></div>
+                        <div className="bg-[#C00A27] w-4 h-4 rotate-45 mb-[-18px]"></div>
+                        <div className="bg-[#bcbaba] transition-all group-hover:bg-[#C00A27] w-full h-[1px]  "></div>
                       </div>
                       <div className="flex justify-center">
                         <p className="text-[20px] font-semibold text-[#7d7d7d] mt-5">

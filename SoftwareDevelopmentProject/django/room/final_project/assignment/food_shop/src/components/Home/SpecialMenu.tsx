@@ -23,7 +23,7 @@ const SpecialMenu = () => {
                 alt=""
               />
               <div>
-                <p className="text-[#900A27] group-hover:text-yellow-500 transition-all duration-500 mb-1 text-[25px] font-semibold">
+                <p className="text-[#C00A27] group-hover:text-yellow-500 transition-all duration-500 mb-1 text-[25px] font-semibold">
                   Pure Ingredients
                 </p>
                 <p>
@@ -41,7 +41,7 @@ const SpecialMenu = () => {
                 alt=""
               />
               <div>
-                <p className="text-[#900A27] group-hover:text-yellow-500 transition-all duration-500 mb-1 text-[25px] font-semibold">
+                <p className="text-[#C00A27] group-hover:text-yellow-500 transition-all duration-500 mb-1 text-[25px] font-semibold">
                   Sustainability
                 </p>
                 <p>
@@ -59,7 +59,7 @@ const SpecialMenu = () => {
                 alt=""
               />
               <div>
-                <p className="text-[#900A27] group-hover:text-yellow-500 transition-all duration-500 mb-1 text-[25px] font-semibold">
+                <p className="text-[#C00A27] group-hover:text-yellow-500 transition-all duration-500 mb-1 text-[25px] font-semibold">
                   Environmentalism
                 </p>
                 <p>
@@ -77,7 +77,7 @@ const SpecialMenu = () => {
                 alt=""
               />
               <div>
-                <p className="text-[#900A27] group-hover:text-yellow-500 transition-all duration-500 mb-1 text-[25px] font-semibold">
+                <p className="text-[#C00A27] group-hover:text-yellow-500 transition-all duration-500 mb-1 text-[25px] font-semibold">
                   Formula Transparency
                 </p>
                 <p>

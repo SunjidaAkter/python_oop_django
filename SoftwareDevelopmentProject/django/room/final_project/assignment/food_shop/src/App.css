@@ -168,7 +168,7 @@
   }
 }
 .card {
-  --c: #900a27; /* the border color */
+  --c: #c00a27; /* the border color */
   --b: 2px; /* the border thickness*/
   --g: 0px; /* the gap on hover */
 

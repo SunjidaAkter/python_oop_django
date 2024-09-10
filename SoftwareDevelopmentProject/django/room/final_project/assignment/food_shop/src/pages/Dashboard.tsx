@@ -37,7 +37,7 @@ const Dashboard = () => {
           <Outlet />
           <label
             htmlFor="my-drawer-2"
-            className="font-bold drawer-button lg:hidden absolute top-[80px] p-3 shadow shadow-[#900A27] rounded"
+            className="font-bold drawer-button lg:hidden absolute top-[80px] p-3 shadow shadow-[#C00A27] rounded"
           >
             {" "}
             DashBoard Manubar
@@ -51,52 +51,52 @@ const Dashboard = () => {
           ></label>
           <ul className="bg-base-200 text-base-content min-h-full w-80 px-12 py-12 z-50">
             {/* Sidebar content here */}
-            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg border-[0.5px] shadow group  shadow-[#900A27] text-[20px]">
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg border-[0.5px] shadow group  shadow-[#C00A27] text-[20px]">
               <NavLink
                 to="/dashboard/"
                 className={({ isActive }) =>
                   isActive
-                    ? "nav-link active flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
-                    : "nav-link flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
+                    ? "nav-link active flex justify-start items-center group-hover:text-[#C00A27] transition-all duration-500"
+                    : "nav-link flex justify-start items-center group-hover:text-[#C00A27] transition-all duration-500"
                 }
               >
                 <MdOutlineAdminPanelSettings className="mr-2" />
                 Admin Profile
               </NavLink>
             </li>
-            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg  shadow group  shadow-[#900A27] ">
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg  shadow group  shadow-[#C00A27] ">
               <NavLink
                 to="/dashboard/add_menu"
                 className={({ isActive }) =>
                   isActive
-                    ? "nav-link active flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
-                    : "nav-link flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
+                    ? "nav-link active flex justify-start items-center group-hover:text-[#C00A27] transition-all duration-500"
+                    : "nav-link flex justify-start items-center group-hover:text-[#C00A27] transition-all duration-500"
                 }
               >
                 <RiMenuAddLine className="mr-2" />
                 Add Menu
               </NavLink>
             </li>
-            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg  shadow group  shadow-[#900A27] ">
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg  shadow group  shadow-[#C00A27] ">
               <NavLink
                 to="/dashboard/manage_menu"
                 className={({ isActive }) =>
                   isActive
-                    ? "nav-link active flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
-                    : "nav-link flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
+                    ? "nav-link active flex justify-start items-center group-hover:text-[#C00A27] transition-all duration-500"
+                    : "nav-link flex justify-start items-center group-hover:text-[#C00A27] transition-all duration-500"
                 }
               >
                 <MdOutlineFastfood className="mr-2" />
                 Manage Menu
               </NavLink>
             </li>
-            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg  shadow group  shadow-[#900A27] ">
+            <li className="mb-5 bg-white flex items-center justify-start p-2 rounded-lg  shadow group  shadow-[#C00A27] ">
               <NavLink
                 to="/dashboard/history"
                 className={({ isActive }) =>
                   isActive
-                    ? "nav-link active flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
-                    : "nav-link flex justify-start items-center group-hover:text-[#900A27] transition-all duration-500"
+                    ? "nav-link active flex justify-start items-center group-hover:text-[#C00A27] transition-all duration-500"
+                    : "nav-link flex justify-start items-center group-hover:text-[#C00A27] transition-all duration-500"
                 }
               >
                 <MdManageHistory className="mr-2" />

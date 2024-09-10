@@ -83,7 +83,7 @@ const Nav = () => {
       text: "You have successfully logged out.",
       icon: "success",
       confirmButtonText: "OK",
-      confirmButtonColor: "#900A27",
+      confirmButtonColor: "#C00A27",
     });
     setWishlistLength(0);
     setCartLength(0);
@@ -104,8 +104,8 @@ const Nav = () => {
     <div
       className={`${
         scrolled
-          ? "top-0 shadow-2xl fixed bg-opacity-[0.97] bg-white"
-          : "top-0 bg-opacity-50 bg-white"
+          ? "top-0 shadow-2xl fixed bg-opacity-95 bg-white"
+          : "top-0 bg-opacity-80 bg-white"
       } z-40 w-full transition-all ease-in-out duration-1000`}
     >
       {/* Main Navbar */}

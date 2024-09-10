@@ -49,7 +49,7 @@ const MenuComponent = () => {
               <Slide
                 cascade
                 direction={iter % 2 === 0 ? "left" : "right"}
-                delay={(iter += 201)}
+                delay={(iter += 101)}
                 duration={1000}
               >
                 <div className="grid grid-cols-[auto_1fr] gap-3 sm:gap-5">
@@ -63,7 +63,7 @@ const MenuComponent = () => {
                   />
                   <div>
                     <div className="flex justify-between items-center">
-                      <p className="text-[#900A27] group-hover:text-yellow-500 text-[18px] sm:text-[20px] transition-all duration-500 font-bold">
+                      <p className="text-[#C00A27] group-hover:text-yellow-500 text-[18px] sm:text-[20px] transition-all duration-500 font-bold">
                         {menu?.title || "Loading..."}
                       </p>
                       <p className="text-[18px] sm:text-[20px] font-bold text-[#ef2222]">

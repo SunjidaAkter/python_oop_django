@@ -217,7 +217,7 @@ const Profile = () => {
             <img
               src={userData?.image}
               alt="Profile Picture"
-              className="border-[2px] border-[#900A27] w-[150px] h-[150px] sm:w-[155px] sm:h-[155px] object-cover rounded-full mb-5 md:mb-0"
+              className="border-[2px] border-[#C00A27] w-[150px] h-[150px] sm:w-[155px] sm:h-[155px] object-cover rounded-full mb-5 md:mb-0"
             />
             <p className="text-center text-[#5f5f5f] text-[20px] lg:text-[30px] mt-2 font-bold">
               {userData?.user}
@@ -231,14 +231,14 @@ const Profile = () => {
 
             <div
               onClick={() => handleTransaction("deposit")}
-              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#900A27] text-center cursor-pointer"
+              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#C00A27] text-center cursor-pointer"
             >
               Deposit
             </div>
 
             <div
               onClick={() => handleTransaction("withdraw")}
-              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#900A27] text-center cursor-pointer"
+              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#C00A27] text-center cursor-pointer"
             >
               Withdraw
             </div>

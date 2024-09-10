@@ -54,7 +54,7 @@ const Cart = () => {
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#900A27",
+      confirmButtonColor: "#C00A27",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
@@ -69,7 +69,7 @@ const Cart = () => {
           title: "Cart Item Deleted Successfully!",
           icon: "success",
           confirmButtonText: "Cool!",
-          confirmButtonColor: "#900A27",
+          confirmButtonColor: "#C00A27",
         });
       }
     });
@@ -155,7 +155,7 @@ const Cart = () => {
                           menuList?.find((men: IFood) => men.id === order.menu)
                             ?.id
                         }`}
-                        className="badge badge-[#900A27] badge-outline py-2"
+                        className="badge badge-[#C00A27] badge-outline py-2"
                       >
                         Detail
                       </Link>
