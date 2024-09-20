@@ -6,21 +6,58 @@ import StarRatings from "react-star-ratings";
 import Slider from "react-slick";
 import { ReactNode } from "react";
 import { Fade } from "react-awesome-reveal";
-// import { ClassNames } from "@emotion/react";
+import { useEffect, useState } from "react";
+
 interface ArrowProps {
   className?: string;
   style?: React.CSSProperties;
   onClick?: () => void;
 }
-
+// Define the Arrow component with responsive styles
 const SamplePrevArrow = (props: ArrowProps) => {
   const { className, style, onClick } = props;
+  const [arrowStyle, setArrowStyle] = useState<React.CSSProperties>({
+    top: "50%",
+    left: "-10%",
+    fontSize: "30px",
+  });
+
+  // Handle window resizing to apply responsive styles
+  useEffect(() => {
+    const updateArrowStyle = () => {
+      const width = window.innerWidth;
+      if (width <= 768) {
+        setArrowStyle({
+          ...arrowStyle,
+          fontSize: "20px",
+          left: "-10%", // Adjust for smaller screens
+        });
+      } else if (width <= 1024) {
+        setArrowStyle({
+          ...arrowStyle,
+          fontSize: "25px",
+          left: "-9%",
+        });
+      } else {
+        setArrowStyle({
+          ...arrowStyle,
+          fontSize: "30px",
+          left: "-8%",
+        });
+      }
+    };
+
+    window.addEventListener("resize", updateArrowStyle);
+    updateArrowStyle(); // Initial style setting
+
+    return () => window.removeEventListener("resize", updateArrowStyle);
+  }, [arrowStyle]);
+
   return (
     <div
       style={{
         ...style,
-        top: "50%",
-        left: "-10%",
+        ...arrowStyle,
         borderRadius: "100%",
         display: "flex",
         justifyContent: "center",
@@ -29,35 +66,63 @@ const SamplePrevArrow = (props: ArrowProps) => {
       onClick={onClick}
       className={`arrows ${className} `}
     >
-      <i
-        className="fa fa-angle-left"
-        style={{ color: "white", fontSize: "30px" }}
-      ></i>
+      <i className="fa fa-angle-left" style={{ color: "white" }}></i>
     </div>
   );
 };
 
 const SampleNextArrow = (props: ArrowProps) => {
   const { className, style, onClick } = props;
+  const [arrowStyle, setArrowStyle] = useState<React.CSSProperties>({
+    top: "50%",
+    left: "105%",
+    fontSize: "30px",
+  });
+
+  useEffect(() => {
+    const updateArrowStyle = () => {
+      const width = window.innerWidth;
+      if (width <= 768) {
+        setArrowStyle({
+          ...arrowStyle,
+          fontSize: "20px",
+          left: "100%", // Adjust for smaller screens
+        });
+      } else if (width <= 1024) {
+        setArrowStyle({
+          ...arrowStyle,
+          fontSize: "25px",
+          left: "102%",
+        });
+      } else {
+        setArrowStyle({
+          ...arrowStyle,
+          fontSize: "30px",
+          left: "104%",
+        });
+      }
+    };
+
+    window.addEventListener("resize", updateArrowStyle);
+    updateArrowStyle(); // Initial style setting
+
+    return () => window.removeEventListener("resize", updateArrowStyle);
+  }, [arrowStyle]);
+
   return (
     <div
       style={{
         ...style,
-        position: "absolute",
-        top: "50%",
-        left: "105%",
+        ...arrowStyle,
         borderRadius: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
       }}
       onClick={onClick}
-      className={`mr-[-20px] arrows ${className} `}
+      className={`arrows ${className} `}
     >
-      <i
-        className="fa fa-angle-right"
-        style={{ color: "white", fontSize: "30px" }}
-      ></i>
+      <i className="fa fa-angle-right" style={{ color: "white" }}></i>
     </div>
   );
 };
@@ -70,8 +135,8 @@ const ReviewSection = () => {
     slidesToScroll: 1,
     autoplay: true,
     speed: 7000,
-    centerMode: true,
-    centerPadding: "60px",
+    // centerMode: true,
+    // centerPadding: "60px",
     autoplaySpeed: 8000,
     cssEase: "linear",
     nextArrow: <SampleNextArrow />,
@@ -154,7 +219,7 @@ const ReviewSection = () => {
         </Fade>
         <Slider className=" mx-auto w-[80%] overflow" {...settings}>
           <div className="w-full">
-            <div className="w-[60%] mx-auto bg-white group my-10 py-10 relative flex flex-col justify-center items-center">
+            <div className="lg:w-[60%] w-[90%] mx-auto bg-white group my-10 py-10 relative flex flex-col justify-center items-center">
               <div className="group-hover:border-[#C00A27] border-[#3A3A3A] border-[5px]  w-[90%] flex flex-col justify-center items-center">
                 <p className="bg-white group-hover:text-[#3A3A3A] text-[#C00A27] font-extrabold text-[60px] absolute top-0 left-0 p-3">
                   <RiDoubleQuotesL />
@@ -162,13 +227,13 @@ const ReviewSection = () => {
                 <p className="bg-white group-hover:text-[#3A3A3A]  text-[#C00A27] font-extrabold text-[60px] absolute bottom-0 right-0 p-3">
                   <RiDoubleQuotesR />
                 </p>
-                <div className="flex justify-between items-center ">
+                <div className="flex justify-between items-center flex-wrap">
                   <img
-                    className=" w-[40%]"
+                    className="lg:w-[40%] w-[70%] mx-auto"
                     src="https://yummi-theme.myshopify.com/cdn/shop/products/shop-4.jpg?v=1589797939&width=360"
                     alt=""
                   />
-                  <div className=" w-[60%]">
+                  <div className="lg:w-[60%] w-full">
                     <div className="w-[80%] mx-auto my-10">
                       <p className="text-[20px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mb-3">
                         English Breakfast
@@ -208,7 +273,7 @@ const ReviewSection = () => {
             </div>
           </div>
           <div className="w-full">
-            <div className="w-[60%] mx-auto bg-white group my-10 py-10 relative flex flex-col justify-center items-center">
+            <div className="lg:w-[60%] w-[90%] mx-auto bg-white group my-10 py-10 relative flex flex-col justify-center items-center">
               <div className="group-hover:border-[#C00A27] border-[#3A3A3A] border-[5px]  w-[90%] flex flex-col justify-center items-center">
                 <p className="bg-white group-hover:text-[#3A3A3A] text-[#C00A27] font-extrabold text-[60px] absolute top-0 left-0 p-3">
                   <RiDoubleQuotesL />
@@ -216,13 +281,13 @@ const ReviewSection = () => {
                 <p className="bg-white group-hover:text-[#3A3A3A]  text-[#C00A27] font-extrabold text-[60px] absolute bottom-0 right-0 p-3">
                   <RiDoubleQuotesR />
                 </p>
-                <div className="flex justify-between items-center ">
+                <div className="flex justify-between items-center flex-wrap">
                   <img
-                    className=" w-[40%]"
+                    className="lg:w-[40%] w-[70%] mx-auto"
                     src="https://yummi-theme.myshopify.com/cdn/shop/products/shop-4.jpg?v=1589797939&width=360"
                     alt=""
                   />
-                  <div className=" w-[60%]">
+                  <div className="lg:w-[60%] w-full">
                     <div className="w-[80%] mx-auto my-10">
                       <p className="text-[20px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mb-3">
                         English Breakfast
@@ -262,7 +327,7 @@ const ReviewSection = () => {
             </div>
           </div>
           <div className="w-full">
-            <div className="w-[60%] mx-auto bg-white group my-10 py-10 relative flex flex-col justify-center items-center">
+            <div className="lg:w-[60%] w-[90%] mx-auto bg-white group my-10 py-10 relative flex flex-col justify-center items-center">
               <div className="group-hover:border-[#C00A27] border-[#3A3A3A] border-[5px]  w-[90%] flex flex-col justify-center items-center">
                 <p className="bg-white group-hover:text-[#3A3A3A] text-[#C00A27] font-extrabold text-[60px] absolute top-0 left-0 p-3">
                   <RiDoubleQuotesL />
@@ -270,13 +335,13 @@ const ReviewSection = () => {
                 <p className="bg-white group-hover:text-[#3A3A3A]  text-[#C00A27] font-extrabold text-[60px] absolute bottom-0 right-0 p-3">
                   <RiDoubleQuotesR />
                 </p>
-                <div className="flex justify-between items-center ">
+                <div className="flex justify-between items-center flex-wrap">
                   <img
-                    className=" w-[40%]"
+                    className="lg:w-[40%] w-[70%] mx-auto"
                     src="https://yummi-theme.myshopify.com/cdn/shop/products/shop-4.jpg?v=1589797939&width=360"
                     alt=""
                   />
-                  <div className=" w-[60%]">
+                  <div className="lg:w-[60%] w-full">
                     <div className="w-[80%] mx-auto my-10">
                       <p className="text-[20px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mb-3">
                         English Breakfast
