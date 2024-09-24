@@ -229,15 +229,21 @@ const ReviewSection = () => {
                 </p>
                 <div className="flex justify-between items-center flex-wrap">
                   <img
-                    className="lg:w-[40%] w-[70%] mx-auto"
+                    className="lg:w-[30%] w-[70%] mx-auto"
                     src="https://yummi-theme.myshopify.com/cdn/shop/products/shop-4.jpg?v=1589797939&width=360"
                     alt=""
                   />
-                  <div className="lg:w-[60%] w-full">
+                  <div className="lg:w-[70%] w-full">
                     <div className="w-[80%] mx-auto my-10">
-                      <p className="text-[20px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mb-3">
-                        English Breakfast
-                      </p>
+                      <div className="mt-5 flex justify-start items-center mb-5 md:mb-0">
+                        <GoPerson
+                          className="bg-[#8d8b8b] p-1 rounded-full text-yellow-400 mr-3 md:mr-3 
+                          text-[50px] md:text-[50px]" // Responsive size using Tailwind
+                        />
+                        <p className="text-[#686464] font-bold text-[20px] md:text-[20px]">
+                          User Name
+                        </p>
+                      </div>
                       <StarRatings
                         rating={5}
                         starRatedColor="#FFBA5A"
@@ -247,16 +253,10 @@ const ReviewSection = () => {
                         numberOfStars={5}
                         name="rating"
                       />
-                      <div className="mt-3 flex justify-start items-start mb-5 md:mb-0">
-                        <GoPerson
-                          className="bg-[#8d8b8b] p-1 rounded-sm text-yellow-400 mr-3 md:mr-3 
-                      text-[30px] md:text-[30px]" // Responsive size using Tailwind
-                        />
-                        <p className="text-[#686464] font-bold text-[16px] md:text-[15px]">
-                          User Name
-                        </p>
-                      </div>
-                      <p className="text-[20px] mb-1 font-semibold text-[#3A3A3A] mt-5">
+                      <p className="text-[25px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mt-5">
+                        English Breakfast
+                      </p>
+                      <p className="text-[20px] mb-1 font-semibold text-[#3A3A3A] mt-1">
                         Great
                       </p>
                       <p
@@ -283,15 +283,21 @@ const ReviewSection = () => {
                 </p>
                 <div className="flex justify-between items-center flex-wrap">
                   <img
-                    className="lg:w-[40%] w-[70%] mx-auto"
+                    className="lg:w-[30%] w-[70%] mx-auto"
                     src="https://yummi-theme.myshopify.com/cdn/shop/products/shop-4.jpg?v=1589797939&width=360"
                     alt=""
                   />
-                  <div className="lg:w-[60%] w-full">
+                  <div className="lg:w-[70%] w-full">
                     <div className="w-[80%] mx-auto my-10">
-                      <p className="text-[20px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mb-3">
-                        English Breakfast
-                      </p>
+                      <div className="mt-5 flex justify-start items-center mb-5 md:mb-0">
+                        <GoPerson
+                          className="bg-[#8d8b8b] p-1 rounded-full text-yellow-400 mr-3 md:mr-3 
+                          text-[50px] md:text-[50px]" // Responsive size using Tailwind
+                        />
+                        <p className="text-[#686464] font-bold text-[20px] md:text-[20px]">
+                          User Name
+                        </p>
+                      </div>
                       <StarRatings
                         rating={5}
                         starRatedColor="#FFBA5A"
@@ -301,16 +307,10 @@ const ReviewSection = () => {
                         numberOfStars={5}
                         name="rating"
                       />
-                      <div className="mt-3 flex justify-start items-start mb-5 md:mb-0">
-                        <GoPerson
-                          className="bg-[#8d8b8b] p-1 rounded-sm text-yellow-400 mr-3 md:mr-3 
-                      text-[30px] md:text-[30px]" // Responsive size using Tailwind
-                        />
-                        <p className="text-[#686464] font-bold text-[16px] md:text-[15px]">
-                          User Name
-                        </p>
-                      </div>
-                      <p className="text-[20px] mb-1 font-semibold text-[#3A3A3A] mt-5">
+                      <p className="text-[25px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mt-5">
+                        English Breakfast
+                      </p>
+                      <p className="text-[20px] mb-1 font-semibold text-[#3A3A3A] mt-1">
                         Great
                       </p>
                       <p
@@ -337,15 +337,21 @@ const ReviewSection = () => {
                 </p>
                 <div className="flex justify-between items-center flex-wrap">
                   <img
-                    className="lg:w-[40%] w-[70%] mx-auto"
+                    className="lg:w-[30%] w-[70%] mx-auto"
                     src="https://yummi-theme.myshopify.com/cdn/shop/products/shop-4.jpg?v=1589797939&width=360"
                     alt=""
                   />
-                  <div className="lg:w-[60%] w-full">
+                  <div className="lg:w-[70%] w-full">
                     <div className="w-[80%] mx-auto my-10">
-                      <p className="text-[20px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mb-3">
-                        English Breakfast
-                      </p>
+                      <div className="mt-5 flex justify-start items-center mb-5 md:mb-0">
+                        <GoPerson
+                          className="bg-[#8d8b8b] p-1 rounded-full text-yellow-400 mr-3 md:mr-3 
+                          text-[50px] md:text-[50px]" // Responsive size using Tailwind
+                        />
+                        <p className="text-[#686464] font-bold text-[20px] md:text-[20px]">
+                          User Name
+                        </p>
+                      </div>
                       <StarRatings
                         rating={5}
                         starRatedColor="#FFBA5A"
@@ -355,16 +361,10 @@ const ReviewSection = () => {
                         numberOfStars={5}
                         name="rating"
                       />
-                      <div className="mt-3 flex justify-start items-start mb-5 md:mb-0">
-                        <GoPerson
-                          className="bg-[#8d8b8b] p-1 rounded-sm text-yellow-400 mr-3 md:mr-3 
-                      text-[30px] md:text-[30px]" // Responsive size using Tailwind
-                        />
-                        <p className="text-[#686464] font-bold text-[16px] md:text-[15px]">
-                          User Name
-                        </p>
-                      </div>
-                      <p className="text-[20px] mb-1 font-semibold text-[#3A3A3A] mt-5">
+                      <p className="text-[25px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mt-5">
+                        English Breakfast
+                      </p>
+                      <p className="text-[20px] mb-1 font-semibold text-[#3A3A3A] mt-1">
                         Great
                       </p>
                       <p
