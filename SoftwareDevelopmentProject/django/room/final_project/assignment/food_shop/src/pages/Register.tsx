@@ -10,10 +10,11 @@ const handleRegistration = (event: FormEvent<HTMLFormElement>) => {
   const getValue = (id: string): string =>
     (document.getElementById(id) as HTMLInputElement).value;
 
-  const getFile = (id: string): File | null =>
-    (document.getElementById(id) as HTMLInputElement).files?.[0] || null;
+  // const getFile = (id: string): File | null =>
+  //   (document.getElementById(id) as HTMLInputElement).files?.[0] || null;
 
   const username = getValue("username");
+  const image = getValue("image");
   const first_name = getValue("first_name");
   const last_name = getValue("last_name");
   const email = getValue("email");
@@ -21,7 +22,7 @@ const handleRegistration = (event: FormEvent<HTMLFormElement>) => {
   const confirm_password = getValue("confirm_password");
   const mobile_no = getValue("mobile_no");
   const address = getValue("address");
-  const image = getFile("image");
+  // const image = getFile("image");
 
   if (password === confirm_password) {
     if (
@@ -31,6 +32,7 @@ const handleRegistration = (event: FormEvent<HTMLFormElement>) => {
     ) {
       const formData = new FormData();
       formData.append("username", username);
+      formData.append("image", image);
       formData.append("first_name", first_name);
       formData.append("last_name", last_name);
       formData.append("email", email);
@@ -38,11 +40,11 @@ const handleRegistration = (event: FormEvent<HTMLFormElement>) => {
       formData.append("confirm_password", confirm_password);
       formData.append("mobile_no", mobile_no);
       formData.append("address", address);
-      if (image) {
-        formData.append("image", image);
-      }
+      // if (image) {
+      //   formData.append("image", image);
+      // }
 
-      fetch("https://food-shop-server.onrender.com/user_accounts/register/", {
+      fetch("https://food-backend-ohlq.onrender.com/user_accounts/register/", {
         method: "POST",
         body: formData,
       })
@@ -163,8 +165,8 @@ const Register = () => {
             </label>
             <label className="form-control w-full my-3 md:my-5">
               <input
-                type="file"
-                placeholder="Image Files"
+                type="url"
+                placeholder="Image URL"
                 id="image"
                 className="input input-bordered w-full"
               />

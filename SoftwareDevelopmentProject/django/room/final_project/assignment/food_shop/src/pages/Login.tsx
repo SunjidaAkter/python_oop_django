@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     if (username && password) {
       try {
         const response = await fetch(
-          "https://food-shop-server.onrender.com/user_accounts/login/",
+          "https://food-backend-ohlq.onrender.com/user_accounts/login/",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -38,7 +38,7 @@ const Login: React.FC = () => {
             showConfirmButton: false,
             confirmButtonColor: "#C00A27",
           }).then(() => {
-            window.location.href = "https://steady-concha-8cc923.netlify.app";
+            window.location.href = "https://yummi-tummy.netlify.app";
           });
         } else {
           Swal.fire({

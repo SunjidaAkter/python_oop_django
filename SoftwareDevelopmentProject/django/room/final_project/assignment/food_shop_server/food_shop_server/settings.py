@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-8o^-gkgtwmq$9)_^s&ems*^@#4li6qai4vjf1-l6gok1d4466@
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['https://food-backend-gjx4.onrender.com','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://food-backend-ohlq.onrender.com','https://*.127.0.0.1']
 
 # Application definition
 
@@ -90,8 +90,12 @@ WSGI_APPLICATION = 'food_shop_server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER':'postgres.ylxtxqqpchljdnlkjrdo',
+        'PASSWORD': 'qhjOtsSURREwTiuS',
+        'HOST': 'aws-0-ap-southeast-1.pooler.supabase.com',
+        'PORT': '6543',
     }
 }
 

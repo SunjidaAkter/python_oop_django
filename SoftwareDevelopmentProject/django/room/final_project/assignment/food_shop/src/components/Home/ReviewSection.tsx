@@ -7,6 +7,13 @@ import Slider from "react-slick";
 import { ReactNode } from "react";
 import { Fade } from "react-awesome-reveal";
 import { useEffect, useState } from "react";
+import {
+  useGetMenuListQuery,
+  useGetReviewListQuery,
+  useGetUserAccountsListQuery,
+  useGetUserListQuery,
+} from "../../redux/features/food/foodApi";
+import { IAccount, IFood, IReview, IUser } from "../../types/globalType";
 
 interface ArrowProps {
   className?: string;
@@ -134,48 +141,12 @@ const ReviewSection = () => {
     slidesToShow: 1, // Default slidesToShow for large screens
     slidesToScroll: 1,
     autoplay: true,
-    speed: 7000,
-    // centerMode: true,
-    // centerPadding: "60px",
-    autoplaySpeed: 8000,
+    speed: 3000,
+    autoplaySpeed: 5000,
     cssEase: "linear",
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
-    // responsive: [
-    //   {
-    //     breakpoint: 1440,
-    //     settings: {
-    //       slidesToShow: 1,
-    //       slidesToScroll: 1,
-    //       infinite: true,
-    //       dots: true,
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 1024,
-    //     settings: {
-    //       slidesToShow: 1,
-    //       slidesToScroll: 1,
-    //       infinite: true,
-    //       dots: true,
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 600,
-    //     settings: {
-    //       slidesToShow: 1,
-    //       slidesToScroll: 1,
-    //       initialSlide: 1,
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 480,
-    //     settings: {
-    //       slidesToShow: 1,
-    //       slidesToScroll: 1,
-    //     },
-    //   },
-    // ],
+
     appendDots: (dots: ReactNode) => (
       <div
         style={{
@@ -195,6 +166,121 @@ const ReviewSection = () => {
       </div>
     ),
   };
+  const { data: reviews, isLoading, error } = useGetReviewListQuery(undefined);
+  const { data: menuList } = useGetMenuListQuery(undefined);
+  const { data: users } = useGetUserListQuery(undefined);
+  const { data: accounts } = useGetUserAccountsListQuery(undefined);
+  const categorise = () => {
+    if (isLoading) {
+      return (
+        <div className="h-screen flex justify-center items-center">
+          <span className="loading loading-ring loading-lg"></span>
+        </div>
+      );
+    } else if (error) {
+      return (
+        <div className="my-[200px]">
+          <p className="text-red-500 text-lg text-center font-extrabold">
+            Something Went Wrong!!
+          </p>
+        </div>
+      );
+    } else if (!isLoading && reviews?.length == 0) {
+      return (
+        <>
+          <div className="my-[200px]">
+            <p className="text-red-500 text-lg text-center font-extrabold">
+              No Review Is Available!!
+            </p>
+          </div>
+        </>
+      );
+    } else {
+      // let iter = 0;
+      return (
+        <Slider className="mx-auto w-[70%] overflow" {...settings}>
+          {reviews?.map((review: IReview) => {
+            const matchedMenu = menuList?.find((menu: IFood) => {
+              return menu?.id === review?.menu;
+            });
+            const matchedUser = users?.find((use: IAccount) => {
+              return review?.reviewer === use?.id;
+            });
+            const matchedAccount = accounts?.find((account: IUser) => {
+              return account?.user === matchedUser?.username;
+            });
+
+            return (
+              <div key={review?.id} className="w-full">
+                <div className="lg:w-[60%] w-[90%] mx-auto bg-white group my-10 py-10 relative flex flex-col justify-center items-center">
+                  <div className="group-hover:border-[#C00A27] border-[#3A3A3A] border-[5px] w-[90%] flex flex-col justify-center items-center">
+                    <p className="bg-white group-hover:text-[#3A3A3A] text-[#C00A27] font-extrabold text-[60px] absolute top-0 left-0 p-3">
+                      <RiDoubleQuotesL />
+                    </p>
+                    <p className="bg-white group-hover:text-[#3A3A3A] text-[#C00A27] font-extrabold text-[60px] absolute bottom-0 right-0 p-3">
+                      <RiDoubleQuotesR />
+                    </p>
+                    <div className="flex justify-between items-center flex-wrap">
+                      <img
+                        className="lg:w-[35%] w-[70%] mx-auto"
+                        src={
+                          matchedMenu?.image ||
+                          "https://i.pinimg.com/originals/2e/ce/ce/2ececec5431d0a1b7eae4e1acac7c59f.gif"
+                        }
+                        alt=""
+                      />
+                      <div className="lg:w-[65%] w-full">
+                        <div className="w-[80%] mx-auto my-10">
+                          <div className="mt-5 flex justify-start items-center mb-5 md:mb-0">
+                            {matchedAccount ? (
+                              <img
+                                className="w-[70px] h-[70px] mr-3 md:mr-3 rounded-full"
+                                src={matchedAccount?.image}
+                                alt=""
+                              />
+                            ) : (
+                              <GoPerson className="bg-[#8d8b8b] p-1 rounded-full text-yellow-400 mr-3 md:mr-3 text-[70px] md:text-[70px]" />
+                            )}
+                            <div className="flex-col justify-start items-start">
+                              <p className="text-[#686464] font-bold text-[20px] md:text-[20px]">
+                                {matchedUser?.username || "User Name"}
+                              </p>
+
+                              <StarRatings
+                                rating={review?.rating}
+                                starRatedColor="#FFBA5A"
+                                starDimension="25px"
+                                starEmptyColor="#a9a9a9"
+                                starSpacing="3px"
+                                numberOfStars={5}
+                                name="rating"
+                              />
+                            </div>
+                          </div>
+                          <p className="text-[25px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mt-5">
+                            {matchedMenu?.title || "Loading..."}
+                          </p>
+                          <p className="text-[20px] mb-1 font-semibold text-[#3A3A3A] mt-1">
+                            {review?.title}
+                          </p>
+                          <p
+                            style={{ overflowWrap: "break-word" }}
+                            className="text-[#3A3A3A] w-full"
+                          >
+                            {review?.body}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </Slider>
+      );
+    }
+  };
   return (
     <div
       style={{ backgroundImage: `url(${bg})` }}
@@ -203,7 +289,7 @@ const ReviewSection = () => {
       <div className="w-full bg-black bg-opacity-50">
         <Fade cascade direction="up" duration={1000}>
           <p className="pt-10 mb-6 text-center text-white text-[30px] sm:text-[30px] font-bold">
-            Our Flavorful Menus
+            Our Clients Reviews
           </p>
         </Fade>
         <Fade cascade direction="up" duration={1000} delay={200}>
@@ -217,170 +303,7 @@ const ReviewSection = () => {
             euismod elementum nisi quis.
           </p>
         </Fade>
-        <Slider className=" mx-auto w-[80%] overflow" {...settings}>
-          <div className="w-full">
-            <div className="lg:w-[60%] w-[90%] mx-auto bg-white group my-10 py-10 relative flex flex-col justify-center items-center">
-              <div className="group-hover:border-[#C00A27] border-[#3A3A3A] border-[5px]  w-[90%] flex flex-col justify-center items-center">
-                <p className="bg-white group-hover:text-[#3A3A3A] text-[#C00A27] font-extrabold text-[60px] absolute top-0 left-0 p-3">
-                  <RiDoubleQuotesL />
-                </p>
-                <p className="bg-white group-hover:text-[#3A3A3A]  text-[#C00A27] font-extrabold text-[60px] absolute bottom-0 right-0 p-3">
-                  <RiDoubleQuotesR />
-                </p>
-                <div className="flex justify-between items-center flex-wrap">
-                  <img
-                    className="lg:w-[30%] w-[70%] mx-auto"
-                    src="https://yummi-theme.myshopify.com/cdn/shop/products/shop-4.jpg?v=1589797939&width=360"
-                    alt=""
-                  />
-                  <div className="lg:w-[70%] w-full">
-                    <div className="w-[80%] mx-auto my-10">
-                      <div className="mt-5 flex justify-start items-center mb-5 md:mb-0">
-                        <GoPerson
-                          className="bg-[#8d8b8b] p-1 rounded-full text-yellow-400 mr-3 md:mr-3 
-                          text-[50px] md:text-[50px]" // Responsive size using Tailwind
-                        />
-                        <p className="text-[#686464] font-bold text-[20px] md:text-[20px]">
-                          User Name
-                        </p>
-                      </div>
-                      <StarRatings
-                        rating={5}
-                        starRatedColor="#FFBA5A"
-                        starDimension="25px"
-                        starEmptyColor="#a9a9a9"
-                        starSpacing="3px"
-                        numberOfStars={5}
-                        name="rating"
-                      />
-                      <p className="text-[25px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mt-5">
-                        English Breakfast
-                      </p>
-                      <p className="text-[20px] mb-1 font-semibold text-[#3A3A3A] mt-1">
-                        Great
-                      </p>
-                      <p
-                        style={{ overflowWrap: "break-word" }}
-                        className="text-[#3A3A3A] w-full"
-                      >
-                        This food is just mind blowing and the service was also
-                        good!! XO XO
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="w-full">
-            <div className="lg:w-[60%] w-[90%] mx-auto bg-white group my-10 py-10 relative flex flex-col justify-center items-center">
-              <div className="group-hover:border-[#C00A27] border-[#3A3A3A] border-[5px]  w-[90%] flex flex-col justify-center items-center">
-                <p className="bg-white group-hover:text-[#3A3A3A] text-[#C00A27] font-extrabold text-[60px] absolute top-0 left-0 p-3">
-                  <RiDoubleQuotesL />
-                </p>
-                <p className="bg-white group-hover:text-[#3A3A3A]  text-[#C00A27] font-extrabold text-[60px] absolute bottom-0 right-0 p-3">
-                  <RiDoubleQuotesR />
-                </p>
-                <div className="flex justify-between items-center flex-wrap">
-                  <img
-                    className="lg:w-[30%] w-[70%] mx-auto"
-                    src="https://yummi-theme.myshopify.com/cdn/shop/products/shop-4.jpg?v=1589797939&width=360"
-                    alt=""
-                  />
-                  <div className="lg:w-[70%] w-full">
-                    <div className="w-[80%] mx-auto my-10">
-                      <div className="mt-5 flex justify-start items-center mb-5 md:mb-0">
-                        <GoPerson
-                          className="bg-[#8d8b8b] p-1 rounded-full text-yellow-400 mr-3 md:mr-3 
-                          text-[50px] md:text-[50px]" // Responsive size using Tailwind
-                        />
-                        <p className="text-[#686464] font-bold text-[20px] md:text-[20px]">
-                          User Name
-                        </p>
-                      </div>
-                      <StarRatings
-                        rating={5}
-                        starRatedColor="#FFBA5A"
-                        starDimension="25px"
-                        starEmptyColor="#a9a9a9"
-                        starSpacing="3px"
-                        numberOfStars={5}
-                        name="rating"
-                      />
-                      <p className="text-[25px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mt-5">
-                        English Breakfast
-                      </p>
-                      <p className="text-[20px] mb-1 font-semibold text-[#3A3A3A] mt-1">
-                        Great
-                      </p>
-                      <p
-                        style={{ overflowWrap: "break-word" }}
-                        className="text-[#3A3A3A] w-full"
-                      >
-                        This food is just mind blowing and the service was also
-                        good!! XO XO
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="w-full">
-            <div className="lg:w-[60%] w-[90%] mx-auto bg-white group my-10 py-10 relative flex flex-col justify-center items-center">
-              <div className="group-hover:border-[#C00A27] border-[#3A3A3A] border-[5px]  w-[90%] flex flex-col justify-center items-center">
-                <p className="bg-white group-hover:text-[#3A3A3A] text-[#C00A27] font-extrabold text-[60px] absolute top-0 left-0 p-3">
-                  <RiDoubleQuotesL />
-                </p>
-                <p className="bg-white group-hover:text-[#3A3A3A]  text-[#C00A27] font-extrabold text-[60px] absolute bottom-0 right-0 p-3">
-                  <RiDoubleQuotesR />
-                </p>
-                <div className="flex justify-between items-center flex-wrap">
-                  <img
-                    className="lg:w-[30%] w-[70%] mx-auto"
-                    src="https://yummi-theme.myshopify.com/cdn/shop/products/shop-4.jpg?v=1589797939&width=360"
-                    alt=""
-                  />
-                  <div className="lg:w-[70%] w-full">
-                    <div className="w-[80%] mx-auto my-10">
-                      <div className="mt-5 flex justify-start items-center mb-5 md:mb-0">
-                        <GoPerson
-                          className="bg-[#8d8b8b] p-1 rounded-full text-yellow-400 mr-3 md:mr-3 
-                          text-[50px] md:text-[50px]" // Responsive size using Tailwind
-                        />
-                        <p className="text-[#686464] font-bold text-[20px] md:text-[20px]">
-                          User Name
-                        </p>
-                      </div>
-                      <StarRatings
-                        rating={5}
-                        starRatedColor="#FFBA5A"
-                        starDimension="25px"
-                        starEmptyColor="#a9a9a9"
-                        starSpacing="3px"
-                        numberOfStars={5}
-                        name="rating"
-                      />
-                      <p className="text-[25px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mt-5">
-                        English Breakfast
-                      </p>
-                      <p className="text-[20px] mb-1 font-semibold text-[#3A3A3A] mt-1">
-                        Great
-                      </p>
-                      <p
-                        style={{ overflowWrap: "break-word" }}
-                        className="text-[#3A3A3A] w-full"
-                      >
-                        This food is just mind blowing and the service was also
-                        good!! XO XO
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Slider>
+        {categorise()}
       </div>
     </div>
   );

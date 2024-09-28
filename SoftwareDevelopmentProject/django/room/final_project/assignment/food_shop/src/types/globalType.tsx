@@ -26,8 +26,8 @@ export interface IReview {
   id: number;
   title: string;
   body: string;
-  reviewer: IUser;
-  menu: IFood;
+  reviewer: number;
+  menu: number;
   rating: number;
   created: string;
 }

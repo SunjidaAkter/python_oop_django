@@ -44,6 +44,12 @@ const bookApi = api.injectEndpoints({
       }),
       providesTags: ["orders"],
     }),
+    getReviewList: builder.query({
+      query: () => ({
+        url: "/menu/reviews",
+      }),
+      providesTags: ["reviews"],
+    }),
     getMenu: builder.query({
       query: (options) => ({
         url: "/menu/list",
@@ -210,6 +216,7 @@ export const {
   useGetMenuQuery,
   useGetUserListQuery,
   useGetOrderListQuery,
+  useGetReviewListQuery,
   useGetUserAccountsListQuery,
   useGetCartListQuery,
   useGetWishlistListQuery,

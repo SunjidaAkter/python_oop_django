@@ -11,8 +11,8 @@ const handleAddMenu = (event: FormEvent<HTMLFormElement>) => {
   const getValue = (id: string): string =>
     (document.getElementById(id) as HTMLInputElement).value;
 
-  const getFile = (id: string): File | null =>
-    (document.getElementById(id) as HTMLInputElement).files?.[0] || null;
+  // const getFile = (id: string): File | null =>
+  //   (document.getElementById(id) as HTMLInputElement).files?.[0] || null;
   const getSelectedValues = (id: string): number[] => {
     const selectElement = document.getElementById(id) as HTMLSelectElement;
     return Array.from(selectElement.selectedOptions, (option) =>
@@ -20,24 +20,26 @@ const handleAddMenu = (event: FormEvent<HTMLFormElement>) => {
     );
   };
   const title = getValue("title");
+  const image = getValue("image");
   const description = getValue("description");
   const price = getValue("price");
   const category = getValue("category");
   const cuisines = getSelectedValues("cuisine");
-  const image = getFile("image");
+  // const image = getFile("image");
   // const cuisines = getSelectedValues("cuisine");
   console.log("Selected cuisines:", cuisines);
   const formData = new FormData();
   formData.append("title", title);
+  formData.append("image", image);
   formData.append("description", description);
   formData.append("price", price);
   formData.append("category", category);
   cuisines.forEach((cuisine) => formData.append("cuisine", cuisine.toString()));
-  if (image) {
-    formData.append("image", image);
-  }
+  // if (image) {
+  //   formData.append("image", image);
+  // }
 
-  fetch("https://food-shop-server.onrender.com/menu/list/", {
+  fetch("https://food-backend-ohlq.onrender.com/menu/list/", {
     method: "POST",
     body: formData,
   })
@@ -163,8 +165,8 @@ const AddMenu = () => {
               </label>
               <label className="form-control w-[47%] my-3 md:my-5">
                 <input
-                  type="file"
-                  placeholder="Image Files"
+                  type="url"
+                  placeholder="Image URL"
                   id="image"
                   className="input input-bordered w-full"
                 />
