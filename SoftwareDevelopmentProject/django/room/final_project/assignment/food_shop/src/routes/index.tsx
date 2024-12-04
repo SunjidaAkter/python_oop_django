@@ -20,6 +20,8 @@ import Discounted from "../pages/Discounted";
 import CartDetail from "../pages/CartDetail";
 import Wishlist from "../pages/Wishlist";
 import EditMenu from "../components/Dashboard/EditMenu";
+import Checkout from "../pages/Checkout";
+import ProfileDashboard from "../pages/ProfileDashboard";
 
 const routes = createBrowserRouter([
   {
@@ -74,6 +76,11 @@ const routes = createBrowserRouter([
         path: "/gallery",
         element: <Gallery />,
       },
+
+      {
+        path: "/checkout/:id",
+        element: <Checkout />,
+      },
       {
         path: "/menu",
         element: <Menu />,
@@ -91,6 +98,32 @@ const routes = createBrowserRouter([
   {
     path: "/dashboard/", // Root path
     element: <Dashboard />, // Wraps content in MainLayout
+    children: [
+      {
+        index: true, // Default route for "/"
+        element: <AdminProfile />,
+      },
+      {
+        path: "history",
+        element: <ManageHistory />,
+      },
+      {
+        path: "add_menu",
+        element: <AddMenu />,
+      },
+      {
+        path: "edit_menu/:id",
+        element: <EditMenu />,
+      },
+      {
+        path: "manage_menu",
+        element: <ManageMenu />,
+      },
+    ],
+  },
+  {
+    path: "/profile_dashboard/", // Root path
+    element: <ProfileDashboard />, // Wraps content in MainLayout
     children: [
       {
         index: true, // Default route for "/"

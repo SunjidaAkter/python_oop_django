@@ -73,7 +73,7 @@ const Nav = () => {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
-
+  console.log(filteredUser?.id);
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
@@ -128,10 +128,12 @@ const Nav = () => {
               />
             </svg>
           </button>
-          <img
-            src="https://yummi-theme.myshopify.com/cdn/shop/files/logo_3.png?v=1623913640&width=80"
-            alt="Logo"
-          />
+          <NavLink to="/">
+            <img
+              src="https://yummi-theme.myshopify.com/cdn/shop/files/logo_3.png?v=1623913640&width=80"
+              alt="Logo"
+            />
+          </NavLink>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="flex justify-between px-1">

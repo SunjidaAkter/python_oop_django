@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import Swal from "sweetalert2";
 import {
@@ -13,7 +13,6 @@ import {
   useSingleMenuQuery,
   useSingleUserQuery,
   useUpdateCartMutation,
-  useUpdateOrderMutation,
   useUpdateWishlistMutation,
 } from "../../redux/features/food/foodApi";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
@@ -22,29 +21,24 @@ import {
   setCurrentPageForPrevious,
 } from "../../redux/features/food/foodSlice";
 import { ICuisine, IOrder, IUser } from "../../types/globalType";
+import { useState } from "react";
 
 const Product = () => {
   const [postCart, { isError: isErrorCart, isLoading: isLoadingCart }] =
     usePostCartMutation();
   const [postWishlist] = usePostWishlistMutation();
   const [postOrder] = usePostOrderMutation();
-  const [updateOrder] = useUpdateOrderMutation();
+  // const [updateOrder] = useUpdateOrderMutation();
   const [updateCart] = useUpdateCartMutation();
   const [updateWishlist] = useUpdateWishlistMutation();
   const { currentPage, currentCost } = useAppSelector((state) => state.food);
+  const [loadingOrder, setLoadingOrder] = useState(false);
+  const navigate = useNavigate();
   const { id } = useParams();
   const userID = localStorage.getItem("user_id");
 
-  const {
-    data: user,
-    // isLoading: isLoadingUser,
-    // error: errorUser,
-  } = useSingleUserQuery(userID);
-  const {
-    data: userList,
-    // isLoading: isLoadingUser,
-    // error: errorUser,
-  } = useGetUserAccountsListQuery(undefined);
+  const { data: user } = useSingleUserQuery(userID);
+  const { data: userList } = useGetUserAccountsListQuery(undefined);
   const filteredUser = userList?.find((SingleUser: IUser) => {
     return SingleUser?.user === user?.username;
   });
@@ -86,41 +80,31 @@ const Product = () => {
 
   const handleOrder = async () => {
     if (userToken && userId && menu) {
-      const existingOrder = orders?.find(
-        (order: IOrder) => order.customer === userId && order.menu === menu.id
-      );
-      console.log(existingOrder);
-      if (existingOrder) {
-        // If the order exists, update the quantity
-        const updatedOrder = {
-          id: existingOrder?.id,
-          data: {
-            quantity: existingOrder.quantity + currentPage,
-            cost: existingOrder.cost + currentCost,
-          },
-        };
+      setLoadingOrder(true);
+      const options = {
+        customer: parseInt(userId),
+        menu: menu?.id,
+        quantity: currentPage,
+        order_status: "Unordered",
+        cost: currentCost,
+        total_cost: currentCost + 10,
+      };
 
-        updateOrder(updatedOrder);
-      } else {
-        // If the order does not exist, create a new order
-        console.log("object", menu.id);
-        const options = {
-          customer: parseInt(userId),
-          menu: menu?.id,
-          quantity: currentPage,
-          order_status: "Pending",
-          cost: currentCost,
-        };
-        console.log(options, menu.id);
-
-        postOrder(options);
+      try {
+        const newOrder = await postOrder(options);
+        const orderId = newOrder.data?.id;
+        if (orderId) {
+          setLoadingOrder(false);
+          navigate(`/checkout/${orderId}`, { replace: true });
+        }
+      } catch (error) {
+        console.error("Order creation failed", error);
+        Swal.fire({
+          icon: "error",
+          title: "Order Failed!",
+          text: "An error occurred while placing your order. Please try again.",
+        });
       }
-
-      Swal.fire({
-        icon: "success",
-        title: "Order Placed!",
-        text: "Your order has been successfully placed.",
-      });
     } else if (!userId && !userToken) {
       Swal.fire({
         icon: "error",
@@ -129,6 +113,7 @@ const Product = () => {
       });
     }
   };
+
   const handleCart = async () => {
     if (userToken && userId && menu) {
       const existingCart = cart?.find(
@@ -136,7 +121,6 @@ const Product = () => {
       );
       console.log(existingCart);
       if (existingCart) {
-        // If the order exists, update the quantity
         const updatedCart = {
           id: existingCart?.id,
           data: {
@@ -232,9 +216,14 @@ const Product = () => {
     );
   } else if (errorMenu) {
     return (
-      <div className="my-[200px]">
+      <div className="my-[100px] flex flex-col justify-center items-center">
+        <img
+          src="https://ph-tube.netlify.app/images/Icon.png"
+          alt=""
+          className="mb-5"
+        />
         <p className="text-red-500 text-lg text-center font-extrabold">
-          Something Went Wrong!!
+          Something Went Wrong!
         </p>
       </div>
     );
@@ -243,11 +232,15 @@ const Product = () => {
       <div className="w-full mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex justify-center w-full md:w-1/2">
-            <img className="w-full md:w-[70%]" src={menu?.image} alt="" />
+            <img
+              className="md:w-[70%] sm:w-[70%] w-[70%]"
+              src={menu?.image}
+              alt=""
+            />
           </div>
           <div className="w-full md:w-1/2 mt-8 md:mt-0">
             <div className="md:w-[60%]">
-              <p className="text-[24px] md:text-[36px] font-bold text-[#686464] mb-5">
+              <p className="text-[24px] md:text-[36px] font-bold text-[#686464] mb-5 lg:mt-10 md:mt-10 mt-0">
                 {menu?.title}
               </p>
               <p className="text-[16px] md:text-[18px] text-[#686464] mb-3">
@@ -367,49 +360,40 @@ const Product = () => {
                   Add to Wishlist
                 </p>
                 <p
-                  onClick={
-                    filteredUser?.amount >= currentCost + totalCost
-                      ? currentPage > 0
-                        ? handleCart
-                        : undefined
-                      : undefined
-                  }
+                  onClick={currentPage > 0 ? handleCart : undefined}
                   className={
-                    filteredUser?.amount >= currentCost + totalCost &&
                     currentPage > 0
                       ? "w-[48%] bg-[#C00A27] text-white px-5 py-2 rounded-sm text-center"
                       : "w-[48%] bg-[#715257] text-white px-5 py-2 rounded-sm text-center"
                   }
                 >
-                  {filteredUser?.amount >= currentCost + totalCost
-                    ? currentPage > 0
-                      ? "Add to Cart"
-                      : "Add Quantity"
-                    : "Insufficient Account Balance"}
+                  {currentPage > 0 ? "Add to Cart" : "Add Quantity"}
                 </p>
               </div>
               <div className="flex justify-center">
-                <p
-                  onClick={
-                    filteredUser?.amount >= currentCost + totalCost
-                      ? currentPage > 0
-                        ? handleOrder
-                        : undefined
-                      : undefined
-                  }
-                  className={
-                    filteredUser?.amount >= currentCost + totalCost &&
-                    currentPage > 0
-                      ? "w-full bg-[#C00A27] text-white px-5 py-2 rounded-sm text-center"
-                      : "w-full bg-[#715257] text-white px-5 py-2 rounded-sm text-center"
-                  }
-                >
-                  {filteredUser?.amount >= currentCost + totalCost
-                    ? currentPage > 0
-                      ? "Order"
-                      : "Add Quantity"
-                    : "Insufficient Account Balance"}
-                </p>
+                {loadingOrder ? (
+                  <p
+                    className={
+                      currentPage > 0
+                        ? "w-full bg-[#C00A27] text-white px-5 py-2 rounded-sm text-center"
+                        : "w-full bg-[#715257] text-white px-5 py-2 rounded-sm text-center"
+                    }
+                  >
+                    <span className="loading loading-spinner text-sm mr-3"></span>
+                    Order
+                  </p>
+                ) : (
+                  <p
+                    onClick={currentPage > 0 ? handleOrder : undefined}
+                    className={
+                      currentPage > 0
+                        ? "w-full bg-[#C00A27] text-white px-5 py-2 rounded-sm text-center"
+                        : "w-full bg-[#715257] text-white px-5 py-2 rounded-sm text-center"
+                    }
+                  >
+                    {currentPage > 0 ? "Order" : "Add Quantity"}
+                  </p>
+                )}
               </div>
             </div>
           </div>

@@ -8,7 +8,7 @@ const Upper = () => {
       <div className="hero-content py-10 flex-col">
         <p className="text-[36px] font-bold text-white text-center">Account</p>
         <p className="text-[20px] text-white font-semibold text-center">
-          Home/Register
+          Home/Details
         </p>
       </div>
     </div>

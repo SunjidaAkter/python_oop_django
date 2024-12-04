@@ -107,18 +107,18 @@ const Category: React.FC = () => {
       </div>
     ),
   };
-  // Fetch the menu list
-  const { data, isLoading, error } = useGetMenuListQuery(undefined);
 
   // Handle category selection
   const handleCategoryClick = (category: number) => {
     setSelectedCategory(category);
   };
+  // Filter the menu based on the selected category
+  // Fetch the menu list
+  const { data, isLoading, error } = useGetMenuListQuery(undefined);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value.toLowerCase());
   };
-  // Filter the menu based on the selected category
   const filteredMenu = data?.filter((menu: IFood) => {
     const matchesCategory =
       selectedCategory === 0 || menu.category === selectedCategory;
@@ -138,18 +138,28 @@ const Category: React.FC = () => {
       );
     } else if (error) {
       return (
-        <div className="my-[200px]">
+        <div className="my-[100px] flex flex-col justify-center items-center">
+          <img
+            src="https://ph-tube.netlify.app/images/Icon.png"
+            alt=""
+            className="mb-5"
+          />
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong!!
+            Something Went Wrong!
           </p>
         </div>
       );
     } else if (!isLoading && filteredMenu?.length == 0) {
       return (
         <>
-          <div className="my-[200px]">
+          <div className="my-[100px] flex flex-col justify-center items-center">
+            <img
+              src="https://ph-tube.netlify.app/images/Icon.png"
+              alt=""
+              className="mb-5"
+            />
             <p className="text-red-500 text-lg text-center font-extrabold">
-              No Menu Item Is Available In This Category!!
+              No Items Available!
             </p>
           </div>
         </>
@@ -169,7 +179,11 @@ const Category: React.FC = () => {
                 <div className="px-5 pb-10">
                   <div className="border-2 border-[#f9f9f9] group card bg-base-100 shadow-xl rounded-none">
                     <figure>
-                      <img src={menu?.image} alt={menu?.title} />
+                      <img
+                        className="lg:w-full w-[60%]"
+                        src={menu?.image}
+                        alt={menu?.title}
+                      />
                     </figure>
                     <div className="p-[32px] bg-[#f9f9f9] ">
                       <div className="flex justify-between items-center">
@@ -234,7 +248,7 @@ const Category: React.FC = () => {
           Our Menu
         </p>
       </Fade>
-      <div className="w-[50%] mx-auto mb-40">
+      <div className="w-[50%] mx-auto mb-16">
         <label className="input input-bordered flex items-center gap-2">
           <input
             type="text"

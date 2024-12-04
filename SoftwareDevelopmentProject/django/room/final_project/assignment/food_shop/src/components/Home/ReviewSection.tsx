@@ -179,18 +179,28 @@ const ReviewSection = () => {
       );
     } else if (error) {
       return (
-        <div className="my-[200px]">
+        <div className="my-[100px] flex flex-col justify-center items-center">
+          <img
+            src="https://ph-tube.netlify.app/images/Icon.png"
+            alt=""
+            className="mb-5"
+          />
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong!!
+            Something Went Wrong!
           </p>
         </div>
       );
     } else if (!isLoading && reviews?.length == 0) {
       return (
         <>
-          <div className="my-[200px]">
+          <div className="my-[100px] flex flex-col justify-center items-center">
+            <img
+              src="https://ph-tube.netlify.app/images/Icon.png"
+              alt=""
+              className="mb-5"
+            />
             <p className="text-red-500 text-lg text-center font-extrabold">
-              No Review Is Available!!
+              No Items Available!
             </p>
           </div>
         </>
@@ -212,7 +222,7 @@ const ReviewSection = () => {
 
             return (
               <div key={review?.id} className="w-full">
-                <div className="lg:w-[60%] w-[90%] mx-auto bg-white group my-10 py-10 relative flex flex-col justify-center items-center">
+                <div className="lg:w-[60%] w-[95%] mx-auto bg-white group my-10 py-10 relative flex flex-col justify-center items-center">
                   <div className="group-hover:border-[#C00A27] border-[#3A3A3A] border-[5px] w-[90%] flex flex-col justify-center items-center">
                     <p className="bg-white group-hover:text-[#3A3A3A] text-[#C00A27] font-extrabold text-[60px] absolute top-0 left-0 p-3">
                       <RiDoubleQuotesL />
@@ -222,7 +232,7 @@ const ReviewSection = () => {
                     </p>
                     <div className="flex justify-between items-center flex-wrap">
                       <img
-                        className="lg:w-[35%] w-[70%] mx-auto"
+                        className="lg:w-[35%] md:[70%] sm:w-[70%] w-[0%] mx-auto "
                         src={
                           matchedMenu?.image ||
                           "https://i.pinimg.com/originals/2e/ce/ce/2ececec5431d0a1b7eae4e1acac7c59f.gif"
@@ -234,7 +244,7 @@ const ReviewSection = () => {
                           <div className="mt-5 flex justify-start items-center mb-5 md:mb-0">
                             {matchedAccount ? (
                               <img
-                                className="w-[70px] h-[70px] mr-3 md:mr-3 rounded-full"
+                                className="lg:w-[70px] lg:h-[70px] md:w-[70px] md:h-[70px] sm:w-[70px] sm:h-[70px] w-[40px] h-[40px] mr-1 md:mr-3 rounded-full"
                                 src={matchedAccount?.image}
                                 alt=""
                               />
@@ -242,22 +252,22 @@ const ReviewSection = () => {
                               <GoPerson className="bg-[#8d8b8b] p-1 rounded-full text-yellow-400 mr-3 md:mr-3 text-[70px] md:text-[70px]" />
                             )}
                             <div className="flex-col justify-start items-start">
-                              <p className="text-[#686464] font-bold text-[20px] md:text-[20px]">
+                              <p className="text-[#686464] font-bold text-[18px] md:text-[20px]">
                                 {matchedUser?.username || "User Name"}
                               </p>
 
                               <StarRatings
                                 rating={review?.rating}
                                 starRatedColor="#FFBA5A"
-                                starDimension="25px"
+                                starDimension="20px"
                                 starEmptyColor="#a9a9a9"
-                                starSpacing="3px"
+                                starSpacing="2px"
                                 numberOfStars={5}
                                 name="rating"
                               />
                             </div>
                           </div>
-                          <p className="text-[25px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mt-5">
+                          <p className="text-[20px] text-left font-bold group-hover:text-[#3A3A3A] text-[#C00A27] mt-5">
                             {matchedMenu?.title || "Loading..."}
                           </p>
                           <p className="text-[20px] mb-1 font-semibold text-[#3A3A3A] mt-1">
@@ -292,17 +302,17 @@ const ReviewSection = () => {
             Our Clients Reviews
           </p>
         </Fade>
-        <Fade cascade direction="up" duration={1000} delay={200}>
-          <p className="text-center text-white font-semibold text-[20px]">
+        {/* <Fade cascade direction="up" duration={1000} delay={200}>
+          <p className="text-center text-white font-semibold md:text-[20px] text-[15px]">
             Odio morbi quis commodo odio aenean sed adipiscing. Neque ornare
             aenean{" "}
           </p>
         </Fade>
         <Fade cascade direction="up" duration={1000} delay={400}>
-          <p className="mb-16 text-center text-white font-semibold text-[20px] ">
+          <p className="md:mb-16 mb-6 text-center text-white font-semibold md:text-[20px] text-[15px]">
             euismod elementum nisi quis.
           </p>
-        </Fade>
+        </Fade> */}
         {categorise()}
       </div>
     </div>

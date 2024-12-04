@@ -19,7 +19,7 @@ const getValue = (id: string): string => {
 };
 
 const ReviewForm = () => {
-  const [currentValue, setCurrentValue] = useState(0);
+  const [currentValue, setCurrentValue] = useState(1);
   const [postReview, { isError, isSuccess, isLoading }] =
     usePostReviewMutation();
   console.log(isSuccess, isError);
@@ -59,6 +59,17 @@ const ReviewForm = () => {
       console.error("Missing ID, title, or body.");
       return;
     }
+
+    if (currentValue === 0) {
+      Swal.fire({
+        title: "Rating is required!",
+        text: "Please select a rating before submitting.",
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#C00A27",
+      });
+      return;
+    }
     const _id = parseInt(localStorage.getItem("user_id")!);
     const options = {
       id: id,
@@ -79,22 +90,22 @@ const ReviewForm = () => {
       Swal.fire({
         title: "Review Added Successfully!",
         icon: "success",
-        confirmButtonText: "Cool!",
-        confirmButtonColor: "#72865a",
+        confirmButtonText: "OK!",
+        confirmButtonColor: "#C00A27",
       });
     } else if (!isLoading && !_id) {
       Swal.fire({
         title: "You are not registered!",
         icon: "error",
-        confirmButtonText: "Oops!",
-        confirmButtonColor: "#72865a",
+        confirmButtonText: "OK!",
+        confirmButtonColor: "#C00A27",
       });
     }
   };
   console.log(filteredOrder);
   return (
-    <div className="w-[50%] mx-auto flex-col justify-normal items-center">
-      <p className="text-[36px] font-bold text-[#686464] mb-5 text-center mt-10">
+    <div className="lg:w-[50%] md:w-1/2 w-[80%] mx-auto flex-col justify-normal items-center">
+      <p className="lg:text-[36px] md:text-[36px] text-[20px] font-bold text-[#686464] mb-5 text-center mt-10">
         Give Your Review And Ratings
       </p>
       <form onSubmit={handleReview}>

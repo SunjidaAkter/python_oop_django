@@ -44,7 +44,8 @@ const handleEditMenu = (formEvent: FormEvent<HTMLFormElement>, id: number) => {
   formData.append("category", category);
   cuisines.forEach((cuisine) => formData.append("cuisine", cuisine.toString()));
 
-  fetch(`https://food-backend-ohlq.onrender.com/menu/list/${id}/`, {
+  // fetch(`https://food-backend-ohlq.onrender.com/menu/list/${id}/`, {
+  fetch(`https://food-backend-zeta.vercel.app/menu/list/${id}/`, {
     method: "PUT",
     body: formData,
   })
@@ -90,9 +91,14 @@ const EditMenu = () => {
       );
     } else if (userError) {
       return (
-        <div className="my-[200px]">
+        <div className="my-[100px] flex flex-col justify-center items-center">
+          <img
+            src="https://ph-tube.netlify.app/images/Icon.png"
+            alt=""
+            className="mb-5"
+          />
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong!!
+            Something Went Wrong!
           </p>
         </div>
       );

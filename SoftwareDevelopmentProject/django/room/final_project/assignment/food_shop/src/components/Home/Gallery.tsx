@@ -5,7 +5,7 @@ const GalleryComponent = () => {
   return (
     <div className="w-full">
       <Fade direction="up" cascade duration={1000}>
-        <p className="my-20 text-center text-[#3a3a3a] text-[30px] font-bold">
+        <p className="my-10 text-center text-[#3a3a3a] text-[30px] font-bold">
           Our Gallery
         </p>
       </Fade>
@@ -21,14 +21,16 @@ const GalleryComponent = () => {
                 src="https://yummi-theme.myshopify.com/cdn/shop/files/home-01.jpg?v=1628143320&width=1500"
                 alt=""
               />
-              <div className="border-[2px] m-5 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-10">
-                <p className="text-white text-4xl mb-5 font-bold">Caption 1</p>
-                <p className="text-white text-xl font-semibold">
-                  Caption caption caption 1
+              <div className="border-[2px] lg:m-5 m-0 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-10">
+                <p className="text-white lg:text-4xl text-sm lg:mb-5 mb-2 font-bold">
+                  Mexican Bread
+                </p>
+                <p className="text-white lg:text-xl text-[10px] font-semibold">
+                  A Classic Mexican Dish
                 </p>
                 <NavLink to="/menu">
-                  <p className="my-5 p-3 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
-                    View All Collections
+                  <p className="lg:my-5 my-1 lg:p-3 p-1 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500 lg:text-[20px] text-[10px]">
+                    View All Menu
                   </p>
                 </NavLink>
               </div>
@@ -43,14 +45,16 @@ const GalleryComponent = () => {
                 src="https://yummi-theme.myshopify.com/cdn/shop/files/1.jpg?v=1614335085&width=1500"
                 alt=""
               />
-              <div className="border-[2px] m-5 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-10">
-                <p className="text-white text-4xl mb-5 font-bold">Caption 2</p>
-                <p className="text-white text-xl font-semibold">
-                  Caption caption caption 2
+              <div className="border-[2px] lg:m-5 m-0 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-10">
+                <p className="text-white lg:text-4xl text-sm lg:mb-5 mb-2 font-bold">
+                  Chinese Rice
+                </p>
+                <p className="text-white lg:text-xl text-[10px] font-semibold">
+                  Fresh and Delicious Chinese Rice
                 </p>
                 <NavLink to="/menu">
-                  <p className="my-5 p-3 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
-                    View All Collections
+                  <p className="lg:my-5 my-1 lg:p-3 p-1 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500 lg:text-[20px] text-[10px]">
+                    View All Menu
                   </p>
                 </NavLink>
               </div>
@@ -65,14 +69,16 @@ const GalleryComponent = () => {
                 src="https://yummi-theme.myshopify.com/cdn/shop/files/2.jpg?v=1614335086&width=1500"
                 alt=""
               />
-              <div className="border-[2px] m-5 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-10">
-                <p className="text-white text-4xl mb-5 font-bold">Caption 3</p>
-                <p className="text-white text-xl font-semibold">
-                  Caption caption caption 3
+              <div className="border-[2px] lg:m-5 m-0 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-10">
+                <p className="text-white lg:text-4xl text-sm lg:mb-5 mb-2 font-bold">
+                  Nonveg Salad
+                </p>
+                <p className="text-white lg:text-xl text-[10px] font-semibold">
+                  A Tasty and Healthy Salad
                 </p>
                 <NavLink to="/menu">
-                  <p className="my-5 p-3 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
-                    View All Collections
+                  <p className="lg:my-5 my-1 lg:p-3 p-1 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500 lg:text-[20px] text-[10px]">
+                    View All Menu
                   </p>
                 </NavLink>
               </div>
@@ -92,14 +98,16 @@ const GalleryComponent = () => {
                 src="https://yummi-theme.myshopify.com/cdn/shop/files/gallery-1.jpg?v=1614334580&width=1500"
                 alt=""
               />
-              <div className="border-[2px] m-5 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-10">
-                <p className="text-white text-4xl mb-5 font-bold">Caption 4</p>
-                <p className="text-white text-xl font-semibold">
-                  Caption caption caption 4
+              <div className="border-[2px] lg:m-5 m-0 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-10">
+                <p className="text-white lg:text-4xl text-sm lg:mb-5 mb-1 font-bold">
+                  Pizza
+                </p>
+                <p className="text-white lg:text-xl text-[7px] font-semibold">
+                  Tasty and Delicious Pizza Lunch
                 </p>
                 <NavLink to="/menu">
-                  <p className="my-5 p-3 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
-                    View All Collections
+                  <p className="lg:my-5 my-1 lg:p-3 p-1 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500 lg:text-[20px] text-[10px]">
+                    View All Menu
                   </p>
                 </NavLink>
               </div>
@@ -114,14 +122,16 @@ const GalleryComponent = () => {
                 src="https://yummi-theme.myshopify.com/cdn/shop/files/gallery-6.jpg?v=1614334580&width=1500"
                 alt=""
               />
-              <div className="border-[2px] m-5 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-20">
-                <p className="text-white text-4xl mb-5 font-bold">Caption 5</p>
-                <p className="text-white text-xl font-semibold">
-                  Caption caption caption 5
+              <div className="border-[2px] lg:m-5 m-0 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-20">
+                <p className="text-white lg:text-4xl text-sm lg:mb-5 mb-1 font-bold">
+                  Cookies
+                </p>
+                <p className="text-white lg:text-xl text-[7px] font-semibold">
+                  Tasty and Healthy Chocolate Dessert
                 </p>
                 <NavLink to="/menu">
-                  <p className="my-5 p-3 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
-                    View All Collections
+                  <p className="lg:my-5 my-1 lg:p-3 p-1 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500 lg:text-[20px] text-[10px]">
+                    View All Menu
                   </p>
                 </NavLink>
               </div>
@@ -136,14 +146,16 @@ const GalleryComponent = () => {
                 src="https://yummi-theme.myshopify.com/cdn/shop/files/gallery-2.jpg?v=1614334580&width=1500"
                 alt=""
               />
-              <div className="border-[2px] m-5 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-10">
-                <p className="text-white text-4xl mb-5 font-bold">Caption 6</p>
-                <p className="text-white text-xl font-semibold">
-                  Caption caption caption 6
+              <div className="border-[2px] lg:m-5 m-0 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-10">
+                <p className="text-white lg:text-4xl text-sm lg:mb-5 mb-1 font-bold">
+                  Pasta
+                </p>
+                <p className="text-white lg:text-xl text-[7px] font-semibold">
+                  Tasty and Healthy Red Sauce Pasta
                 </p>
                 <NavLink to="/menu">
-                  <p className="my-5 p-3 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
-                    View All Collections
+                  <p className="lg:my-5 my-1 lg:p-3 p-1 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500 lg:text-[20px] text-[10px]">
+                    View All Menu
                   </p>
                 </NavLink>
               </div>
@@ -158,14 +170,16 @@ const GalleryComponent = () => {
                 src="https://yummi-theme.myshopify.com/cdn/shop/files/gallery-4.jpg?v=1614334580&width=1500"
                 alt=""
               />
-              <div className="border-[2px] m-5 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-10">
-                <p className="text-white text-4xl mb-5 font-bold">Caption 7</p>
-                <p className="text-white text-xl font-semibold">
-                  Caption caption caption 7
+              <div className="border-[2px] lg:m-5 m-0 border-[#C00A27] absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex flex-col justify-center items-center z-10">
+                <p className="text-white lg:text-4xl text-sm lg:mb-5 mb-1 font-bold">
+                  Lunch
+                </p>
+                <p className="text-white lg:text-xl text-[7px] font-semibold">
+                  Tasty and Delicious Lunch Combo
                 </p>
                 <NavLink to="/menu">
-                  <p className="my-5 p-3 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500">
-                    View All Collections
+                  <p className="lg:my-5 my-1 lg:p-3 p-1 bg-[#C00A27] text-white hover:text-black hover:bg-yellow-500 transition-colors duration-500 lg:text-[20px] text-[10px]">
+                    View All Menu
                   </p>
                 </NavLink>
               </div>

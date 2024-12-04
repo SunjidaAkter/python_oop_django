@@ -20,18 +20,28 @@ const MenuComponent = () => {
       );
     } else if (error) {
       return (
-        <div className="my-[200px]">
+        <div className="my-[100px] flex flex-col justify-center items-center">
+          <img
+            src="https://ph-tube.netlify.app/images/Icon.png"
+            alt=""
+            className="mb-5"
+          />
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong!!
+            Something Went Wrong!
           </p>
         </div>
       );
     } else if (!isLoading && data?.length == 0) {
       return (
         <>
-          <div className="my-[200px]">
+          <div className="my-[100px] flex flex-col justify-center items-center">
+            <img
+              src="https://ph-tube.netlify.app/images/Icon.png"
+              alt=""
+              className="mb-5"
+            />
             <p className="text-red-500 text-lg text-center font-extrabold">
-              No Menu Item Is Available In This Category!!
+              No Items Available!
             </p>
           </div>
         </>
@@ -86,7 +96,7 @@ const MenuComponent = () => {
   };
 
   return (
-    <div className="px-4 sm:px-8 md:px-16 pt-10 relative">
+    <div className="px-4 sm:px-8 md:px-16 pt-0 relative">
       {/* <img
         className="absolute right-0 top-0 -z-10 w-[250px] md:w-[500px]"
         src="https://yummi-theme.myshopify.com/cdn/shop/files/background-3.png?v=1614334750&width=500"
@@ -98,28 +108,28 @@ const MenuComponent = () => {
         alt=""
       /> */}
       <img
-        className="absolute right-0 top-0 -z-10"
+        className="lg:absolute md:absolute sm:absolute hidden right-0 top-0 -z-10"
         src="https://yummi-theme.myshopify.com/cdn/shop/files/background-3.png?v=1614334750&width=500"
         alt=""
       />
       <img
-        className="absolute left-0 bottom-0 -z-10"
+        className="lg:absolute md:absolute sm:absolute hidden  left-0 bottom-0 -z-10"
         src="https://yummi-theme.myshopify.com/cdn/shop/files/background-4_1.png?v=1614335490&width=500"
         alt=""
       />
       <Fade cascade direction="up" duration={1000}>
         <p className="mt-10 mb-6 text-center text-[#3a3a3a] text-[24px] sm:text-[30px] font-bold">
-          Our Flavorful Menus
+          Discounts on Our Menus!
         </p>
       </Fade>
       <Fade cascade direction="up" duration={1000} delay={200}>
         <p className="text-center font-semibold">
-          Odio morbi quis commodo odio aenean sed adipiscing. Neque ornare
-          aenean{" "}
+          This version emphasizes the discounts, making it engaging and enticing
+          for customers.{" "}
         </p>
       </Fade>
       <Fade cascade direction="up" duration={1000} delay={400}>
-        <p className="mb-16 text-center font-semibold">
+        <p className="mb-10 text-center font-semibold">
           euismod elementum nisi quis.
         </p>
       </Fade>

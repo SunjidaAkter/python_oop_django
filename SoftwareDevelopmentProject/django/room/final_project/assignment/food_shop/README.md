@@ -1,30 +1,33 @@
-# React + TypeScript + Vite
+# Live Link: [YUMMY TUMMY](https://assignment-twelfth.web.app)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## About this project
+* This Project is a site for a Food Shop.
+* Login, registration, logout, email verification authentication have all been added.
+* There is a dashboard route that is private. 
+* Where anybody can see the menu item and can contact them.
+* This website's home page has 12 sections Header, Banner, International Cuisines, About, Menu, Gallery, Discount, Review, Special, Business Summary, Newsletter, Client  & Footer.
+* Redux Toolkit is used for state management.
+* This is a practice project on 'React.js' 'React Routing', 'Redux Toolkit', etc.
+* Tailwind CSS is used for styling.
+* Supabase is used to store the data Provided.
+  
+## Admin Info
+* Admin Email: sanjidabintesayid7@gmail.com
+* Admin Password: 1212@asas
 
-Currently, two official plugins are available:
+## Technologies
+- **react-awesome-reveal**: v4.2.14,
+- **react-countup**: v6.5.3,
+- **react-dom**: v18.3.1,
+- **react-hook-form**: v7.52.2,
+- **react-icons**: v5.3.0,
+- **react-redux**: v9.1.2,
+- **react-router-dom**: v6.25.0,
+- **react-slick**: v0.30.2,
+- **react-star-ratings**: v2.3.0,
+- **React.js**: v17.0.2
+- **JWT**: v8.5.1
+- **Stripe**: v8.174.0
+- **slick-carousel**: v1.8.1,
+- **swiper**: v8.1.5,
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

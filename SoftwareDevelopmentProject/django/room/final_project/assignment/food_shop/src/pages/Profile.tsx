@@ -3,23 +3,21 @@ import {
   useGetMenuListQuery,
   useGetOrderQuery,
   useGetUserListQuery,
+  usePostTransactionMutation,
   useSingleUserAccountQuery,
   useUpdateAccountMutation,
   useUpdateOrderMutation,
 } from "../redux/features/food/foodApi";
 import { IAccount, IFood, IOrder } from "../types/globalType";
 import Swal, { SweetAlertOptions } from "sweetalert2";
+// import { useState } from "react";
 
 const Profile = () => {
+  const [postTransaction] = usePostTransactionMutation();
   const [updateOrder] = useUpdateOrderMutation();
   const { id } = useParams();
-  const [updateAccount, { error, isLoading }] =
-    useUpdateAccountMutation(undefined);
-  const {
-    data: menuList,
-    // isLoading: userLoading,
-    // error: userError,
-  } = useGetMenuListQuery(undefined);
+  const [updateAccount] = useUpdateAccountMutation(undefined);
+  const { data: menuList } = useGetMenuListQuery(undefined);
   console.log(menuList);
   const {
     data: userData,
@@ -53,6 +51,7 @@ const Profile = () => {
       title: "Payment Successful!",
       icon: "success",
       confirmButtonText: "Close",
+      confirmButtonColor: "#C00A27",
     });
   };
 
@@ -84,17 +83,27 @@ const Profile = () => {
       );
     } else if (orderError) {
       return (
-        <div className="my-[200px]">
+        <div className="my-[100px] flex flex-col justify-center items-center">
+          <img
+            src="https://ph-tube.netlify.app/images/Icon.png"
+            alt=""
+            className="mb-5"
+          />
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong!!
+            Something Went Wrong!
           </p>
         </div>
       );
     } else if (!orderLoading && orderData?.length === 0) {
       return (
-        <div className="my-[200px]">
+        <div className="my-[100px] flex flex-col justify-center items-center">
+          <img
+            src="https://ph-tube.netlify.app/images/Icon.png"
+            alt=""
+            className="mb-5"
+          />
           <p className="text-red-500 text-lg text-center font-extrabold">
-            No Order History Available!
+            No Items Available!
           </p>
         </div>
       );
@@ -151,7 +160,13 @@ const Profile = () => {
                     <td>{order?.quantity}</td>
                     <td>{order?.cost}</td>
                     <th>
-                      <button className="badge badge-warning py-2">
+                      <button
+                        className={`badge ${
+                          order?.is_paid
+                            ? "badge-success text-white"
+                            : "badge-warning text-white"
+                        } py-2`}
+                      >
                         {order?.is_paid == false
                           ? order?.order_status
                           : "Completed"}
@@ -161,7 +176,9 @@ const Profile = () => {
                     <th>
                       <button
                         className={`badge ${
-                          order?.is_paid ? "badge-success" : "badge-warning"
+                          order?.is_paid
+                            ? "badge-success text-white"
+                            : "badge-warning text-white"
                         } py-2`}
                         disabled={order?.is_paid}
                         onClick={() =>
@@ -174,7 +191,7 @@ const Profile = () => {
                     </th>
                   </tr>
                 ))}
-                <tr className="text-[23px]">
+                <tr className="text-[23px] md:block hidden">
                   <th colSpan={5} className="text-right">
                     Total Cost from Order:
                   </th>
@@ -182,6 +199,12 @@ const Profile = () => {
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div className="mt-8 text-[15px] text-center md:hidden block">
+            <p className="text-right font-bold">
+              Total Cost from Order: ${totalOrderCost}
+            </p>
+            {/* <th></th> */}
           </div>
         </div>
       );
@@ -196,28 +219,38 @@ const Profile = () => {
       );
     } else if (userError) {
       return (
-        <div className="my-[200px]">
+        <div className="my-[100px] flex flex-col justify-center items-center">
+          <img
+            src="https://ph-tube.netlify.app/images/Icon.png"
+            alt=""
+            className="mb-5"
+          />
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong!!
+            Something Went Wrong!
           </p>
         </div>
       );
     } else if (!userLoading && userData?.length === 0) {
       return (
-        <div className="my-[200px]">
+        <div className="my-[100px] flex flex-col justify-center items-center">
+          <img
+            src="https://ph-tube.netlify.app/images/Icon.png"
+            alt=""
+            className="mb-5"
+          />
           <p className="text-red-500 text-lg text-center font-extrabold">
-            No Profile Info Available!
+            No Items Available!
           </p>
         </div>
       );
     } else {
       return (
         <div className="pt-4 w-full flex flex-col md:flex-row justify-between items-center">
-          <div>
+          <div className="flex flex-col items-center justify-center">
             <img
               src={userData?.image}
               alt="Profile Picture"
-              className="border-[2px] border-[#C00A27] w-[150px] h-[150px] sm:w-[155px] sm:h-[155px] object-cover rounded-full mb-5 md:mb-0"
+              className="border-[2px] shadow shadow-[#C00A27]  w-[150px] h-[150px] sm:w-[155px] sm:h-[155px] object-cover rounded-full mb-5 md:mb-0"
             />
             <p className="text-center text-[#5f5f5f] text-[20px] lg:text-[30px] mt-2 font-bold">
               {userData?.user}
@@ -231,14 +264,14 @@ const Profile = () => {
 
             <div
               onClick={() => handleTransaction("deposit")}
-              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#C00A27] text-center cursor-pointer"
+              className="font-bold bg-[white] shadow shadow-[#C00A27] text-black w-[100px] text-[15px] py-2 mt-3 rounded-md border-[2px]  text-center cursor-pointer"
             >
               Deposit
             </div>
 
             <div
               onClick={() => handleTransaction("withdraw")}
-              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#C00A27] text-center cursor-pointer"
+              className="font-bold bg-[white] text-black w-[100px] shadow shadow-[#C00A27] text-[15px] py-2 mt-3 rounded-md border-[2px]  text-center cursor-pointer"
             >
               Withdraw
             </div>
@@ -279,6 +312,7 @@ const Profile = () => {
         placeholder: "Enter amount",
       },
       showCancelButton: true,
+      confirmButtonColor: "#C00A27",
       confirmButtonText: type.charAt(0).toUpperCase() + type.slice(1),
       preConfirm: (amount) => {
         if (!amount || isNaN(Number(amount)) || Number(amount) <= 0) {
@@ -287,9 +321,11 @@ const Profile = () => {
         return amount;
       },
     };
+
     const { value: amount } = await Swal.fire(options);
     if (amount) {
       let newAmount = parseFloat(userData?.amount || "0");
+
       if (type === "deposit") {
         newAmount += parseFloat(amount);
       } else if (type === "withdraw") {
@@ -298,33 +334,42 @@ const Profile = () => {
         }
         newAmount -= parseFloat(amount);
       }
-      const options = {
-        id: id,
-        data: {
-          amount: newAmount,
-        },
+
+      const transactionOptions = {
+        user_id: parseInt(id ?? "0"),
+        trans_type: type === "deposit" ? "Deposit" : "Withdraw",
+        amount: parseFloat(amount),
       };
 
-      updateAccount(options);
-      if (!error) {
-        console.log("Updated Account");
-        Swal.fire(
-          "Success",
-          `Your account has been ${
+      console.log("Transaction options:", transactionOptions);
+
+      try {
+        const response = await postTransaction(transactionOptions).unwrap();
+        if (response) {
+          window.location.href = response?.payment_url;
+        }
+
+        await Swal.fire({
+          title: `${type.charAt(0).toUpperCase() + type.slice(1)} Successful!`,
+          text: `Your account has been ${
             type === "deposit" ? "credited" : "debited"
-          } with $${amount}. New balance: $${newAmount}.`,
-          "success"
-        );
-      } else if (!isLoading && error) {
+          } with $${amount}.`,
+          icon: "success",
+          confirmButtonColor: "#C00A27",
+        });
+      } catch (error: unknown) {
+        console.error("Transaction error:", error);
         Swal.fire({
-          title: "Something went wrong!",
+          title: "Something Went Wrong!",
+          text: "Transaction failed. Please try again.",
           icon: "error",
-          confirmButtonText: "Oops!",
-          confirmButtonColor: "#72865a",
+          confirmButtonText: "OK!",
+          confirmButtonColor: "#C00A27",
         });
       }
     }
   };
+
   return (
     <div className="w-full">
       <div
@@ -350,7 +395,7 @@ const Profile = () => {
           </div>
           <div className="divider" />
           {/* Order History Table */}
-          <p className="mt-20 mb-6 text-center text-[#3a3a3a] text-[24px] sm:text-[30px] font-bold">
+          <p className="mt-10 mb-6 text-center text-[#3a3a3a] text-[24px] sm:text-[30px] font-bold">
             Order History
           </p>
           {categorise()}

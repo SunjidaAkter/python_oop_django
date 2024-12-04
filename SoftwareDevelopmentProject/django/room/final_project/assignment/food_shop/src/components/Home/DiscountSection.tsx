@@ -1,4 +1,5 @@
 import { Fade } from "react-awesome-reveal";
+import { NavLink } from "react-router-dom";
 const DiscountSection = () => {
   return (
     <div className="bg-[url(https://yummi-theme.myshopify.com/cdn/shop/files/bg-2.jpg?v=1614334584&width=1920)] bg-cover bg-fixed bg-no-repeat w-full flex justify-center items-center">
@@ -19,11 +20,13 @@ const DiscountSection = () => {
           </p>
         </Fade>
         <Fade cascade direction="up" duration={1000}>
-          <div className="flex justify-center items-center mt-6 md:mt-10 font-medium">
-            <p className="bg-[#C00A27] hover:bg-yellow-500 text-[white] hover:text-[#3A3A3A] transition-colors duration-500 p-4 text-center w-[50%] md:w-[20%]">
-              Order Now
-            </p>
-          </div>
+          <NavLink to="/discount">
+            <div className="flex justify-center items-center mt-6 md:mt-10 font-medium">
+              <p className="bg-[#C00A27] hover:bg-yellow-500 text-[white] hover:text-[#3A3A3A] transition-colors duration-500 p-4 text-center w-[50%] md:w-[20%]">
+                Order Now
+              </p>
+            </div>
+          </NavLink>
         </Fade>
       </div>
     </div>

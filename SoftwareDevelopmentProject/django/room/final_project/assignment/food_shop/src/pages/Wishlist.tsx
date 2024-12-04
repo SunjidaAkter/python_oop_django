@@ -87,9 +87,14 @@ const Wishlist = () => {
       );
     } else if (!orderLoading && orderData?.length === 0) {
       return (
-        <div className="my-[200px]">
+        <div className="my-[100px] flex flex-col justify-center items-center">
+          <img
+            src="https://ph-tube.netlify.app/images/Icon.png"
+            alt=""
+            className="mb-5"
+          />
           <p className="text-red-500 text-lg text-center font-extrabold">
-            No Wishlist Item Available!
+            No Items Available!
           </p>
         </div>
       );
@@ -184,7 +189,7 @@ const Wishlist = () => {
           </p>
         </div>
       </div>
-      <p className="mt-20 mb-6 text-center text-[#3a3a3a] text-[24px] sm:text-[30px] font-bold">
+      <p className="mt-10 mb-6 text-center text-[#3a3a3a] text-[24px] sm:text-[30px] font-bold">
         Wishlist
       </p>
       {categorise()}

@@ -18,7 +18,8 @@ const Login: React.FC = () => {
     if (username && password) {
       try {
         const response = await fetch(
-          "https://food-backend-ohlq.onrender.com/user_accounts/login/",
+          "https://food-backend-zeta.vercel.app/user_accounts/login/",
+          // "https://food-backend-ohlq.onrender.com/user_accounts/login/",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -87,8 +88,8 @@ const Login: React.FC = () => {
         </div>
       </div>
       <div className="relative bg-[url(https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920)] bg-no-repeat bg-cover">
-        <div className="mx-auto w-full md:w-[75%] lg:w-[50%] z-0 bg-[white] mb-10 mt-20 bg-opacity-95 shadow-2xl rounded-lg">
-          <div className="px-8 md:px-16 lg:px-28 py-14">
+        <div className="mx-auto w-full md:w-[75%] lg:w-[50%] z-0 bg-[white] mb-10 mt-10 bg-opacity-95 shadow-2xl rounded-lg">
+          <div className="px-8 md:px-16 lg:px-28 pb-8 pt-5">
             <p className="mb-5 text-center text-[#3a3a3a] text-[24px] md:text-[30px] font-bold">
               Login
             </p>
@@ -123,6 +124,27 @@ const Login: React.FC = () => {
                 >
                   Login
                 </button>
+              </div>
+              <div className="w-[100%] mx-auto flex justify-between">
+                <div className="">
+                  <p className="pt-5 text-xl font-bold">Customer Credential</p>
+                  <p>
+                    <span className="font-medium">Username :</span>{" "}
+                    SunjidaAkter1
+                  </p>
+                  <p>
+                    <span className="font-medium">Password :</span> 1212@asas
+                  </p>
+                </div>
+                <div className="">
+                  <p className="pt-5 text-xl font-bold">Admin Credential</p>
+                  <p>
+                    <span className="font-medium">Username :</span> SunjidaAkter
+                  </p>
+                  <p>
+                    <span className="font-medium">Password :</span> 1212@asas
+                  </p>
+                </div>
               </div>
             </form>
           </div>

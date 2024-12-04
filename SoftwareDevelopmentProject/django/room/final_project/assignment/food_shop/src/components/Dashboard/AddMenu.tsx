@@ -39,7 +39,8 @@ const handleAddMenu = (event: FormEvent<HTMLFormElement>) => {
   //   formData.append("image", image);
   // }
 
-  fetch("https://food-backend-ohlq.onrender.com/menu/list/", {
+  // fetch("https://food-backend-ohlq.onrender.com/menu/list/", {
+  fetch("https://food-backend-zeta.vercel.app/menu/list/", {
     method: "POST",
     body: formData,
   })
@@ -91,7 +92,7 @@ const AddMenu = () => {
           onSubmit={handleAddMenu}
           className="mx-auto w-full md:w-[85%] lg:w-[80%] bg-white mb-10 mt-10 bg-opacity-85 shadow-2xl rounded-lg"
         >
-          <div className="px-10 md:px-20 lg:px-28 py-14">
+          <div className="px-10 md:px-20 lg:px-28 pb-14 pt-5">
             <p className="mb-5 text-center text-[#3a3a3a] text-[24px] md:text-[30px] font-bold">
               Add Menu Item
             </p>

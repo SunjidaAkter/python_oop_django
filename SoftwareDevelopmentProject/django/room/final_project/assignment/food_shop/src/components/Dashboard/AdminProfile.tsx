@@ -2,21 +2,23 @@ import {
   //   useGetMenuListQuery,
   //   useGetOrderQuery,
   useGetUserAccountsListQuery,
+  usePostTransactionMutation,
   useSingleUserQuery,
-  useUpdateAccountMutation,
+  // useUpdateAccountMutation,
 } from "../../redux/features/food/foodApi";
 import { IUSER } from "../../types/globalType";
 import Swal, { SweetAlertOptions } from "sweetalert2";
 
 const AdminProfile = () => {
-  const [updateAccount, { error, isLoading }] =
-    useUpdateAccountMutation(undefined);
+  // const [updateAccount, { error, isLoading }] =
+  //   useUpdateAccountMutation(undefined);
 
   //   const {
   //     data: userData,
   //     // isLoading: userLoading,
   //     // error: userError,
   //   } = useSingleUserAccountQuery(id);
+  const [postTransaction] = usePostTransactionMutation();
   const userId = localStorage.getItem("user_id"); // Check if user is logged in
   const { data: singleUser } = useSingleUserQuery(userId);
   const {
@@ -40,17 +42,20 @@ const AdminProfile = () => {
         placeholder: "Enter amount",
       },
       showCancelButton: true,
+      confirmButtonColor: "#C00A27",
       confirmButtonText: type.charAt(0).toUpperCase() + type.slice(1),
-      preConfirm: (amount: string) => {
+      preConfirm: (amount) => {
         if (!amount || isNaN(Number(amount)) || Number(amount) <= 0) {
           return Swal.showValidationMessage(`Please enter a valid amount`);
         }
         return amount;
       },
     };
+
     const { value: amount } = await Swal.fire(options);
     if (amount) {
       let newAmount = parseFloat(filteredUserAccount?.amount || "0");
+
       if (type === "deposit") {
         newAmount += parseFloat(amount);
       } else if (type === "withdraw") {
@@ -59,29 +64,37 @@ const AdminProfile = () => {
         }
         newAmount -= parseFloat(amount);
       }
-      const options = {
-        id: filteredUserAccount?.id,
-        data: {
-          amount: newAmount,
-        },
+
+      const transactionOptions = {
+        user_id: parseInt(filteredUserAccount?.id ?? "0"),
+        trans_type: type === "deposit" ? "Deposit" : "Withdraw",
+        amount: parseFloat(amount),
       };
 
-      updateAccount(options);
-      if (!error) {
-        console.log("Updated Account");
-        Swal.fire(
-          "Success",
-          `Your account has been ${
+      console.log("Transaction options:", transactionOptions);
+
+      try {
+        const response = await postTransaction(transactionOptions).unwrap();
+        if (response) {
+          window.location.href = response?.payment_url;
+        }
+
+        await Swal.fire({
+          title: `${type.charAt(0).toUpperCase() + type.slice(1)} Successful!`,
+          text: `Your account has been ${
             type === "deposit" ? "credited" : "debited"
-          } with $${amount}. New balance: $${newAmount}.`,
-          "success"
-        );
-      } else if (!isLoading && error) {
+          } with $${amount}.`,
+          icon: "success",
+          confirmButtonColor: "#C00A27",
+        });
+      } catch (error: unknown) {
+        console.error("Transaction error:", error);
         Swal.fire({
-          title: "Something went wrong!",
+          title: "Something Went Wrong!",
+          text: "Transaction failed. Please try again.",
           icon: "error",
-          confirmButtonText: "Oops!",
-          confirmButtonColor: "#72865a",
+          confirmButtonText: "OK!",
+          confirmButtonColor: "#C00A27",
         });
       }
     }
@@ -95,20 +108,25 @@ const AdminProfile = () => {
       );
     } else if (userError) {
       return (
-        <div className="my-[200px]">
+        <div className="my-[100px] flex flex-col justify-center items-center">
+          <img
+            src="https://ph-tube.netlify.app/images/Icon.png"
+            alt=""
+            className="mb-5"
+          />
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong!!
+            Something Went Wrong!
           </p>
         </div>
       );
     } else {
       return (
         <div className="pt-4 w-full flex flex-col md:flex-row justify-between items-center">
-          <div>
+          <div className="flex flex-col justify-center items-center">
             <img
               src={filteredUserAccount?.image}
               alt="Profile Picture"
-              className="border-[2px] border-[#C00A27] w-[150px] h-[150px] sm:w-[155px] sm:h-[155px] object-cover rounded-full mb-5 md:mb-0"
+              className="border-[2px]  shadow shadow-[#C00A27] w-[150px] h-[150px] sm:w-[155px] sm:h-[155px] object-cover rounded-full mb-5 md:mb-0"
             />
             <p className="text-center text-[#5f5f5f] text-[20px] lg:text-[30px] mt-2 font-bold">
               {filteredUserAccount?.user}
@@ -122,14 +140,14 @@ const AdminProfile = () => {
 
             <div
               onClick={() => handleTransaction("deposit")}
-              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#C00A27] text-center cursor-pointer"
+              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-md border-[2px]  shadow shadow-[#C00A27] text-center cursor-pointer"
             >
               Deposit
             </div>
 
             <div
               onClick={() => handleTransaction("withdraw")}
-              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 rounded-xl border-[2px] border-[#C00A27] text-center cursor-pointer"
+              className="font-bold bg-[white] text-black w-[100px] text-[15px] py-2 mt-3 mb-5 rounded-md border-[2px]  shadow shadow-[#C00A27] text-center cursor-pointer"
             >
               Withdraw
             </div>
@@ -162,7 +180,7 @@ const AdminProfile = () => {
   };
   return (
     <div className=" w-full h-full bg-[url('https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920')] bg-contain bg-center">
-      <div className="py-44 flex items-center justify-center">
+      <div className="py-10 flex items-center justify-center">
         {/* Hero section and Profile UI */}
         <div className="w-[90%] m-auto rounded-md shadow-2xl flex flex-col justify-center items-center py-4 px-5 sm:px-10 bg-white">
           <div className="w-full mx-auto flex flex-col items-center justify-center">

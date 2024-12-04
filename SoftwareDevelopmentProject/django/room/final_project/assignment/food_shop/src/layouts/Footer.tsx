@@ -8,7 +8,7 @@ const Footer = () => {
           "url(https://yummi-theme.myshopify.com/cdn/shop/files/footer_1.jpg?v=1623926986&width=1920)",
       }}
     >
-      <footer className="footer text-white px-6 lg:px-20 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+      <footer className="footer text-white sm:px-6 px-20 lg:px-20 py-10 sm:grid sm:grid-cols-2 grid grid-cols-1 md:grid-cols-4 lg:gap-8 gap-2 w-full">
         {[
           {
             title: "Help",
@@ -70,7 +70,7 @@ const Footer = () => {
               <Fade cascade direction="up" duration={1000} delay={500}>
                 <a
                   key={i}
-                  className="mb-3 text-lg font-semibold link link-hover"
+                  className="mb-3 lg:text-lg text-sm font-semibold link link-hover"
                 >
                   {link}
                 </a>
@@ -80,9 +80,9 @@ const Footer = () => {
               <Fade cascade direction="up" duration={1000} delay={500}>
                 <p
                   key={i}
-                  className="mb-3 text-lg font-semibold link link-hover flex items-start"
+                  className="mb-3 lg:text-lg text-sm font-semibold link link-hover flex items-start"
                 >
-                  <i className={`fa ${detail.icon} mr-2 text-xl`}></i>
+                  <i className={`fa ${detail.icon} mr-2 text-lg`}></i>
                   {detail.text}
                 </p>
               </Fade>
@@ -91,12 +91,29 @@ const Footer = () => {
         ))}
       </footer>
 
-      <footer className="flex flex-col md:flex-row justify-between text-white px-6 lg:px-20 py-10">
+      <footer className="flex flex-col md:flex-row justify-between text-white sm:px-6 px-20 lg:px-20 py-10">
         <nav>
-          <h6 className="text-2xl font-bold mb-5">Contact With Us</h6>
+          <h6 className="lg:text-2xl text-sm font-bold mb-5">
+            Contact With Us
+          </h6>
           <div className="flex space-x-6">
-            {["facebook", "twitter", "instagram"].map((platform, i) => (
-              <i key={i} className={`fa fa-${platform} text-xl`}></i>
+            {[
+              {
+                title: "facebook",
+                link: "https://www.facebook.com/yummy-tummy/",
+              },
+              {
+                title: "twitter",
+                link: "https://www.twitter.com/yummy-tummy/",
+              },
+              {
+                title: "instagram",
+                link: "https://www.instagram.com/yummy-tummy/",
+              },
+            ].map((platform, i) => (
+              <a href={platform.link} target="_blank">
+                <i key={i} className={`fa fa-${platform.title} text-xl`}></i>
+              </a>
             ))}
           </div>
         </nav>
@@ -119,7 +136,7 @@ const Footer = () => {
         <hr />
       </div>
 
-      <div className="text-white px-6 lg:px-20 flex flex-col md:flex-row justify-between py-3">
+      <div className="text-white sm:px-6 px-20 lg:px-20 flex flex-col md:flex-row justify-between py-3">
         <p className="text-sm font-semibold">All Right Reserved © 2024</p>
         <div className="flex space-x-4 mt-3 md:mt-0">
           {[

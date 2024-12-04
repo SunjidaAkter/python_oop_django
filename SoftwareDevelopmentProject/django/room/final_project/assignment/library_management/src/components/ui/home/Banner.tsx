@@ -1,5 +1,7 @@
 import { useEffect } from "react";
-import "../../App.css";
+import "../../../App.css";
+import { CgArrowLongRight } from "react-icons/cg";
+import { NavLink } from "react-router-dom";
 const Banner = () => {
   useEffect(() => {
     let index = 0;
@@ -26,37 +28,25 @@ const Banner = () => {
 
   return (
     <div className="">
-      <div className="m-10 px-32 pt-32 pb-16 flex justify-center items-center bg-[#fef5e6] rounded-3xl shadow-lg">
-        <div className="pl-16 mt-[-50px] w-[50%]">
-          <p className="leading-none text-[100px] font-medium text-[#615b51] lilita">
-            New & <br />
-            Trendy{" "}
+      <div className="lg:m-10 mx-10 my-5 lg:px-24 px-10 md:pt-24 md:pb-16 pt-8 pb-8 lg:flex lg:flex-row md:flex md:flex-col-reverse flex flex-col-reverse justify-center items-center bg-white rounded-lg shadow-lg">
+        <div className="lg:pl-16 px-0 lg:mt-[-50px] md:mt-[50px] mt-[30px] lg:w-[48%] md:w-full w-full">
+          <p className="leading-none text-[50px] md:text-[70px] lg:text-[90px] lg:text-start md:text-center text-center font-thin text-[#4c453c] lilita">
+            New & Trendy{" "}
           </p>
-          <p className="text-4xl mt-10 mb-7 font-medium text-[#615b51] caveat">
+          <p className="lg:text-4xl md:text-[25px] text-[20px] text-center lg:text-start md:mt-10 mt-5 md:mb-7 mb-3 font-thin text-[#46413a] caveat">
             Explore New Books Everyday
           </p>
-          <label className="input flex items-center w-[65%]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              className="w-7 h-7 opacity-70"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            <input
-              type="text"
-              className="grow py-3 px-5 rounded-full placeholder:caveat"
-              placeholder="Search Books"
-            />
-          </label>
+          <NavLink to="/books">
+            <div className="lg:flex lg:justify-start md:flex md:justify-center flex justify-center">
+              <button className="shadow-[10px_10px_10px_0px_rgba(0,0,0,0.25)] btn btn-md border-[2px] group hover:border-[#8387162] uppercase caveat font-semibold mt-4 hover:bg-[#837162]  hover:text-[white]  text-[#4c453c] text-[20px]">
+                Find Your Favourite
+                <CgArrowLongRight className="text-[30px] group-hover:text-[white] text-[#4c453c]" />
+              </button>
+            </div>
+          </NavLink>
         </div>
-        <div className="w-[50%]">
-          <div className="image-container mb-20" id="carousel">
+        <div className="lg:w-[50%] md:w-[50%] w-full">
+          <div className="image-container lg:mb-20 md:mb-10 mb-4" id="carousel">
             <img
               src="https://m.media-amazon.com/images/I/81n1Vz7OyZL._SY342_.jpg"
               alt="Image 1"
@@ -76,7 +66,7 @@ const Banner = () => {
               id="image image-3"
             />
           </div>
-          <p className="text-5xl text-center font-medium text-[#615b51] caveat">
+          <p className="lg:text-5xl md:text-[35px] text-[20px] text-center font-medium text-[#4c453c] caveat">
             Most Popular This Week
           </p>
         </div>

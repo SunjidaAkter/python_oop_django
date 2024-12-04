@@ -13,7 +13,7 @@ const Special = () => {
           Discover Incredibly Tasty Dishes from Around the World
         </p>
       </Fade>
-      <div className="flex flex-col lg:flex-row justify-evenly items-center mt-8">
+      <div className="flex flex-col lg:flex-row justify-evenly items-center mt-0">
         <div className="lg:w-[25%] w-full mb-8 lg:mb-0 overflow-hidden">
           <div className="mb-5 flex justify-between items-center flip-container">
             <div>

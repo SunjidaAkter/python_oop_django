@@ -44,6 +44,12 @@ const bookApi = api.injectEndpoints({
       }),
       providesTags: ["orders"],
     }),
+    getTransactionList: builder.query({
+      query: () => ({
+        url: "/transaction/list",
+      }),
+      providesTags: ["transaction"],
+    }),
     getReviewList: builder.query({
       query: () => ({
         url: "/menu/reviews",
@@ -70,6 +76,18 @@ const bookApi = api.injectEndpoints({
     getOrder: builder.query({
       query: (id) => ({
         url: `/orders/?customer_id=${id}`,
+      }),
+      providesTags: ["orders"],
+    }),
+    getTransaction: builder.query({
+      query: (id) => ({
+        url: `/transaction/list/?customer_id=${id}`,
+      }),
+      providesTags: ["transaction"],
+    }),
+    getSingleOrder: builder.query({
+      query: (id) => ({
+        url: `/orders/${id}`,
       }),
       providesTags: ["orders"],
     }),
@@ -143,6 +161,30 @@ const bookApi = api.injectEndpoints({
       }),
       invalidatesTags: ["orders"],
     }),
+    postPayment: builder.mutation({
+      query: (data) => ({
+        url: "/payment/order_payment/",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["orders"],
+    }),
+    postTransaction: builder.mutation({
+      query: (data) => ({
+        url: "/transaction/account_transaction/",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["transaction"],
+    }),
     postReview: builder.mutation({
       query: (options) => ({
         url: `/menu/reviews/?menu_id=${options?.id}`,
@@ -206,11 +248,16 @@ export const {
   usePostWishlistMutation,
   usePostReviewMutation,
   usePostOrderMutation,
+  usePostPaymentMutation,
+  usePostTransactionMutation,
   useSingleMenuQuery,
+  useGetSingleOrderQuery,
   useSingleUserQuery,
   useSingleUserAccountQuery,
   useGetCartQuery,
   useGetWishlistQuery,
+  useGetTransactionListQuery,
+  useGetTransactionQuery,
   useGetReviewsQuery,
   useGetOrderQuery,
   useGetMenuQuery,

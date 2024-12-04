@@ -32,8 +32,8 @@ const SpecialMenu = () => {
                   Pure Ingredients
                 </p>
                 <p>
-                  Vestibulum morbi blandit cursus risus at ultrices mi.
-                  Facilisis gravida neque convallis a.
+                  We believe in using only the finest ingredients to ensure the
+                  highest quality in every dish.
                 </p>
               </div>
             </div>
@@ -50,8 +50,8 @@ const SpecialMenu = () => {
                   Sustainability
                 </p>
                 <p>
-                  Laculis eu non diam phasellus. Dictum non consectetur a erat
-                  nam at. Quam adipiscing vitae proin sagittis.
+                  Sustainability is at the core of our values. We prioritize
+                  eco-friendly practices for better planet.
                 </p>
               </div>
             </div>
@@ -68,8 +68,8 @@ const SpecialMenu = () => {
                   Environmentalism
                 </p>
                 <p>
-                  Bibendum est ultricies integer quis auctor elit sed. Accumsan
-                  tortor posuere ac ut consequat semper.
+                  Our dedication to environmentalism means we take active steps
+                  to protect the Earth.
                 </p>
               </div>
             </div>
@@ -86,8 +86,8 @@ const SpecialMenu = () => {
                   Formula Transparency
                 </p>
                 <p>
-                  Facilisi nullam vehicula ipsum a. Ornare massa eget egestas
-                  purus viverra accumsan in nisl nisi.
+                  We’re committed to full transparency. We proudly share our
+                  ingredient list and processes
                 </p>
               </div>
             </div>

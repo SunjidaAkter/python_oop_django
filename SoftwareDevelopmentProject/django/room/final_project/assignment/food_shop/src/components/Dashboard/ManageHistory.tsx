@@ -90,17 +90,27 @@ const ManageHistory = () => {
       );
     } else if (orderError) {
       return (
-        <div className="my-[200px]">
+        <div className="my-[100px] flex flex-col justify-center items-center">
+          <img
+            src="https://ph-tube.netlify.app/images/Icon.png"
+            alt=""
+            className="mb-5"
+          />
           <p className="text-red-500 text-lg text-center font-extrabold">
-            Something Went Wrong!!
+            Something Went Wrong!
           </p>
         </div>
       );
     } else if (!orderLoading && orderData?.length === 0) {
       return (
-        <div className="my-[200px]">
+        <div className="my-[100px] flex flex-col justify-center items-center">
+          <img
+            src="https://ph-tube.netlify.app/images/Icon.png"
+            alt=""
+            className="mb-5"
+          />
           <p className="text-red-500 text-lg text-center font-extrabold">
-            No History Available!
+            No Items Available!
           </p>
         </div>
       );
@@ -214,8 +224,8 @@ const ManageHistory = () => {
     <div className="w-full h-full bg-[url(https://yummi-theme.myshopify.com/cdn/shop/files/bg-img-1_1.png?v=1614334735&width=1920)] bg-contain flex-col items-center">
       {/* Hero section and Profile UI */}
       <div className="">
-        <div className="w-[90%] my-40 md:w-[90%] lg:w-[90%] xl:w-[90%] mx-auto rounded-md shadow-2xl flex-col justify-center items-center py-4 px-5 sm:px-10 bg-white">
-          <p className="mt-20 mb-6 text-center text-[#3a3a3a] text-[24px] sm:text-[30px] font-bold">
+        <div className="w-[90%] mt-10 md:w-[90%] lg:w-[90%] xl:w-[90%] mx-auto rounded-md shadow-2xl flex-col justify-center items-start py-4 px-5 sm:px-10 bg-white">
+          <p className="mt-6 mb-6 text-center text-[#3a3a3a] text-[24px] sm:text-[30px] font-bold">
             Order History
           </p>
           {categorise()}
