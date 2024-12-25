@@ -11,7 +11,7 @@ const Latest = () => {
         }}
         className="lg:px-28 md:px-16 sm:px-8 px-4"
       >
-        <div className="lg:w-[70%] w-full py-20 lg:pl-28 pl-4">
+        <div className="lg:w-[70%] w-full py-20  pl-4">
           <Fade cascade duration={1000} direction="up">
             <h1 className="text-white text-[32px] font-bold pb-5">
               Upgrade To The Latest Taste!
